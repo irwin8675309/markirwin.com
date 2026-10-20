@@ -1,12 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bookshelf</title>
+  <title>My Bookshelf</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <p><a href="../">&larr; Home</a></p>
-  <p>Bookshelf project goes here.</p>
+
+  <!-- Owner toolbar: only appears when the page is opened with ?edit in the URL -->
+  <div id="toolbar" class="toolbar" hidden>
+    <label class="switch"><input type="checkbox" id="editToggle"> Edit mode</label>
+    <button type="button" id="addShelfBtn" class="edit-only">+ Add shelf</button>
+    <button type="button" id="publishBtn" class="primary">Publish</button>
+    <button type="button" id="reloadBtn" title="Throw away this browser's draft and load the live bookshelf">Reload live</button>
+    <button type="button" id="exportBtn">Download JSON</button>
+    <button type="button" id="importBtn">Import</button>
+    <button type="button" id="settingsBtn">GitHub settings</button>
+    <span id="dirty" class="dirty" hidden>&#9679; Unpublished changes</span>
+  </div>
+
+  <header class="crown">
+    <h1 id="siteTitle" class="sign">My Bookshelf</h1>
+    <p id="subtitle" class="count"></p>
+  </header>
+
+  <main class="case">
+    <div id="cabinet" class="cabinet"></div>
+    <div class="base"></div>
+  </main>
+
+  <p id="hint" class="hint"></p>
+
+  <dialog id="bookDialog"></dialog>
+  <dialog id="settingsDialog"></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <input type="file" id="importFile" accept="application/json,.json" hidden>
+
+  <script src="app.js"></script>
 </body>
 </html>
