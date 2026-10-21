@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IPv4 Calculator</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #ffffff; --text: #1b1f24; --muted: #667085;
+    --border: #d9dde3; --accent: #2563eb; --err: #c62828; --net: #2563eb; --host: #b45309;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1216; --card: #181c22; --text: #e8eaed; --muted: #9aa3b0;
+      --border: #2c333d; --accent: #6ea0ff; --err: #ff8a80; --net: #6ea0ff; --host: #f0b45c;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 16px; background: var(--bg); color: var(--text);
+    font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  h1 { font-size: 1.4rem; margin: 4px 0 14px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 14px; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .field { flex: 1 1 220px; display: flex; flex-direction: column; gap: 4px; }
+  label { font-size: .8rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+  input, select { font: inherit; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--bg); color: var(--text); width: 100%; font-family: ui-monospace, Menlo, Consolas, monospace; }
+  input:focus, select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .err { color: var(--err); margin-top: 10px; min-height: 1.2em; font-size: .9rem; }
+  table { width: 100%; border-collapse: collapse; }
+  td { padding: 8px 4px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: 0; }
+  td:first-child { color: var(--muted); width: 38%; }
+  td:last-child { font-family: ui-monospace, Menlo, Consolas, monospace; word-break: break-all; }
+  .copy { cursor: pointer; }
+  .copy:hover { color: var(--accent); }
+  .bin .n { color: var(--net); } .bin .h { color: var(--host); }
+  .legend { font-size: .8rem; color: var(--muted); margin-top: 6px; }
+  h2 { font-size: 1rem; margin: 0 0 10px; }
+  .scroll { max-height: 340px; overflow: auto; }
+  .sub td:first-child { color: var(--text); width: auto; }
+  .sub td { font-size: .85rem; }
+  .sub th { text-align: left; font-size: .75rem; color: var(--muted); padding: 4px; position: sticky; top: 0; background: var(--card); }
+  .toast { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); background: var(--text); color: var(--bg);
+    padding: 6px 12px; border-radius: 8px; font-size: .85rem; opacity: 0; transition: opacity .2s; pointer-events: none; }
+  .toast.show { opacity: .92; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>IPv4 Calculator</h1>
+
+  <div class="card">
+    <div class="row">
+      <div class="field">
+        <label for="ip">IP address</label>
+        <input id="ip" value="192.168.1.10" inputmode="decimal" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="field">
+        <label for="mask">CIDR or subnet mask</label>
+        <input id="mask" value="24" autocomplete="off" spellcheck="false" placeholder="24, /24 or 255.255.255.0">
+      </div>
+    </div>
+    <div class="legend">Tip: you can also paste <code>10.0.0.5/16</code> into the IP field.</div>
+    <div class="err" id="err"></div>
+  </div>
+
+  <div class="card" id="results" hidden>
+    <table id="tbl"></table>
+    <div class="bin" style="margin-top:12px">
+      <table id="bin"></table>
+      <div class="legend"><span style="color:var(--net)">■</span> network bits &nbsp; <span style="color:var(--host)">■</span> host bits</div>
+    </div>
+  </div>
+
+  <div class="card" id="splitcard" hidden>
+    <h2>Split into subnets</h2>
+    <div class="field" style="max-width:260px;margin-bottom:10px">
+      <label for="newp">New prefix length</label>
+      <select id="newp"></select>
+    </div>
+    <div class="legend" id="splitinfo" style="margin:0 0 8px"></div>
+    <div class="scroll"><table class="sub" id="subs"></table></div>
+  </div>
+</div>
+<div class="toast" id="toast">Copied</div>
+
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+
+  function parseIP(s) {
+    const p = s.trim().split('.');
+    if (p.length !== 4) return null;
+    let n = 0;
+    for (const part of p) {
+      if (!/^\d{1,3}$/.test(part)) return null;
+      const v = +part;
+      if (v > 255) return null;
+      n = n * 256 + v;
+    }
+    return n >>> 0;
+  }
+  const toIP = n => [n >>> 24, (n >>> 16) & 255, (n >>> 8) & 255, n & 255].join('.');
+  const maskOf = p => p === 0 ? 0 : (0xFFFFFFFF << (32 - p)) >>> 0;
+
+  function parsePrefix(s) {
+    s = s.trim().replace(/^\//, '');
+    if (/^\d+$/.test(s)) {
+      const p = +s;
+      return p >= 0 && p <= 32 ? p : null;
+    }
+    const m = parseIP(s);
+    if (m === null) return null;
+    const inv = (~m) >>> 0;
+    if ((inv & (inv + 1)) !== 0) return null; // non-contiguous
+    let p = 0;
+    for (let i = 31; i >= 0 && (m >>> i) & 1; i--) p++;
+    return p;
+  }
+
+  function classify(n) {
+    const a = n >>> 24;
+    const inRange = (base, bits) => ((n & maskOf(bits)) >>> 0) === base;
+    const ip = x => parseIP(x);
+    if (n === 0xFFFFFFFF) return 'Limited broadcast';
+    if (a === 0) return 'Current network ("this" network)';
+    if (a === 10 || inRange(ip('172.16.0.0'), 12) || inRange(ip('192.168.0.0'), 16)) return 'Private (RFC 1918)';
+    if (a === 127) return 'Loopback';
+    if (inRange(ip('169.254.0.0'), 16)) return 'Link-local (APIPA)';
+    if (inRange(ip('100.64.0.0'), 10)) return 'Shared address space (CGNAT)';
+    if (inRange(ip('192.0.2.0'), 24) || inRange(ip('198.51.100.0'), 24) || inRange(ip('203.0.113.0'), 24)) return 'Documentation (TEST-NET)';
+    if (a >= 224 && a <= 239) return 'Multicast';
+    if (a >= 240) return 'Reserved (future use)';
+    return 'Public';
+  }
+  const classOf = n => { const a = n >>> 24; return a < 128 ? 'A' : a < 192 ? 'B' : a < 224 ? 'C' : a < 240 ? 'D (multicast)' : 'E (reserved)'; };
+
+  function bin(n, p) {
+    const b = (n >>> 0).toString(2).padStart(32, '0');
+    let out = '';
+    for (let i = 0; i < 32; i++) {
+      if (i && i % 8 === 0) out += '.';
+      out += `<span class="${i < p ? 'n' : 'h'}">${b[i]}</span>`;
+    }
+    return out;
+  }
+
+  function row(k, v, copy) {
+    return `<tr><td>${k}</td><td${copy ? ' class="copy" data-c="' + copy + '"' : ''}>${v}</td></tr>`;
+  }
+
+  function calc(ip, p) {
+    const mask = maskOf(p);
+    const wild = (~mask) >>> 0;
+    const net = (ip & mask) >>> 0;
+    const bc = (net | wild) >>> 0;
+    const total = Math.pow(2, 32 - p);
+    let first, last, hosts;
+    if (p === 32) { first = last = net; hosts = 1; }
+    else if (p === 31) { first = net; last = bc; hosts = 2; }
+    else { first = net + 1; last = bc - 1; hosts = total - 2; }
+    return { mask, wild, net, bc, total, first, last, hosts };
+  }
+
+  let current = null;
+
+  function render() {
+    const err = $('err');
+    err.textContent = '';
+    let ipStr = $('ip').value.trim();
+    let maskStr = $('mask').value.trim();
+    if (ipStr.includes('/')) {
+      const [a, b] = ipStr.split('/');
+      ipStr = a; maskStr = b;
+    }
+    const ip = parseIP(ipStr);
+    const p = maskStr === '' ? null : parsePrefix(maskStr);
+    if (ip === null || p === null) {
+      $('results').hidden = true; $('splitcard').hidden = true;
+      err.textContent = ip === null
+        ? 'Enter a valid IPv4 address, e.g. 192.168.1.10'
+        : 'Enter a prefix (0–32) or a valid contiguous subnet mask.';
+      current = null;
+      return;
+    }
+    const r = calc(ip, p);
+    current = { ip, p, r };
+
+    const hostNote = p === 32 ? ' (single host)' : p === 31 ? ' (point-to-point, RFC 3021)' : '';
+    $('tbl').innerHTML =
+      row('IP address', toIP(ip), toIP(ip)) +
+      row('Network address', toIP(r.net) + '/' + p, toIP(r.net)) +
+      row('Subnet mask', toIP(r.mask), toIP(r.mask)) +
+      row('Wildcard mask', toIP(r.wild), toIP(r.wild)) +
+      row('Broadcast address', p >= 31 ? toIP(r.bc) + ' <span style="color:var(--muted)">(n/a)</span>' : toIP(r.bc), toIP(r.bc)) +
+      row('First usable host', toIP(r.first), toIP(r.first)) +
+      row('Last usable host', toIP(r.last), toIP(r.last)) +
+      row('Usable hosts', r.hosts.toLocaleString() + hostNote) +
+      row('Total addresses', r.total.toLocaleString()) +
+      row('CIDR notation', toIP(ip) + '/' + p, toIP(ip) + '/' + p) +
+      row('Class', classOf(ip)) +
+      row('Type', classify(ip)) +
+      row('Integer value', String(ip >>> 0), String(ip >>> 0)) +
+      row('Hex', '0x' + (ip >>> 0).toString(16).toUpperCase().padStart(8, '0'));
+
+    $('bin').innerHTML =
+      row('IP', bin(ip, p)) + row('Mask', bin(r.mask, p)) + row('Network', bin(r.net, p));
+    $('results').hidden = false;
+
+    // split options
+    const sel = $('newp');
+    const prev = sel.value;
+    sel.innerHTML = '';
+    for (let q = p + 1; q <= 32; q++) {
+      const o = document.createElement('option');
+      o.value = q;
+      o.textContent = '/' + q + ' (' + Math.pow(2, q - p).toLocaleString() + ' subnets)';
+      sel.appendChild(o);
+    }
+    if (p === 32) { $('splitcard').hidden = true; return; }
+    $('splitcard').hidden = false;
+    if (prev && +prev > p) sel.value = prev; else sel.value = Math.min(p + 1, 32);
+    renderSplit();
+  }
+
+  function renderSplit() {
+    if (!current) return;
+    const { p, r } = current;
+    const q = +$('newp').value;
+    const count = Math.pow(2, q - p);
+    const size = Math.pow(2, 32 - q);
+    const shown = Math.min(count, 256);
+    let html = '<tr><th>Network</th><th>Usable range</th><th>Broadcast</th></tr>';
+    for (let i = 0; i < shown; i++) {
+      const n = r.net + i * size;
+      const b = n + size - 1;
+      let a, z;
+      if (q === 32) { a = z = n; } else if (q === 31) { a = n; z = b; } else { a = n + 1; z = b - 1; }
+      html += `<tr><td>${toIP(n)}/${q}</td><td>${toIP(a)}${a === z ? '' : ' – ' + toIP(z)}</td><td>${q >= 31 ? '—' : toIP(b)}</td></tr>`;
+    }
+    $('subs').innerHTML = html;
+    $('splitinfo').textContent = `${count.toLocaleString()} subnets of ${size.toLocaleString()} addresses each` +
+      (count > shown ? ` — showing the first ${shown}` : '');
+  }
+
+  let tt;
+  function toast(msg) {
+    const t = $('toast'); t.textContent = msg; t.classList.add('show');
+    clearTimeout(tt); tt = setTimeout(() => t.classList.remove('show'), 1000);
+  }
+  document.addEventListener('click', e => {
+    const c = e.target.closest('.copy');
+    if (!c) return;
+    const text = c.dataset.c;
+    const done = () => toast('Copied ' + text);
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, done);
+    else {
+      const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta);
+      ta.select(); try { document.execCommand('copy'); } catch (_) {} document.body.removeChild(ta); done();
+    }
+  });
+
+  $('ip').addEventListener('input', render);
+  $('mask').addEventListener('input', render);
+  $('newp').addEventListener('change', renderSplit);
+  render();
+})();
+</script>
+</body>
+</html>
