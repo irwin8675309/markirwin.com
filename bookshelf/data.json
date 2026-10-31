@@ -1387,6 +1387,48 @@
           "status": "Not started",
           "width": 49,
           "height": 190
+        },
+        {
+          "id": "b149-a-court-of-splintered-harmon",
+          "title": "A Court of Splintered Harmony",
+          "author": "Sarah J. Maas",
+          "color": "#d4177f",
+          "rating": 0,
+          "date": "",
+          "review": "",
+          "series": "A Court of Thorns and Roses, Book 6",
+          "narrator": "Elizabeth Evans",
+          "status": "Not started",
+          "width": 47,
+          "height": 188
+        },
+        {
+          "id": "b150-bad-mother",
+          "title": "Bad Mother",
+          "author": "Mia Sheridan",
+          "color": "#8a4b57",
+          "rating": 0,
+          "date": "",
+          "review": "",
+          "series": "",
+          "narrator": "Vanessa Johansson, Sebastian York",
+          "status": "In progress",
+          "width": 44,
+          "height": 196
+        },
+        {
+          "id": "b151-jar-of-hearts",
+          "title": "Jar of Hearts",
+          "author": "Jennifer Hillier",
+          "color": "#b3222e",
+          "rating": 0,
+          "date": "",
+          "review": "",
+          "series": "",
+          "narrator": "January LaVoy",
+          "status": "In progress",
+          "width": 42,
+          "height": 204
         }
       ]
     },
