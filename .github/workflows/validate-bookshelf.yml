@@ -1,0 +1,30 @@
+name: Validate bookshelf data
+
+# Runs whenever the bookshelf data (or this check) changes. If data.json is broken
+# the run fails and GitHub emails the repo owner, so a bad publish is noticed
+# within a minute instead of visitors silently seeing an empty bookshelf.
+on:
+  push:
+    paths:
+      - 'bookshelf/data.json'
+      - '.github/scripts/validate-bookshelf.js'
+      - '.github/workflows/validate-bookshelf.yml'
+  pull_request:
+    paths:
+      - 'bookshelf/data.json'
+      - '.github/scripts/validate-bookshelf.js'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Validate bookshelf/data.json
+        run: node .github/scripts/validate-bookshelf.js bookshelf/data.json

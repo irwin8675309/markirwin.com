@@ -242,10 +242,18 @@
     document.body.classList.toggle('editing', state.edit);
     document.title = state.data.title;
     $('#siteTitle').textContent = state.data.title;
-    const total = state.data.shelves.reduce((n, s) => n + countBooks(s), 0);
+    const all = state.data.shelves.flatMap((s) => s.books.filter((b) => !isSpacer(b)));
     const sc = state.data.shelves.length;
-    $('#subtitle').textContent =
-      `${total} book${total === 1 ? '' : 's'} read \u00b7 ${sc} shelf${sc === 1 ? '' : 's'}`.replace('shelfs', 'shelves');
+    const parts = [];
+    let counted = 0;
+    [['Finished', 'finished'], ['In progress', 'in progress'], ['Not started', 'to read']].forEach(([st, label]) => {
+      const n = all.filter((b) => b.status === st).length;
+      counted += n;
+      if (n) parts.push(`${n} ${label}`);
+    });
+    if (all.length > counted) parts.push(`${all.length - counted} unmarked`);
+    parts.push(`${sc} ${sc === 1 ? 'shelf' : 'shelves'}`);
+    $('#subtitle').textContent = parts.join(' \u00b7 ');
 
     root.replaceChildren();
     state.data.shelves.forEach((s, i) => root.append(renderShelf(s, i)));
