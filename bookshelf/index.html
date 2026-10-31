@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>My Bookshelf</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20261031">
 </head>
 <body>
 
@@ -22,6 +22,8 @@
 
   <header class="crown">
     <h1 id="siteTitle" class="sign">My Bookshelf</h1>
+    <!-- Intentionally hidden and empty. Older cached copies of app.js still write to #subtitle; keeping it here stops them from crashing. -->
+    <p id="subtitle" class="count" hidden></p>
   </header>
 
   <main class="case">
@@ -36,6 +38,6 @@
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <input type="file" id="importFile" accept="application/json,.json" hidden>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=20261031"></script>
 </body>
 </html>
