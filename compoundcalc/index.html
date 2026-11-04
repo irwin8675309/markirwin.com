@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compound Interest Calculator</title>
+<style>
+  :root {
+    --bg: #f5f7fa; --card: #ffffff; --text: #1c2430; --muted: #5d6b7c;
+    --border: #dde3ea; --accent: #1f7a5c; --accent-2: #3b82c4; --input: #fff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #12171d; --card: #1b222b; --text: #e7ecf2; --muted: #9aa8b8;
+      --border: #2d3743; --accent: #3fb68b; --accent-2: #5aa0e0; --input: #141a21;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.45;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 20px; }
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px; margin-bottom: 16px;
+  }
+  .card h2 { font-size: 1.05rem; margin: 0 0 14px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+  label { display: block; font-size: .85rem; color: var(--muted); margin-bottom: 4px; }
+  .field { position: relative; }
+  input, select {
+    width: 100%; padding: 10px 12px; font-size: 1rem; color: var(--text);
+    background: var(--input); border: 1px solid var(--border); border-radius: 8px;
+  }
+  input:focus, select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .affix { position: relative; }
+  .affix span {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    color: var(--muted); pointer-events: none;
+  }
+  .affix .pre { left: 12px; } .affix .post { right: 12px; }
+  .affix.pre-pad input { padding-left: 26px; }
+  .affix.post-pad input { padding-right: 56px; }
+  .results { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+  .stat { padding: 14px; border-radius: 10px; border: 1px solid var(--border); }
+  .stat .k { font-size: .8rem; color: var(--muted); }
+  .stat .v { font-size: 1.45rem; font-weight: 650; margin-top: 2px; }
+  .stat.main { border-color: var(--accent); }
+  .stat.main .v { color: var(--accent); }
+  canvas { width: 100%; height: 280px; display: block; }
+  .legend { display: flex; gap: 16px; font-size: .85rem; color: var(--muted); margin-top: 8px; flex-wrap: wrap; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; }
+  .tablewrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; min-width: 520px; }
+  th, td { padding: 8px 10px; text-align: right; border-bottom: 1px solid var(--border); }
+  th:first-child, td:first-child { text-align: left; }
+  th { color: var(--muted); font-weight: 600; font-size: .8rem; }
+  .err { color: #c0392b; font-size: .9rem; min-height: 1.2em; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Compound Interest Calculator</h1>
+  <p class="sub">See how your savings can grow with interest and regular additions.</p>
+
+  <div class="card">
+    <h2>Your inputs</h2>
+    <div class="grid">
+      <div>
+        <label for="start">Starting balance</label>
+        <div class="affix pre-pad"><span class="pre">$</span>
+          <input id="start" type="number" min="0" step="any" value="10000" inputmode="decimal"></div>
+      </div>
+      <div>
+        <label for="rate">Annual interest rate</label>
+        <div class="affix post-pad"><span class="post">%</span>
+          <input id="rate" type="number" min="0" step="any" value="7" inputmode="decimal"></div>
+      </div>
+      <div>
+        <label for="years">Duration</label>
+        <div class="affix post-pad"><span class="post">years</span>
+          <input id="years" type="number" min="0" max="100" step="any" value="20" inputmode="decimal"></div>
+      </div>
+      <div>
+        <label for="compound">Interest compounds</label>
+        <select id="compound">
+          <option value="365">Daily</option>
+          <option value="12" selected>Monthly</option>
+          <option value="4">Quarterly</option>
+          <option value="2">Semi-annually</option>
+          <option value="1">Annually</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Periodic additions</h2>
+    <div class="grid">
+      <div>
+        <label for="add">Amount added each time</label>
+        <div class="affix pre-pad"><span class="pre">$</span>
+          <input id="add" type="number" min="0" step="any" value="250" inputmode="decimal"></div>
+      </div>
+      <div>
+        <label for="freq">Addition frequency</label>
+        <select id="freq">
+          <option value="52">Weekly</option>
+          <option value="26">Every 2 weeks</option>
+          <option value="12" selected>Monthly</option>
+          <option value="4">Quarterly</option>
+          <option value="2">Semi-annually</option>
+          <option value="1">Annually</option>
+        </select>
+      </div>
+      <div>
+        <label for="timing">Additions are made at the</label>
+        <select id="timing">
+          <option value="end" selected>End of each period</option>
+          <option value="begin">Beginning of each period</option>
+        </select>
+      </div>
+    </div>
+    <div class="err" id="err"></div>
+  </div>
+
+  <div class="card">
+    <h2>Results</h2>
+    <div class="results">
+      <div class="stat main"><div class="k">Final balance</div><div class="v" id="rFinal">–</div></div>
+      <div class="stat"><div class="k">Total contributed</div><div class="v" id="rContrib">–</div></div>
+      <div class="stat"><div class="k">Total interest earned</div><div class="v" id="rInterest">–</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Growth over time</h2>
+    <canvas id="chart"></canvas>
+    <div class="legend">
+      <span><i style="background:var(--accent-2)"></i>Your contributions (start + additions)</span>
+      <span><i style="background:var(--accent)"></i>Interest earned</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Year-by-year breakdown</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Year</th><th>Contributed</th><th>Interest</th><th>Balance</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var fmt = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 2 });
+  var fmt0 = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+  var data = [];
+
+  function gcd(a, b) { return b ? gcd(b, a % b) : a; }
+  function lcm(a, b) { return a / gcd(a, b) * b; }
+
+  function compute() {
+    var P = parseFloat($("start").value) || 0;
+    var r = (parseFloat($("rate").value) || 0) / 100;
+    var years = parseFloat($("years").value) || 0;
+    var A = parseFloat($("add").value) || 0;
+    var n = parseInt($("compound").value, 10);
+    var m = parseInt($("freq").value, 10);
+    var begin = $("timing").value === "begin";
+
+    var err = "";
+    if (P < 0 || r < 0 || A < 0) err = "Please use values of zero or more.";
+    else if (years <= 0) err = "Duration must be greater than zero.";
+    else if (years > 100) err = "Duration is limited to 100 years.";
+    $("err").textContent = err;
+    if (err) return null;
+
+    // Integer time ticks so compounding and addition schedules line up exactly.
+    var L = lcm(n, m);              // ticks per year
+    var cStep = L / n, aStep = L / m;
+    var total = Math.round(years * L);
+    var balance = P, contributed = P;
+    var out = [{ year: 0, contributed: P, balance: P }];
+
+    if (begin && A > 0) { balance += A; contributed += A; }
+    // Snapshot first row after initial beginning addition adjustments is handled below.
+    for (var t = 1; t <= total; t++) {
+      var isAdd = (t % aStep === 0);
+      var isComp = (t % cStep === 0);
+      if (isAdd && !begin) { /* end-of-period: interest first, then addition */ }
+      if (isComp) balance *= 1 + r / n;
+      if (isAdd && A > 0) {
+        if (!begin && t <= total) { balance += A; contributed += A; }
+        else if (begin && t < total) { balance += A; contributed += A; }
+      }
+      if (t % L === 0 || t === total) {
+        var y = t / L;
+        if (out[out.length - 1].year !== y) out.push({ year: y, contributed: contributed, balance: balance });
+        else out[out.length - 1] = { year: y, contributed: contributed, balance: balance };
+      }
+    }
+    return out;
+  }
+
+  function render() {
+    data = compute();
+    var rows = $("rows");
+    rows.innerHTML = "";
+    if (!data) {
+      $("rFinal").textContent = $("rContrib").textContent = $("rInterest").textContent = "–";
+      drawChart();
+      return;
+    }
+    var last = data[data.length - 1];
+    $("rFinal").textContent = fmt.format(last.balance);
+    $("rContrib").textContent = fmt.format(last.contributed);
+    $("rInterest").textContent = fmt.format(last.balance - last.contributed);
+
+    data.slice(1).forEach(function (d) {
+      var tr = document.createElement("tr");
+      var label = Number.isInteger(d.year) ? d.year : d.year.toFixed(2);
+      [label, fmt0.format(d.contributed), fmt0.format(d.balance - d.contributed), fmt0.format(d.balance)]
+        .forEach(function (txt) {
+          var td = document.createElement("td"); td.textContent = txt; tr.appendChild(td);
+        });
+      rows.appendChild(tr);
+    });
+    drawChart();
+  }
+
+  function cssVar(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+
+  function drawChart() {
+    var c = $("chart");
+    var dpr = window.devicePixelRatio || 1;
+    var w = c.clientWidth, h = c.clientHeight;
+    c.width = w * dpr; c.height = h * dpr;
+    var ctx = c.getContext("2d");
+    ctx.scale(dpr, dpr);
+    ctx.clearRect(0, 0, w, h);
+    if (!data || data.length < 2) return;
+
+    var padL = 56, padR = 8, padT = 10, padB = 26;
+    var pts = data;
+    var max = Math.max.apply(null, pts.map(function (d) { return d.balance; })) || 1;
+    var ticks = 4, step = niceStep(max / ticks);
+    var top = step * Math.ceil(max / step);
+    var cw = w - padL - padR, ch = h - padT - padB;
+
+    ctx.font = "11px -apple-system, Segoe UI, sans-serif";
+    ctx.fillStyle = cssVar("--muted"); ctx.strokeStyle = cssVar("--border");
+    ctx.textAlign = "right"; ctx.textBaseline = "middle"; ctx.lineWidth = 1;
+    for (var v = 0; v <= top + 1e-9; v += step) {
+      var y = padT + ch - (v / top) * ch;
+      ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(w - padR, y); ctx.stroke();
+      ctx.fillText(short(v), padL - 6, y);
+    }
+
+    var bars = pts.slice(1);
+    var slot = cw / bars.length, bw = Math.max(1, Math.min(40, slot * 0.7));
+    var cA = cssVar("--accent-2"), cB = cssVar("--accent");
+    bars.forEach(function (d, i) {
+      var x = padL + i * slot + (slot - bw) / 2;
+      var hc = (d.contributed / top) * ch;
+      var hi = ((d.balance - d.contributed) / top) * ch;
+      ctx.fillStyle = cA; ctx.fillRect(x, padT + ch - hc, bw, hc);
+      ctx.fillStyle = cB; ctx.fillRect(x, padT + ch - hc - hi, bw, hi);
+    });
+
+    ctx.fillStyle = cssVar("--muted"); ctx.textAlign = "center"; ctx.textBaseline = "top";
+    var every = Math.ceil(bars.length / Math.max(1, Math.floor(cw / 40)));
+    bars.forEach(function (d, i) {
+      if (i % every === 0 || i === bars.length - 1) {
+        var lbl = Number.isInteger(d.year) ? d.year : d.year.toFixed(1);
+        ctx.fillText(lbl, padL + i * slot + slot / 2, padT + ch + 6);
+      }
+    });
+  }
+
+  function niceStep(x) {
+    var p = Math.pow(10, Math.floor(Math.log10(x || 1)));
+    var f = x / p;
+    return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * p;
+  }
+  function short(v) {
+    if (v >= 1e6) return "$" + (v / 1e6).toFixed(v % 1e6 ? 1 : 0) + "M";
+    if (v >= 1e3) return "$" + (v / 1e3).toFixed(v % 1e3 ? 1 : 0) + "k";
+    return "$" + v;
+  }
+
+  ["start", "rate", "years", "add", "compound", "freq", "timing"].forEach(function (id) {
+    $(id).addEventListener("input", render);
+    $(id).addEventListener("change", render);
+  });
+  window.addEventListener("resize", drawChart);
+  if (window.matchMedia) {
+    var mq = window.matchMedia("(prefers-color-scheme: dark)");
+    if (mq.addEventListener) mq.addEventListener("change", drawChart);
+  }
+  render();
+})();
+</script>
+</body>
+</html>
