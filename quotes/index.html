@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Favorite Quotes | markirwin.com</title>
+<style>
+  :root {
+    --bg: #faf7f2;
+    --card: #ffffff;
+    --text: #2b2b2b;
+    --muted: #6b6b6b;
+    --accent: #8a5a2b;
+    --border: #e6dfd3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1a17;
+      --card: #26231f;
+      --text: #eee8dd;
+      --muted: #a8a095;
+      --accent: #d9a566;
+      --border: #3a352e;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.6;
+  }
+  header, main, footer {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  header { padding-top: 48px; padding-bottom: 8px; text-align: center; }
+  h1 { font-size: 2.2rem; margin: 0 0 28px; }
+  .subtitle { color: var(--muted); font-style: italic; margin: 0 0 28px; }
+  .quote {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--accent);
+    border-radius: 6px;
+    margin: 0 0 20px;
+    padding: 20px 24px;
+  }
+  .quote blockquote {
+    margin: 0 0 12px;
+    font-size: 1.25rem;
+  }
+  .quote blockquote::before { content: "\201C"; color: var(--accent); }
+  .quote blockquote::after  { content: "\201D"; color: var(--accent); }
+  .speaker { font-weight: bold; margin: 0; }
+  .source { color: var(--muted); margin: 0; font-size: 0.95rem; }
+  .source em { color: var(--accent); }
+  footer { text-align: center; color: var(--muted); font-size: 0.9rem; padding: 24px 20px 48px; }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Favorite Quotes</h1>
+</header>
+
+<main>
+
+  <!-- To add a quote, copy one of these <article> blocks and edit the three lines. -->
+
+  <article class="quote">
+    <blockquote>To resist the influence of others, knowledge of oneself is most important.</blockquote>
+    <p class="speaker">Teal'c</p>
+    <p class="source">from <em>Stargate SG-1</em> (TV series)</p>
+  </article>
+
+  <article class="quote">
+    <blockquote>Happiness can be found, even in the darkest of times, if one only remembers to turn on the light.</blockquote>
+    <p class="speaker">Albus Dumbledore</p>
+    <p class="source">from <em>Harry Potter and the Prisoner of Azkaban</em> (movie)</p>
+  </article>
+
+</main>
+
+<footer>
+  <a href="/">&larr; Back to markirwin.com</a>
+</footer>
+
+</body>
+</html>
