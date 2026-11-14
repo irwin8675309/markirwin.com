@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#ffd9ee">
+<meta name="apple-mobile-web-app-title" content="Pony Palace">
+<meta name="description" content="A magical pony and unicorn care game for little ones.">
+<title>Enchanted Pony Palace 🦄</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='88'%3E%F0%9F%A6%84%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="app" class="app" data-bg="welcome">
+
+  <!-- ============ BACKGROUND ============ -->
+  <div class="bg" aria-hidden="true">
+    <div class="bg-sky"></div>
+    <div class="bg-sun"></div>
+    <div class="bg-stars" id="bgStars"></div>
+    <div class="bg-rainbow" id="bgRainbow"></div>
+    <div class="bg-layer" id="bgLayer"></div>
+    <div class="bg-haze"></div>
+  </div>
+
+  <!-- ============ SCREENS ============ -->
+  <main id="screens" class="screens">
+
+    <!-- WELCOME -->
+    <section class="screen screen--welcome is-active" data-screen="welcome">
+      <div class="welcome-castle" id="welcomeCastle"></div>
+      <div class="welcome-ground" aria-hidden="true"></div>
+
+      <div class="logo">
+        <h1 class="logo__title">
+          <span class="logo__line">Enchanted</span>
+          <span class="logo__line logo__line--big">Pony Palace</span>
+        </h1>
+        <div class="logo__ponies" id="logoPonies"></div>
+      </div>
+
+      <button class="btn-play" id="btnPlay" aria-label="Play">
+        <span class="btn-play__shine"></span>
+        <svg viewBox="0 0 100 100" class="btn-play__icon" aria-hidden="true">
+          <path d="M34 22 L78 50 L34 78 Z" fill="#fff"/>
+        </svg>
+        <span class="btn-play__label">PLAY</span>
+      </button>
+
+      <p class="welcome-hint" id="welcomeHint">tap to start the magic</p>
+    </section>
+
+    <!-- CHARACTER SELECT -->
+    <section class="screen screen--select" data-screen="select">
+      <header class="topbar">
+        <button class="btn-round btn-home" data-nav="welcome" aria-label="Home">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6 L44 24 H37 V42 H29 V31 H19 V42 H11 V24 H4 Z" fill="#fff"/></svg>
+        </button>
+        <div class="topbar__title">Pick your pony</div>
+        <div class="star-counter" id="starCounterTop">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z" fill="#FFD34D"/></svg>
+          <span class="star-counter__num" data-stars>0</span>
+        </div>
+      </header>
+
+      <div class="select-grid" id="selectGrid"></div>
+
+      <div class="select-dock">
+        <div class="my-ponies" id="myPonies"></div>
+        <button class="btn-go" id="btnGo" aria-label="Go to the meadow">
+          <svg viewBox="0 0 100 100" aria-hidden="true"><path d="M22 38 H58 V22 L86 50 L58 78 V62 H22 Z" fill="#fff"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- MEADOW -->
+    <section class="screen screen--meadow" data-screen="meadow">
+      <header class="topbar">
+        <button class="btn-round btn-home" data-nav="select" aria-label="Home">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6 L44 24 H37 V42 H29 V31 H19 V42 H11 V24 H4 Z" fill="#fff"/></svg>
+        </button>
+
+        <div class="pony-switcher" id="ponySwitcher"></div>
+
+        <div class="star-counter">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z" fill="#FFD34D"/></svg>
+          <span class="star-counter__num" data-stars>0</span>
+        </div>
+      </header>
+
+      <div class="meadow-stage" id="meadowStage">
+        <div class="meadow-pony-wrap" id="meadowPony"></div>
+        <div class="name-tag" id="nameTag">Rosie</div>
+        <div class="speech-bubble" id="speechBubble"></div>
+      </div>
+
+      <nav class="activity-dock" id="activityDock">
+        <button class="act-btn" data-act="brush" aria-label="Brush the mane">
+          <span class="act-btn__art" data-art="brush"></span>
+          <span class="act-btn__label">Brush</span>
+        </button>
+        <button class="act-btn" data-act="feed" aria-label="Feed the pony">
+          <span class="act-btn__art" data-art="feed"></span>
+          <span class="act-btn__label">Yummy</span>
+        </button>
+        <button class="act-btn" data-act="bath" aria-label="Give a bath">
+          <span class="act-btn__art" data-art="bath"></span>
+          <span class="act-btn__label">Bath</span>
+        </button>
+        <button class="act-btn" data-act="decorate" aria-label="Decorate the pony">
+          <span class="act-btn__art" data-art="decorate"></span>
+          <span class="act-btn__label">Dress Up</span>
+        </button>
+        <button class="act-btn" data-act="makeover" aria-label="Magical makeover">
+          <span class="act-btn__art" data-art="makeover"></span>
+          <span class="act-btn__label">Magic</span>
+        </button>
+      </nav>
+    </section>
+
+    <!-- ACTIVITY -->
+    <section class="screen screen--activity" data-screen="activity">
+      <header class="topbar">
+        <button class="btn-round btn-close" id="btnCloseActivity" aria-label="Back to the meadow">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 10 L38 38 M38 10 L10 38" stroke="#fff" stroke-width="8" stroke-linecap="round" fill="none"/></svg>
+        </button>
+        <div class="activity-title" id="activityTitle"></div>
+        <div class="star-counter">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z" fill="#FFD34D"/></svg>
+          <span class="star-counter__num" data-stars>0</span>
+        </div>
+      </header>
+
+      <div class="act-stage" id="actStage"></div>
+      <div class="act-tray" id="actTray"></div>
+    </section>
+
+    <!-- CELEBRATION -->
+    <section class="screen screen--party" data-screen="party">
+      <div class="party-rays" aria-hidden="true"></div>
+      <div class="party-fireworks" id="partyFireworks" aria-hidden="true"></div>
+      <div class="party-rainbow" aria-hidden="true"></div>
+      <div class="party-pony" id="partyPony"></div>
+      <div class="party-burst" id="partyBurst" aria-hidden="true"></div>
+      <div class="party-stars" id="partyStars" aria-hidden="true"></div>
+      <p class="party-cheer" id="partyCheer">Yay!</p>
+      <p class="party-sub" id="partySub"></p>
+      <button class="btn-continue" id="btnContinue" aria-label="Keep playing">Keep Playing</button>
+    </section>
+
+  </main>
+
+  <!-- ============ FX LAYER ============ -->
+  <div class="fx" id="fx" aria-hidden="true"></div>
+
+  <!-- ============ SOUND TOGGLES ============ -->
+  <div class="sound-dock">
+    <button class="btn-sound" id="btnMusic" aria-label="Toggle music" aria-pressed="true">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <path class="ico-on" d="M20 10 L34 6 V34 a6 6 0 1 1-4-5.6 V14 L24 15.2 V38 a6 6 0 1 1-4-5.6 Z" fill="#fff"/>
+        <path class="ico-off" d="M10 10 L38 38 M38 10 L10 38" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <button class="btn-sound" id="btnSfx" aria-label="Toggle sounds" aria-pressed="true">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <path class="ico-on" d="M8 19 H16 L26 10 V38 L16 29 H8 Z" fill="#fff"/>
+        <path class="ico-on ico-wave" d="M31 17 a9 9 0 0 1 0 14" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path class="ico-off" d="M10 10 L38 38 M38 10 L10 38" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="toast" id="toast" aria-live="polite"></div>
+</div>
+
+<script src="js/audio.js"></script>
+<script src="js/art.js"></script>
+<script src="js/pony.js"></script>
+<script src="js/activities.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
