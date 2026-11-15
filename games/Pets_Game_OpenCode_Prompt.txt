@@ -1,0 +1,371 @@
+OPENCODE PROJECT: PETS GAME
+A Super Fun Adventure with Ghosty, Spin & Oakley
+
+Build a polished, colorful, interactive browser game called Pets Game.
+
+The game is made especially for two young girls, ages 3 and 5. It features their real pets as the playable characters so they can go on magical adventures together with:
+
+- Ghosty – the white cat
+- Spin – the black-and-white cat
+- Oakley – the black dog
+
+These must be original, adorable cartoon versions that clearly resemble the real pets shown in the reference photos. The goal is a warm, joyful, age-appropriate game that feels personal and special.
+
+Primary platform: iPad Safari
+Secondary platforms: Desktop, laptop, and mobile browsers.
+
+────────────────────────────────────────
+
+1. INTELLECTUAL PROPERTY & ORIGINALITY
+
+This is an independent, original family game.
+
+- All characters, artwork, environments, animations, and sounds must be completely original.
+- Do not reference or imitate any existing television show, movie, video game, or franchise.
+- Do not create characters that resemble recognizable fictional characters.
+- No superhero costumes, capes, masks, emblems, or special powers of any kind.
+- The three pets should look like cute, friendly cartoon versions of the real animals (big expressive eyes, soft rounded shapes, happy faces).
+- The game name is simply Pets Game.
+
+────────────────────────────────────────
+
+2. VISUAL DESIGN AND ART DIRECTION
+
+Create a beautiful, colorful, high-quality cartoon game suitable for preschoolers.
+
+Style goals:
+- Adorable original cartoon animals with large expressive eyes and soft, rounded shapes
+- Bright pastel colors and warm lighting
+- Magical but gentle fantasy environments (flowers, butterflies, soft clouds, rainbows, stars)
+- Friendly, non-threatening obstacles
+- Smooth, polished animations
+- High-quality illustrated backgrounds
+
+Prefer original SVG, CSS artwork, and Phaser/Canvas graphics. Avoid generic placeholder art.
+
+The overall feeling should be warm, cozy, and magical — like a storybook come to life.
+
+────────────────────────────────────────
+
+3. PLAYABLE CHARACTERS – DETAILED DESCRIPTIONS
+
+Create original cartoon versions that clearly look like the real pets.
+
+Ghosty (white cat)
+- Mostly pure soft white fur
+- Light peachy-orange (flame-point style) coloring on the ears and very faintly on the face
+- Large blue-gray eyes
+- Soft pink nose
+- Gentle, sweet expression
+- Soft, slightly fluffy appearance
+- Personality: calm, loving, and peaceful
+
+Spin (black-and-white cat)
+- Classic black-and-white tuxedo / bicolor pattern
+- Black on the top of the head, ears, and back
+- White face, chest, belly, and legs
+- Distinct black facial markings (almost like a soft mask or patches around the eyes)
+- Yellow-green / hazel eyes
+- Alert, curious expression
+- Personality: energetic, playful, and a little mischievous
+
+Oakley (black dog)
+- Solid black fur overall
+- Some lighter gray/white whiskering and aging around the muzzle and chin (gives a wise, friendly senior-dog look)
+- Warm brown / amber eyes
+- Floppy ears
+- Broad, friendly face
+- Often shown with a happy open-mouthed smile and tongue slightly visible
+- Personality: loyal, cheerful, and brave
+
+Required animations for each character:
+- Idle
+- Running
+- Jumping
+- Landing
+- Celebration / happy reaction
+
+Children can select any of the three pets and change characters at any time. There are no special abilities or power buttons.
+
+────────────────────────────────────────
+
+4. MAIN MENU
+
+Beautiful animated opening screen featuring:
+- Large title: Pets Game
+- Ghosty, Spin, and Oakley with subtle idle animations
+- Colorful fantasy landscape
+- Enormous, easy-to-tap PLAY button
+- Character selection button
+- Simple sound and music toggle buttons
+
+Add gentle floating butterflies, soft moving clouds, and occasional sparkles.
+No complicated menus or written instructions.
+
+────────────────────────────────────────
+
+5. CHARACTER SELECTION
+
+Large, clear illustrated cards or portraits of Ghosty, Spin, and Oakley.
+
+When a pet is selected:
+- Highlight it
+- Play a short happy animation
+- Show a cheerful facial expression
+- Play a happy sound
+- Confirm with a large “Let’s Go!” button
+
+Allow changing pets at any time.
+
+────────────────────────────────────────
+
+6. MAIN GAMEPLAY – OBSTACLE COURSE
+
+Colorful side-scrolling adventure.
+The selected pet automatically moves forward through the level.
+The child only needs one large on-screen JUMP button.
+
+Desktop support: Spacebar, Up Arrow, or mouse click = Jump.
+
+Friendly obstacle types only:
+- Colorful puddles (funny splash on contact)
+- Soft fallen logs
+- Gentle hills
+- Floating clouds
+- Butterfly gardens
+- Soft yarn balls or colorful balls
+- Rainbow bridges
+- Bubble fields (pop by touching)
+- Flower beds
+- Magical glowing gates
+
+Critical rule:
+Hitting or missing an obstacle never causes failure, loss of lives, or a game-over screen.
+Play a funny, gentle recovery animation and a positive visual effect, then continue automatically.
+The game must always feel encouraging and positive.
+
+────────────────────────────────────────
+
+7. COLLECTIBLES
+
+Lots of optional colorful items to collect:
+- Stars
+- Gems
+- Butterflies
+- Hearts
+- Sparkles
+- Ribbons
+- Golden treats
+
+Collecting an item plays a cheerful sound, shows a sparkle effect, and updates a large, easy-to-read counter.
+Collectibles are purely for fun and exploration.
+
+────────────────────────────────────────
+
+8. ANIMAL RESCUE MISSIONS
+
+Throughout the levels, friendly animals need a little help (bunnies, birds, puppies, kittens, turtles, ducklings, squirrels, etc.).
+
+When the player approaches a rescue animal:
+- A large animated rescue indicator appears
+- The child taps the animal or a big Rescue button
+- A cute rescue animation plays with hearts and stars
+- A cheerful sound plays
+- The rescued animal can briefly follow or wave goodbye
+
+All rescued animals are saved to a simple Animal Sanctuary that the children can visit later to see everyone they have helped.
+
+────────────────────────────────────────
+
+9. GAME ENVIRONMENTS
+
+Four distinct, colorful environments:
+
+1. Rainbow Meadow – green grass, colorful flowers, butterflies, gentle hills
+2. Enchanted Forest – soft fantasy trees, glowing mushrooms, sunbeams
+3. Cloud Kingdom – floating islands, soft clouds, rainbows, stars
+4. Candyland Valley – giant lollipops, candy hills, gumdrops, chocolate streams
+
+Each environment has unique backgrounds, obstacles, collectibles, and a few rescue opportunities.
+Levels should last approximately 1–2 minutes.
+
+────────────────────────────────────────
+
+10. LEVEL COMPLETION & CELEBRATIONS
+
+When the pet reaches the finish line:
+- Play a happy celebration animation
+- Show stars and hearts
+- Play a cheerful sound
+- Display a large CONTINUE button
+
+Award positive recognition based on participation only.
+Children can replay any completed level as many times as they like.
+No negative scoring of any kind.
+
+────────────────────────────────────────
+
+11. TWO-PLAYER EXPERIENCE
+
+Design the game so both girls can enjoy it together.
+Prefer simple shared or alternating play for the first version.
+Both players receive positive recognition.
+Avoid competitive scoring.
+
+────────────────────────────────────────
+
+12. AUDIO
+
+Audio is optional and must not autoplay before the first user interaction.
+
+Include:
+- Cheerful sound effects (jump, collect, rescue, celebration, gentle recovery)
+- Soft, gentle background music (different feel per environment if possible)
+- Separate toggles for music and sound effects
+
+Keep all sounds short, high, and happy.
+
+────────────────────────────────────────
+
+13. PRESCHOOL-FRIENDLY DESIGN (HIGHEST PRIORITY)
+
+- No reading required
+- Extremely large touch-friendly buttons
+- No small icons
+- No complicated menus
+- No keyboard required for core play
+- No time limits
+- No lives
+- No losing or failure screens
+- No scary enemies or elements
+- No punishment for mistakes
+- No advertisements, external links, purchases, accounts, or collection of personal information
+
+Every interaction must give immediate positive visual feedback.
+A 3-year-old should be able to play independently while a 5-year-old still finds plenty to enjoy.
+
+────────────────────────────────────────
+
+14. TECHNICAL ARCHITECTURE
+
+Build as a web application using:
+- HTML5, CSS3, JavaScript
+- Phaser 3 for side-scrolling gameplay, physics, collisions, and animations
+
+Suggested project structure:
+
+pets-game/
+├── index.html
+├── README.md
+├── package.json
+├── src/
+│   ├── main.js
+│   ├── game.js
+│   ├── config.js
+│   ├── characters/
+│   ├── levels/
+│   ├── obstacles/
+│   ├── collectibles/
+│   ├── rescue/
+│   ├── audio/
+│   ├── ui/
+│   └── systems/
+├── assets/
+└── styles/
+
+Requirements:
+- Fully responsive
+- Excellent iPad Safari compatibility (landscape orientation preferred)
+- Large touch targets
+- Prevent accidental page scrolling and unwanted browser zoom
+- Smooth performance on older iPads
+- localStorage for progress saving
+- No backend, no required API keys, no external services needed to play
+- Suitable for GitHub Pages hosting
+
+────────────────────────────────────────
+
+15. SAVING PROGRESS
+
+Use localStorage to save:
+- Selected pet
+- Unlocked / completed levels
+- Collected rewards
+- Rescued animals
+- Sound settings
+
+Include a simple parent-only reset option that is not easy for children to trigger by accident.
+
+────────────────────────────────────────
+
+16. DEVELOPMENT PHASES
+
+Phase 1 – Core Playable Game (must be fully working and fun first)
+- Main menu
+- Character selection (Ghosty, Spin, Oakley)
+- Rainbow Meadow environment
+- Automatic forward movement + large jump button
+- Several friendly obstacle types
+- Collectibles
+- Finish-line celebration
+- Basic progress saving
+
+Phase 2 – Expanded Gameplay
+- Remaining three environments
+- Animal rescue missions + Animal Sanctuary
+- Full sound effects and background music
+- Additional polish and animations
+
+Phase 3 – Optional Later Features
+- Simple two-player support
+- Light visual extras if desired
+
+Do not leave non-functional buttons in the user interface. Prefer a working simplified version over an unfinished complex feature.
+
+────────────────────────────────────────
+
+17. TESTING & QUALITY
+
+Before considering the game complete, thoroughly test:
+- All menu and selection buttons
+- Jumping and recovery animations
+- Obstacle interactions
+- Collectibles
+- Rescue missions
+- Level transitions
+- Sound toggles
+- Progress saving
+- Touch, mouse, and keyboard controls
+- Different screen sizes
+- iPad Safari specifically
+- Offline play after assets have loaded
+
+Fix all obvious bugs. Prioritize smoothness, cuteness, and preschool accessibility.
+
+────────────────────────────────────────
+
+18. FINAL INSTRUCTIONS
+
+Start by inspecting the project directory. If it is empty, initialize the project.
+
+Build a complete, playable Phase 1 game first. Do not stop at visual mockups — deliver real working gameplay with character movement, jumping, obstacles, collectibles, and celebrations.
+
+Priorities (in order):
+1. Joy, cuteness, and clear resemblance to the real Ghosty, Spin, and Oakley
+2. Beautiful original graphics and smooth animations
+3. Extremely simple preschool-friendly controls
+4. Always-positive reinforcement
+5. Strong iPad compatibility
+6. Clean code that is easy to expand later
+
+Use creative freedom for thoughtful design decisions. Do not ask for approval on every small detail.
+
+At completion, provide:
+- Complete source code
+- Instructions for running locally
+- GitHub Pages deployment instructions
+- Summary of implemented features
+- Any remaining limitations
+- Brief testing notes
+
+The ultimate goal is a warm, magical little game that lets two little girls run and jump through beautiful worlds with their real pets Ghosty, Spin, and Oakley — a game they will love playing again and again.
