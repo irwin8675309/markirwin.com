@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Game Time!</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Trebuchet MS", "Comic Sans MS", Arial, sans-serif;
+    background: linear-gradient(160deg, #ffd6f0, #d6e8ff 55%, #fff4c2);
+    color: #3a2a5a;
+    text-align: center;
+    padding: 24px 16px 40px;
+  }
+  h1 {
+    font-size: clamp(2.2rem, 8vw, 4rem);
+    margin: 12px 0 6px;
+    color: #8a2be2;
+    text-shadow: 3px 3px 0 #fff;
+  }
+  p.sub { font-size: 1.3rem; margin: 0 0 28px; }
+  .games {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    justify-content: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  a.game {
+    display: block;
+    width: 240px;
+    padding: 28px 16px;
+    background: #fff;
+    border-radius: 24px;
+    border: 5px solid #8a2be2;
+    text-decoration: none;
+    color: #3a2a5a;
+    font-size: 1.8rem;
+    font-weight: bold;
+    box-shadow: 0 6px 0 #6a1fb5;
+    transition: transform .1s;
+  }
+  a.game:hover, a.game:focus { transform: translateY(-4px) scale(1.04); }
+  a.game:active { transform: translateY(3px); box-shadow: 0 2px 0 #6a1fb5; }
+  a.game .icon { display: block; font-size: 3.5rem; margin-bottom: 8px; }
+</style>
+</head>
+<body>
+  <h1>Game Time!</h1>
+  <p class="sub">Pick a game to play</p>
+  <div class="games">
+    <a class="game" href="pony1/"><span class="icon">🦄</span>Pony 1</a>
+    <a class="game" href="pony2/"><span class="icon">🐴</span>Pony 2</a>
+    <a class="game" href="pets/"><span class="icon">🐶</span>Pets</a>
+  </div>
+</body>
+</html>
