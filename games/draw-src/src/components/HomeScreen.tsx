@@ -6,7 +6,7 @@ import type { AppSettings } from '../types'
 interface HomeScreenProps {
   settings: AppSettings
   artworkCount: number
-  onNavigate: (screen: 'draw' | 'coloring' | 'magic' | 'stickers' | 'gallery') => void
+  onNavigate: (screen: 'draw' | 'coloring' | 'stickers' | 'gallery') => void
   onToggleSound: () => void
   onParent: () => void
 }
@@ -47,20 +47,6 @@ function ColoringArt() {
       <circle cx="54" cy="38" r="7" fill="#ff8fc7" />
       <circle cx="53" cy="84" r="7" fill="#4aa8ff" />
       <path d="m180 30 4 10 10 4-10 4-4 10-4-10-10-4 10-4 4-10Z" fill="#ffd93d" />
-    </svg>
-  )
-}
-
-function MagicArt() {
-  return (
-    <svg viewBox="0 0 220 130" aria-hidden="true">
-      <path d="M42 104 126 34" stroke="#a879f2" strokeWidth="12" strokeLinecap="round" />
-      <path d="m128 28 5 14 15 5-15 5-5 14-5-14-15-5 15-5 5-14Z" fill="#ffd93d" stroke="#3b3553" strokeWidth="2" />
-      <path d="m162 66 3 8 8 3-8 3-3 8-3-8-8-3 8-3 3-8Z" fill="#ff8fc7" />
-      <path d="M52 32c.6 5 2.6 7 7.6 7.6-5 .6-7 2.6-7.6 7.6-.6-5-2.6-7-7.6-7.6 5-.6 7-2.6 7.6-7.6Z" fill="#4aa8ff" />
-      <path d="M174 26c.4 3.4 1.8 4.8 5.2 5.2-3.4.4-4.8 1.8-5.2 5.2-.4-3.4-1.8-4.8-5.2-5.2 3.4-.4 4.8-1.8 5.2-5.2Z" fill="#5ec96d" />
-      <circle cx="190" cy="104" r="5" fill="#ffd93d" />
-      <circle cx="74" cy="90" r="4" fill="#ff8fc7" />
     </svg>
   )
 }
@@ -108,7 +94,7 @@ function GalleryArt() {
 }
 
 const cards: Array<{
-  id: 'draw' | 'coloring' | 'magic' | 'stickers' | 'gallery'
+  id: 'draw' | 'coloring' | 'stickers' | 'gallery'
   title: string
   subtitle: string
   className: string
@@ -116,7 +102,6 @@ const cards: Array<{
 }> = [
   { id: 'draw', title: 'Free Draw', subtitle: 'Make anything', className: 'card-draw', art: <FreeDrawArt /> },
   { id: 'coloring', title: 'Coloring Book', subtitle: 'Color a picture', className: 'card-coloring', art: <ColoringArt /> },
-  { id: 'magic', title: 'Magic Art', subtitle: 'Make it move', className: 'card-magic', art: <MagicArt /> },
   { id: 'stickers', title: 'Sticker Studio', subtitle: 'Stick and decorate', className: 'card-stickers', art: <StickerArt /> },
   { id: 'gallery', title: 'My Artwork', subtitle: 'See what you made', className: 'card-gallery', art: <GalleryArt /> },
 ]

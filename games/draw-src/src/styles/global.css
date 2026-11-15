@@ -445,17 +445,17 @@ p {
 
 .home-cards {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(14px, 1.8vw, 24px);
   width: 100%;
-  max-width: 1500px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
 .home-card {
   position: relative;
-  grid-column: span 2;
-  min-height: clamp(160px, 21vh, 235px);
+  grid-column: span 1;
+  min-height: clamp(170px, 23vh, 250px);
   border-radius: 34px;
   padding: clamp(16px, 2vw, 26px);
   display: flex;
@@ -468,11 +468,6 @@ p {
   text-align: left;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   isolation: isolate;
-}
-
-.home-card:nth-child(4),
-.home-card:nth-child(5) {
-  grid-column: span 3;
 }
 
 .home-card::before {
@@ -498,7 +493,6 @@ p {
 
 .card-draw { background: linear-gradient(145deg, #ffe5a8, #ffd074); }
 .card-coloring { background: linear-gradient(145deg, #ffd6e7, #ffb9d6); }
-.card-magic { background: linear-gradient(145deg, #e0d2ff, #c6adff); }
 .card-stickers { background: linear-gradient(145deg, #c8f1ff, #9bdcff); }
 .card-gallery { background: linear-gradient(145deg, #cff3c7, #a7e49c); }
 
@@ -1771,275 +1765,6 @@ p {
   gap: 14px;
 }
 
-/* Magic */
-.magic-screen {
-  background:
-    radial-gradient(circle at 15% 20%, rgba(198, 173, 255, 0.35), transparent 30%),
-    radial-gradient(circle at 85% 70%, rgba(255, 143, 199, 0.3), transparent 30%),
-    linear-gradient(180deg, #fbf7ff 0%, #fff5e5 100%);
-}
-
-.magic-grid {
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow-y: auto;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(12px, 1.8vw, 22px);
-  padding: 8px clamp(16px, 3vw, 36px) 10px;
-  align-content: start;
-}
-
-.magic-card {
-  position: relative;
-  min-height: 170px;
-  border-radius: 28px;
-  overflow: hidden;
-  background: #fff;
-  border: 3px solid #fff;
-  box-shadow: var(--shadow-soft);
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  text-align: left;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-}
-
-.magic-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 18px 34px rgba(84, 66, 118, 0.2);
-}
-
-.magic-card-art {
-  position: relative;
-  display: block;
-  flex: 1 1 auto;
-  min-height: 110px;
-  overflow: hidden;
-}
-
-.magic-card-art svg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.magic-card-copy {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding: 10px 14px 13px;
-  background: rgba(255, 255, 255, 0.9);
-}
-
-.magic-title {
-  font-size: 17px;
-  font-weight: 850;
-}
-
-.magic-subtitle {
-  font-size: 12px;
-  color: var(--muted);
-  font-weight: 700;
-}
-
-.magic-play {
-  position: absolute;
-  right: 12px;
-  bottom: 52px;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.88);
-  color: var(--ink);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: var(--shadow-soft);
-}
-
-.magic-note {
-  text-align: center;
-  padding: 0 20px 18px;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--muted);
-}
-
-.magic-scene-full {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  height: 100dvh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  background: #1f1e42;
-}
-
-.magic-header {
-  z-index: 3;
-}
-
-.magic-scene-stage {
-  position: relative;
-  flex: 1 1 auto;
-  min-height: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.magic-scene-stage svg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.magic-ribbon {
-  position: absolute;
-  left: 50%;
-  bottom: 26px;
-  transform: translateX(-50%);
-  padding: 10px 22px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.22);
-  color: #fff;
-  font-weight: 850;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-}
-
-.magic-butterfly {
-  animation: butterflyFloat 4.5s ease-in-out infinite;
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.wing {
-  transform-box: fill-box;
-}
-
-.wing-left {
-  transform-origin: 100% 50%;
-  animation: wingFlap 0.45s ease-in-out infinite alternate;
-}
-
-.wing-right {
-  transform-origin: 0% 50%;
-  animation: wingFlap 0.45s ease-in-out infinite alternate-reverse;
-}
-
-@keyframes butterflyFloat {
-  0%, 100% { translate: -30px 8px; }
-  50% { translate: 35px -18px; }
-}
-
-@keyframes wingFlap {
-  from { transform: rotateY(0deg) scaleX(1); }
-  to { transform: rotateY(0deg) scaleX(0.55); }
-}
-
-.bubbles {
-  animation: bubbleRise 4s ease-in-out infinite;
-}
-
-.magic-fish {
-  animation: fishSwim 5.5s ease-in-out infinite alternate;
-}
-
-@keyframes fishSwim {
-  from { translate: -55px 0; }
-  to { translate: 55px 0; }
-}
-
-@keyframes bubbleRise {
-  0%, 100% { translate: 0 0; opacity: 0.4; }
-  50% { translate: 0 -22px; opacity: 0.8; }
-}
-
-.magic-rocket {
-  animation: rocketLaunch 3.4s cubic-bezier(0.5, 0, 0.6, 1) infinite;
-}
-
-@keyframes rocketLaunch {
-  0%, 15% { translate: 0 100px; }
-  70%, 100% { translate: 0 -340px; }
-}
-
-.magic-flame {
-  animation: flameFlicker 0.22s ease-in-out infinite alternate;
-  transform-box: fill-box;
-  transform-origin: center top;
-}
-
-@keyframes flameFlicker {
-  from { transform: scaleY(0.82) scaleX(1.08); }
-  to { transform: scaleY(1.12) scaleX(0.92); }
-}
-
-.magic-unicorn {
-  animation: unicornTrot 1.5s ease-in-out infinite;
-}
-
-@keyframes unicornTrot {
-  0%, 100% { translate: 0 0; rotate: -1deg; }
-  50% { translate: 0 -10px; rotate: 1deg; }
-}
-
-.magic-dinosaur {
-  animation: dinoStomp 1.7s ease-in-out infinite;
-  transform-box: fill-box;
-  transform-origin: center bottom;
-}
-
-@keyframes dinoStomp {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  20% { transform: translateY(-8px) rotate(-1deg); }
-  40% { transform: translateY(4px) rotate(0.8deg); }
-  60% { transform: translateY(-5px) rotate(-0.5deg); }
-}
-
-.magic-flower {
-  animation: flowerBloom 4.5s ease-in-out infinite;
-  transform-box: fill-box;
-  transform-origin: center bottom;
-}
-
-@keyframes flowerBloom {
-  0%, 100% { transform: scale(0.9); }
-  50% { transform: scale(1.06); }
-}
-
-.flower-petals {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: petalsSway 3s ease-in-out infinite;
-}
-
-@keyframes petalsSway {
-  0%, 100% { rotate: -2deg; }
-  50% { rotate: 2deg; }
-}
-
-.magic-sparkles {
-  animation: sparkleBlink 2.2s ease-in-out infinite;
-}
-
-@keyframes sparkleBlink {
-  0%, 100% { opacity: 0.25; }
-  50% { opacity: 1; }
-}
-
-.magic-stars {
-  animation: sparkleBlink 1.8s ease-in-out infinite;
-}
-
 /* Parent */
 .parent-gate {
   width: 100%;
@@ -2567,11 +2292,6 @@ p {
 
 /* Responsive portrait and smaller iPads */
 @media (max-width: 900px) {
-  .home-card:nth-child(4),
-  .home-card:nth-child(5) {
-    grid-column: span 3;
-  }
-
   .home-cards {
     gap: 12px;
   }
@@ -2583,10 +2303,6 @@ p {
 
   .home-card-art {
     width: 54%;
-  }
-
-  .magic-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .brush-button {
@@ -2659,16 +2375,10 @@ p {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .home-card,
-  .home-card:nth-child(4),
-  .home-card:nth-child(5) {
+  .home-card {
     grid-column: span 1;
     min-height: 132px;
     padding: 14px;
-  }
-
-  .home-card:last-child {
-    grid-column: span 2;
   }
 
   .home-card-art {
@@ -2769,14 +2479,6 @@ p {
   .artwork-actions {
     width: 100%;
     justify-content: flex-start;
-  }
-
-  .magic-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .magic-card {
-    min-height: 145px;
   }
 
   .art-wall-frame {

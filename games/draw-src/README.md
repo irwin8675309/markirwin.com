@@ -22,7 +22,7 @@ sound in this project was made specifically for Little Artists inside this repos
 ## Features
 
 ### Drawing studio
-- Free Draw, Coloring Book, Sticker Studio, Magic Art, and My Artwork.
+- Free Draw, Coloring Book, Sticker Studio, and My Artwork.
 - Finger and Apple Pencil input through Pointer Events.
 - Pressure-responsive strokes with a forgiving default curve.
 - Tilt is used as a subtle width/opacity enhancement where the browser exposes it.
@@ -52,11 +52,6 @@ sound in this project was made specifically for Little Artists inside this repos
 - Reopen and continue editing, make copies, download PNGs, share where the Web Share
   API is available, and delete with confirmation.
 - My Art Wall slideshow.
-
-### Magic Art
-- Six animated SVG scenes: butterfly, ocean friends, rocket launch, unicorn rainbow,
-  dinosaur stomp, and a blooming garden.
-- The animation layer is independent of the drawing engine and can be expanded.
 
 ### Grown-up corner
 - Hold-to-confirm plus a simple adult question.
@@ -163,7 +158,6 @@ src/
   stickers/          Original sticker and background library
   storage/           IndexedDB artwork storage, settings, PNG rendering
   audio/             Synthesized Web Audio sounds
-  magic/             Original animated SVG scenes
   hooks/             Shared hooks
   styles/            Design system and responsive styles
   utils/             Shared helpers
@@ -173,10 +167,10 @@ public/              Manifest, service worker, original icons
 
 ## Development status
 
-Phases 1–4 are implemented: the drawing studio, coloring book, stickers/artwork, and
-Magic Art. Phase 5 remains an ongoing physical-iPad testing and polish pass. The most
-important remaining work is testing on the target iPad hardware, especially Pencil
-pressure, palm contact, offline reloads, and long drawing sessions.
+Phases 1–3 are implemented: the drawing studio, coloring book, and stickers/artwork.
+Phase 4 and 5 remain ongoing: additional creative polish and a physical-iPad testing
+pass. The most important remaining work is testing on the target iPad hardware,
+especially Pencil pressure, palm contact, offline reloads, and long drawing sessions.
 
 ## Privacy
 

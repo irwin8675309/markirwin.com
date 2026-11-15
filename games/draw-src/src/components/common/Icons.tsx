@@ -16,7 +16,6 @@ type IconName =
   | 'trash'
   | 'save'
   | 'gallery'
-  | 'magic'
   | 'sticker'
   | 'lock'
   | 'sound'
@@ -167,15 +166,6 @@ export function Icon({ name, size = 24, ...props }: IconProps) {
           <rect x="3" y="4" width="18" height="16" rx="3" />
           <path d="m3 16 5-5 4 4 3-3 6 6" />
           <circle cx="15.5" cy="8.5" r="1.5" />
-        </svg>
-      )
-    case 'magic':
-      return (
-        <svg {...common}>
-          <path d="m5 19 9-9" />
-          <path d="m14 4 .9 2.1L17 7l-2.1.9L14 10l-.9-2.1L11 7l2.1-.9L14 4Z" />
-          <path d="m19 11 .7 1.6 1.6.7-1.6.7L19 16l-.7-1.6-1.6-.7 1.6-.7L19 11Z" />
-          <path d="M6 3v3M4.5 4.5h3" />
         </svg>
       )
     case 'sticker':

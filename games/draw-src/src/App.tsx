@@ -4,7 +4,6 @@ import { StudioScreen } from './components/StudioScreen'
 import { ColoringGallery } from './components/ColoringGallery'
 import { ArtworkGallery } from './components/ArtworkGallery'
 import { ArtWall } from './components/ArtWall'
-import { MagicArt } from './components/MagicArt'
 import { ParentControls } from './components/parent/ParentControls'
 import { Modal } from './components/common/Modal'
 import { Icon } from './components/common/Icons'
@@ -39,7 +38,6 @@ type Screen =
   | 'stickers'
   | 'gallery'
   | 'art-wall'
-  | 'magic'
   | 'parent'
 
 export default function App() {
@@ -199,8 +197,6 @@ export default function App() {
               setScreen('stickers')
             } else if (destination === 'coloring') {
               setScreen('coloring-gallery')
-            } else if (destination === 'magic') {
-              setScreen('magic')
             } else {
               setScreen('gallery')
             }
@@ -283,10 +279,6 @@ export default function App() {
 
   if (screen === 'art-wall') {
     return <ArtWall artworks={artworks} onBack={() => setScreen('gallery')} />
-  }
-
-  if (screen === 'magic') {
-    return <MagicArt onBack={() => setScreen('home')} />
   }
 
   if (screen === 'parent') {
