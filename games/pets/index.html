@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#8fd8ff" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="description" content="A joyful, gentle adventure game for Ghosty, Spin, and Oakley." />
+  <title>Pets Game</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='36' r='18' fill='%23ffb36b'/%3E%3Cellipse cx='16' cy='20' rx='7' ry='9' fill='%23ffb36b'/%3E%3Cellipse cx='48' cy='20' rx='7' ry='9' fill='%23ffb36b'/%3E%3Cellipse cx='25' cy='13' rx='6' ry='8' fill='%23ffd39b'/%3E%3Cellipse cx='39' cy='13' rx='6' ry='8' fill='%23ffd39b'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles/main.css?v=35" />
+</head>
+<body>
+  <div id="app">
+    <div id="game-container" aria-label="Pets Game play area"></div>
+
+    <div id="ui">
+      <!-- Loading -->
+      <section id="screen-loading" class="screen screen--loading is-active">
+        <div class="loading-card">
+          <div class="loading-paw" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <div class="loading-title">Pets Game</div>
+          <div class="loading-dots"><i></i><i></i><i></i></div>
+        </div>
+      </section>
+
+      <!-- Main menu -->
+      <section id="screen-menu" class="screen screen--menu" aria-label="Main menu">
+        <div class="menu-top">
+          <div class="menu-actions">
+            <button class="icon-btn sound-btn" id="btn-music" aria-label="Toggle music" title="Music">
+              <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 25h9l13-10v34L21 39h-9z" fill="currentColor"/><path class="music-wave" d="M43 22c5 5 5 15 0 20" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path class="music-wave" d="M50 15c9 9 9 25 0 34" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>
+            </button>
+            <button class="icon-btn" id="btn-sfx" aria-label="Toggle sound effects" title="Sound effects">
+              <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 25h9l13-10v34L21 39h-9z" fill="currentColor"/><path d="M43 20l12 24M55 20L43 44" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+          <div class="menu-actions">
+            <button class="icon-btn sanctuary-btn" id="btn-sanctuary" aria-label="Animal sanctuary" title="Sanctuary">
+              <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 52S10 39 10 24c0-8 7-13 14-13 4 0 7 2 8 5 1-3 4-5 8-5 7 0 14 5 14 13 0 15-22 28-22 28z" fill="currentColor"/><path d="M22 29c1-4 4-6 8-6M36 23c3 0 6 2 7 5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>
+            </button>
+            <button class="icon-btn parent-btn" id="btn-parents" aria-label="Parent options" title="Parents">
+              <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="14" y="27" width="36" height="27" rx="8" fill="currentColor"/><path d="M22 27v-6a10 10 0 0120 0v6" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle cx="32" cy="40" r="4" fill="#fff"/><path d="M32 44v5" stroke="#fff" stroke-width="4" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="menu-center">
+          <div class="title-wrap">
+            <div class="title-sparkle s1">✦</div>
+            <div class="title-sparkle s2">✦</div>
+            <div class="title-sparkle s3">✦</div>
+            <h1 class="game-title"><span>Pets</span><span>Game</span></h1>
+            <div class="title-ribbon">Ghosty <i></i> Spin <i></i> Oakley</div>
+          </div>
+        </div>
+
+        <div class="menu-pets" aria-hidden="true">
+          <img class="menu-pet ghosty" id="menu-ghosty" alt="" />
+          <img class="menu-pet spin" id="menu-spin" alt="" />
+          <img class="menu-pet oakley" id="menu-oakley" alt="" />
+        </div>
+
+        <div class="menu-bottom">
+          <button class="big-btn play-btn" id="btn-play">
+            <span class="play-triangle" aria-hidden="true"></span>
+            <span>PLAY</span>
+          </button>
+          <button class="pill-btn" id="btn-choose-pet">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="22" cy="43" rx="9" ry="12" fill="currentColor"/><ellipse cx="42" cy="43" rx="9" ry="12" fill="currentColor"/><ellipse cx="32" cy="30" rx="11" ry="14" fill="currentColor"/><circle cx="12" cy="26" r="6" fill="currentColor"/><circle cx="52" cy="26" r="6" fill="currentColor"/><circle cx="22" cy="16" r="6" fill="currentColor"/><circle cx="42" cy="16" r="6" fill="currentColor"/></svg>
+            <span>Choose Pet</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Pet selection -->
+      <section id="screen-pets" class="screen screen--pets" aria-label="Choose a pet">
+        <header class="screen-header">
+          <button class="round-btn back-btn" data-action="back-menu" aria-label="Back">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M38 14L20 32l18 18" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="screen-title">Who will play?</div>
+          <div class="header-space"></div>
+        </header>
+        <div class="pet-cards" id="pet-cards"></div>
+        <div class="pets-footer">
+          <button class="big-btn coral-btn" id="btn-pets-go">
+            <span class="btn-sparkle" aria-hidden="true">✦</span>
+            Let’s Go!
+          </button>
+        </div>
+      </section>
+
+      <!-- Level map -->
+      <section id="screen-map" class="screen screen--map" aria-label="Choose a world">
+        <header class="screen-header">
+          <button class="round-btn back-btn" data-action="back-pets" aria-label="Back">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M38 14L20 32l18 18" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="screen-title">Pick a World</div>
+          <button class="pet-badge-btn" id="btn-map-pet" aria-label="Change pet">
+            <img id="map-pet-img" alt="" />
+            <span class="change-dot">↻</span>
+          </button>
+        </header>
+        <div class="level-grid" id="level-grid"></div>
+        <div class="map-tip">
+          <span class="tip-heart">♥</span>
+          <span>Every world is a happy adventure</span>
+        </div>
+      </section>
+
+      <!-- Sanctuary -->
+      <section id="screen-sanctuary" class="screen screen--sanctuary" aria-label="Animal sanctuary">
+        <header class="screen-header">
+          <button class="round-btn back-btn" data-action="back-menu" aria-label="Back">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M38 14L20 32l18 18" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="screen-title">Animal Sanctuary</div>
+          <div class="header-space"></div>
+        </header>
+        <div class="sanctuary-intro">
+          <div class="sanctuary-heart">♥</div>
+          <div id="sanctuary-count">Friends helped</div>
+        </div>
+        <div class="sanctuary-grid" id="sanctuary-grid"></div>
+      </section>
+
+      <!-- In-game HUD -->
+      <div id="game-hud" class="game-hud" aria-hidden="true">
+        <div class="hud-left">
+          <div class="hud-pet"><img id="hud-pet-img" alt="" /></div>
+          <div class="hud-count"><span class="hud-star" aria-hidden="true">★</span><span id="hud-count" aria-live="polite">0</span></div>
+        </div>
+        <div class="hud-progress">
+          <div class="progress-track"><div class="progress-fill" id="progress-fill"></div><div class="progress-paw" id="progress-paw">🐾</div></div>
+        </div>
+        <div class="hud-right">
+          <button class="icon-btn hud-icon" id="btn-hud-music" aria-label="Toggle music">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 25h9l13-10v34L21 39h-9z" fill="currentColor"/><path class="music-wave" d="M43 22c5 5 5 15 0 20" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>
+          </button>
+          <button class="icon-btn hud-icon" id="btn-pause" aria-label="Pause">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="17" y="14" width="10" height="36" rx="5" fill="currentColor"/><rect x="37" y="14" width="10" height="36" rx="5" fill="currentColor"/></svg>
+          </button>
+        </div>
+        <button id="btn-jump" class="jump-btn" aria-label="Jump">
+          <span class="jump-arrow" aria-hidden="true"></span>
+          <span class="jump-label">JUMP</span>
+        </button>
+        <div id="rescue-prompt" class="rescue-prompt" aria-hidden="true">
+          <div class="rescue-heart">♥</div>
+          <img id="rescue-img" alt="" />
+          <button id="btn-rescue" class="big-btn rescue-btn">Help!</button>
+        </div>
+        <div id="game-toast" class="game-toast" aria-live="polite"></div>
+      </div>
+
+      <!-- Pause modal -->
+      <div id="modal-pause" class="modal" aria-hidden="true">
+        <div class="modal-card pause-card">
+          <div class="pause-title">A little break</div>
+          <button class="big-btn green-btn" id="btn-resume">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M22 14l26 18-26 18z" fill="currentColor"/></svg>
+            Keep Playing
+          </button>
+          <div class="pause-pets" id="pause-pets" aria-label="Change pet"></div>
+          <button class="pill-btn soft-btn" id="btn-pause-home">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 32L32 12l22 20v22H39V39H25v15H10z" fill="currentColor"/></svg>
+            Home
+          </button>
+        </div>
+      </div>
+
+      <!-- Level complete -->
+      <div id="modal-complete" class="modal complete-modal" aria-hidden="true">
+        <div class="complete-card">
+          <div class="complete-rays" aria-hidden="true"></div>
+          <div class="complete-stars" aria-hidden="true"><span>★</span><span>★</span><span>★</span></div>
+          <div class="complete-title">Hooray!</div>
+          <div class="complete-sub">You and <span id="complete-pet">Ghosty</span> did it!</div>
+          <div class="complete-pet-wrap"><img id="complete-pet-img" alt="" /></div>
+          <div class="complete-actions">
+            <button class="big-btn coral-btn" id="btn-complete-next">Continue</button>
+            <button class="round-btn complete-home" id="btn-complete-home" aria-label="Home">
+              <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 32L32 12l22 20v22H39V39H25v15H10z" fill="currentColor"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Parent modal -->
+      <div id="modal-parent" class="modal parent-modal" aria-hidden="true">
+        <div class="modal-card parent-card">
+          <div class="parent-lock" aria-hidden="true">⌁</div>
+          <div class="parent-title">Grown-up corner</div>
+          <p class="parent-copy">Progress is saved on this device. Resetting cannot be undone.</p>
+          <button class="danger-btn" id="btn-reset-hold">
+            <span class="hold-fill" id="reset-fill"></span>
+            Hold to reset
+          </button>
+          <button class="pill-btn soft-btn" id="btn-parent-close">Close</button>
+        </div>
+      </div>
+
+      <!-- Orientation hint -->
+      <div id="rotate-hint" class="rotate-hint" aria-hidden="true">
+        <svg viewBox="0 0 100 100"><rect x="28" y="12" width="44" height="76" rx="10" fill="none" stroke="currentColor" stroke-width="6"/><path d="M50 24v-9M41 18l9-9 9 9" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+      <div id="fade-wipe" class="fade-wipe" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <script src="assets/vendor/phaser.min.js"></script>
+  <script type="module" src="src/main.js?v=18"></script>
+</body>
+</html>

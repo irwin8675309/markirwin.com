@@ -1,0 +1,17 @@
+{
+  "name": "pets-game",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A joyful original browser adventure starring Ghosty, Spin, and Oakley.",
+  "scripts": {
+    "start": "python3 serve.py",
+    "serve": "python3 -m http.server 8080"
+  },
+  "keywords": [
+    "game",
+    "phaser",
+    "kids",
+    "pets"
+  ],
+  "license": "UNLICENSED"
+}
