@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Pony Palace">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#ffd6ec">
+<meta name="format-detection" content="telephone=no">
+<title>Enchanted Pony Palace</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+  <div id="scene"></div>
+  <div id="critters"></div>
+
+  <!-- 1. Welcome -->
+  <section id="welcome" class="screen">
+    <h1 class="title"><span>Enchanted</span><span>Pony Palace</span></h1>
+    <div class="welcome-ponies"><div id="wp1" class="pony"></div><div id="wp2" class="pony"></div></div>
+    <button id="playBtn" class="btn green pulse" aria-label="Play"></button>
+  </section>
+
+  <!-- 2. Character selection -->
+  <section id="select" class="screen">
+    <div class="sel-head">
+      <button id="slot0" class="slot" aria-label="Player one"></button>
+      <button id="slot1" class="slot" aria-label="Player two"></button>
+      <button id="goBtn" class="btn green" aria-label="Go"></button>
+    </div>
+    <div id="grid"></div>
+  </section>
+
+  <!-- 3 + 4. Magical meadow and care activities -->
+  <section id="play" class="screen">
+    <div id="progress"></div>
+    <div id="stage"><div id="pony" class="pony"></div></div>
+    <div id="tray"></div>
+  </section>
+
+  <!-- 5. Celebration -->
+  <section id="celebrate" class="screen">
+    <div id="cmsg"></div>
+    <div id="cstage"><div id="cpony" class="pony"></div></div>
+    <div id="cstars"></div>
+    <div id="cbtns"></div>
+  </section>
+
+  <header id="topbar">
+    <button id="homeBtn" class="btn small pink" aria-label="Home"></button>
+    <div id="switcher"></div>
+    <div class="spacer"></div>
+    <div id="starsBox"><span class="ico"></span><b id="starCount">0</b></div>
+    <button id="musicBtn" class="btn small purple" aria-label="Music"></button>
+    <button id="sfxBtn" class="btn small blue" aria-label="Sound"></button>
+  </header>
+
+  <div id="flash"></div>
+  <div id="fx"></div>
+</div>
+<script src="js/art.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
