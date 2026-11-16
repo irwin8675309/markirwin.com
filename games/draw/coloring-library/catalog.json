@@ -20,6 +20,21 @@
           "prompt": "Original friendly elephant with large ears, rounded body, and a curled trunk. Thick black outlines, white background, large fillable regions, no text or watermark.",
           "rightsNotes": "Original illustration created for this project. It does not depict a recognizable copyrighted character.",
           "usageTerms": "Included with this application for personal and educational use."
+        },
+        {
+          "id": "horse-001",
+          "name": "Friendly Horse",
+          "image": "images/animals/horse-001.png",
+          "thumbnail": "thumbnails/animals/horse-001.png",
+          "format": "png",
+          "difficulty": "medium",
+          "published": true,
+          "sourceType": "AI-generated artwork",
+          "provider": "Grok (xAI)",
+          "generatedDate": "2026-11-15",
+          "prompt": "Redraw of an earlier farm-scene horse page as a simplified, square children's coloring page. Prompt supplied to Grok: friendly horse standing and facing left with flowing mane and tail, large and centered, simple barn and one fence section (scene simplified further by Grok); 1:1 square, pure white background, thick pure black outlines, large closed shapes, no color/gray/shading, no text or watermark, original design. The exact prompt entered into Grok was not recorded verbatim.",
+          "rightsNotes": "AI-generated artwork supplied by the site owner. Not labeled public domain or CC0; provider terms apply. No recognizable copyrighted character or branded mascot.",
+          "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
         }
       ]
     },
