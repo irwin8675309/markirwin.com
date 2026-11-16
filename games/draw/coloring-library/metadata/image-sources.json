@@ -1,0 +1,127 @@
+{
+  "version": 1,
+  "lastUpdated": "2026-11-15",
+  "notes": "This file documents the provenance of every sample image. Replace or extend it when adding new artwork. Do not mark AI-generated artwork as public domain or CC0 without checking the provider's applicable terms.",
+  "sources": [
+    {
+      "id": "elephant-001",
+      "provider": "Hand-authored original SVG for Little Canvas",
+      "generatedDate": "2026-11-15",
+      "prompt": "Friendly elephant with large ears, rounded body, and a curled trunk; thick black outlines; white background; large fillable regions.",
+      "humanModifications": "Vector paths authored and reviewed for child-friendly line-art quality, then rasterized to a 1024×1024 PNG for the library.",
+      "rightsNotes": "Original illustration. No recognizable copyrighted character or branded mascot.",
+      "attribution": "No attribution required for this sample.",
+      "usageTerms": "Included with this application for personal and educational use."
+    },
+    {
+      "id": "kitten-001",
+      "provider": "Hand-authored original SVG for Little Canvas",
+      "generatedDate": "2026-11-15",
+      "prompt": "Original kitten with triangular ears, round face, curled tail, and simple paws; thick black outlines; white background.",
+      "humanModifications": "Vector paths authored and reviewed for child-friendly line-art quality.",
+      "rightsNotes": "Original illustration.",
+      "attribution": "No attribution required for this sample.",
+      "usageTerms": "Included with this application for personal and educational use."
+    },
+    {
+      "id": "puppy-001",
+      "provider": "Hand-authored original SVG for Little Canvas",
+      "generatedDate": "2026-11-15",
+      "prompt": "Original floppy-eared puppy with a collar and wagging tail; thick black outlines; white background.",
+      "humanModifications": "Vector paths authored and reviewed for child-friendly line-art quality.",
+      "rightsNotes": "Original illustration.",
+      "attribution": "No attribution required for this sample.",
+      "usageTerms": "Included with this application for personal and educational use."
+    },
+    {
+      "id": "brontosaurus-001",
+      "provider": "Hand-authored original SVG for Little Canvas",
+      "generatedDate": "2026-11-15",
+      "prompt": "Original friendly long-necked dinosaur with simple spots and rounded feet; thick black outlines; white background.",
+      "humanModifications": "Vector paths authored and reviewed for child-friendly line-art quality.",
+      "rightsNotes": "Original illustration.",
+      "attribution": "No attribution required for this sample.",
+      "usageTerms": "Included with this application for personal and educational use."
+    },
+    {
+      "id": "unicorn-001",
+      "provider": "Hand-authored original SVG for Little Canvas",
+      "generatedDate": "2026-11-15",
+      "prompt": "Original unicorn head with a spiral horn, flowing mane, and a few stars; thick black outlines; white background.",
+      "humanModifications": "Vector paths authored and reviewed for child-friendly line-art quality.",
+      "rightsNotes": "Original illustration.",
+      "attribution": "No attribution required for this sample.",
+      "usageTerms": "Included with this application for personal and educational use."
+    },
+    {
+      "id": "dragon-001",
+      "provider": "Hand-authored original SVG for Little Canvas",
+      "generatedDate": "2026-11-15",
+      "prompt": "Original friendly dragon with wings, spikes, a curled tail, and small scales; thick black outlines; white background; detailed regions.",
+      "humanModifications": "Vector paths authored and reviewed for child-friendly line-art quality.",
+      "rightsNotes": "Original illustration.",
+      "attribution": "No attribution required for this sample.",
+      "usageTerms": "Included with this application for personal and educational use."
+    },
+    {
+      "id": "castle-001",
+      "provider": "Hand-authored original SVG for Little Canvas",
+      "generatedDate": "2026-11-15",
+      "prompt": "Original storybook castle with several towers, flags, windows, and a large gate; thick black outlines; white background; many fillable regions.",
+      "humanModifications": "Vector paths authored and reviewed for child-friendly line-art quality.",
+      "rightsNotes": "Original illustration.",
+      "attribution": "No attribution required for this sample.",
+      "usageTerms": "Included with this application for personal and educational use."
+    },
+    {
+      "id": "fairy-001",
+      "provider": "Hand-authored original SVG for Little Canvas",
+      "generatedDate": "2026-11-15",
+      "prompt": "Original garden fairy with butterfly wings, a simple dress, and a wand; thick black outlines; white background.",
+      "humanModifications": "Vector paths authored and reviewed for child-friendly line-art quality.",
+      "rightsNotes": "Original illustration.",
+      "attribution": "No attribution required for this sample.",
+      "usageTerms": "Included with this application for personal and educational use."
+    },
+    {
+      "id": "car-001",
+      "provider": "Hand-authored original SVG for Little Canvas",
+      "generatedDate": "2026-11-15",
+      "prompt": "Original simple car with two windows, round wheels, and a friendly shape; thick black outlines; white background.",
+      "humanModifications": "Vector paths authored and reviewed for child-friendly line-art quality.",
+      "rightsNotes": "Original illustration.",
+      "attribution": "No attribution required for this sample.",
+      "usageTerms": "Included with this application for personal and educational use."
+    },
+    {
+      "id": "flower-001",
+      "provider": "Hand-authored original SVG for Little Canvas",
+      "generatedDate": "2026-11-15",
+      "prompt": "Original cheerful flower with round petals, leaves, a pot, and a smiling sun; thick black outlines; white background.",
+      "humanModifications": "Vector paths authored and reviewed for child-friendly line-art quality.",
+      "rightsNotes": "Original illustration.",
+      "attribution": "No attribution required for this sample.",
+      "usageTerms": "Included with this application for personal and educational use."
+    },
+    {
+      "id": "fish-001",
+      "provider": "Hand-authored original SVG for Little Canvas",
+      "generatedDate": "2026-11-15",
+      "prompt": "Original friendly fish with fins, scales, bubbles, and seaweed; thick black outlines; white background.",
+      "humanModifications": "Vector paths authored and reviewed for child-friendly line-art quality.",
+      "rightsNotes": "Original illustration.",
+      "attribution": "No attribution required for this sample.",
+      "usageTerms": "Included with this application for personal and educational use."
+    },
+    {
+      "id": "snowman-001",
+      "provider": "Hand-authored original SVG for Little Canvas",
+      "generatedDate": "2026-11-15",
+      "prompt": "Original friendly snowman with a hat, scarf, twig arms, and a snowy ground; thick black outlines; white background.",
+      "humanModifications": "Vector paths authored and reviewed for child-friendly line-art quality.",
+      "rightsNotes": "Original illustration.",
+      "attribution": "No attribution required for this sample.",
+      "usageTerms": "Included with this application for personal and educational use."
+    }
+  ]
+}
