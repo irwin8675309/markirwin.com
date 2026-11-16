@@ -123,48 +123,6 @@
       ]
     },
     {
-      "id": "princesses",
-      "name": "Princesses & Castles",
-      "images": [
-        {
-          "id": "castle-001",
-          "name": "Storybook Castle",
-          "image": "images/princesses/castle.svg",
-          "thumbnail": "thumbnails/princesses/castle.png",
-          "format": "svg",
-          "difficulty": "advanced",
-          "published": true,
-          "sourceType": "Original vector artwork",
-          "provider": "Hand-authored for Little Canvas",
-          "generatedDate": "2026-11-15",
-          "prompt": "Original storybook castle with several towers, flags, windows, and a large gate. Thick black outlines, white background, many fillable regions, no text or watermark.",
-          "rightsNotes": "Original illustration created for this project.",
-          "usageTerms": "Included with this application for personal and educational use."
-        }
-      ]
-    },
-    {
-      "id": "fairies",
-      "name": "Fairies",
-      "images": [
-        {
-          "id": "fairy-001",
-          "name": "Garden Fairy",
-          "image": "images/fairies/fairy.svg",
-          "thumbnail": "thumbnails/fairies/fairy.png",
-          "format": "svg",
-          "difficulty": "medium",
-          "published": true,
-          "sourceType": "Original vector artwork",
-          "provider": "Hand-authored for Little Canvas",
-          "generatedDate": "2026-11-15",
-          "prompt": "Original garden fairy with butterfly wings, a simple dress, and a wand. Thick black outlines, white background, medium detail, no text or watermark.",
-          "rightsNotes": "Original illustration created for this project.",
-          "usageTerms": "Included with this application for personal and educational use."
-        }
-      ]
-    },
-    {
       "id": "vehicles",
       "name": "Vehicles",
       "images": [
@@ -201,48 +159,6 @@
           "provider": "Hand-authored for Little Canvas",
           "generatedDate": "2026-11-15",
           "prompt": "Original cheerful flower with round petals, leaves, a pot, and a smiling sun. Thick black outlines, white background, large fillable regions, no text or watermark.",
-          "rightsNotes": "Original illustration created for this project.",
-          "usageTerms": "Included with this application for personal and educational use."
-        }
-      ]
-    },
-    {
-      "id": "underwater",
-      "name": "Underwater",
-      "images": [
-        {
-          "id": "fish-001",
-          "name": "Bubble Fish",
-          "image": "images/underwater/fish.svg",
-          "thumbnail": "thumbnails/underwater/fish.png",
-          "format": "svg",
-          "difficulty": "medium",
-          "published": true,
-          "sourceType": "Original vector artwork",
-          "provider": "Hand-authored for Little Canvas",
-          "generatedDate": "2026-11-15",
-          "prompt": "Original friendly fish with fins, scales, bubbles, and seaweed. Thick black outlines, white background, medium detail, no text or watermark.",
-          "rightsNotes": "Original illustration created for this project.",
-          "usageTerms": "Included with this application for personal and educational use."
-        }
-      ]
-    },
-    {
-      "id": "holidays",
-      "name": "Holidays",
-      "images": [
-        {
-          "id": "snowman-001",
-          "name": "Snow Day Friend",
-          "image": "images/holidays/snowman.svg",
-          "thumbnail": "thumbnails/holidays/snowman.png",
-          "format": "svg",
-          "difficulty": "easy",
-          "published": true,
-          "sourceType": "Original vector artwork",
-          "provider": "Hand-authored for Little Canvas",
-          "generatedDate": "2026-11-15",
-          "prompt": "Original friendly snowman with a hat, scarf, twig arms, and a snowy ground. Thick black outlines, white background, large fillable regions, no text or watermark.",
           "rightsNotes": "Original illustration created for this project.",
           "usageTerms": "Included with this application for personal and educational use."
         }
