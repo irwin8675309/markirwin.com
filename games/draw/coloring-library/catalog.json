@@ -106,21 +106,6 @@
       "name": "Unicorns",
       "images": [
         {
-          "id": "unicorn-001",
-          "name": "Twilight Unicorn",
-          "image": "images/unicorns/unicorn.svg",
-          "thumbnail": "thumbnails/unicorns/unicorn.png",
-          "format": "svg",
-          "difficulty": "medium",
-          "published": true,
-          "sourceType": "Original vector artwork",
-          "provider": "Hand-authored for Little Canvas",
-          "generatedDate": "2026-11-15",
-          "prompt": "Original unicorn head with a spiral horn, flowing mane, and a few stars. Thick black outlines, white background, medium detail, no text or watermark.",
-          "rightsNotes": "Original illustration created for this project.",
-          "usageTerms": "Included with this application for personal and educational use."
-        },
-        {
           "id": "unicorn-002",
           "name": "Jumping Unicorn",
           "image": "images/unicorns/unicorn-002.png",
@@ -134,27 +119,6 @@
           "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a jumping unicorn (cartoon unicorn leaping over grass tufts, flowing mane and tail, striped horn). The exact prompt entered into Grok was not recorded.",
           "rightsNotes": "AI-generated artwork supplied by the site owner. Not labeled public domain or CC0; provider terms apply. No recognizable copyrighted character or branded mascot.",
           "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
-        }
-      ]
-    },
-    {
-      "id": "fantasy",
-      "name": "Fantasy",
-      "images": [
-        {
-          "id": "dragon-001",
-          "name": "Friendly Dragon",
-          "image": "images/fantasy/dragon.svg",
-          "thumbnail": "thumbnails/fantasy/dragon.png",
-          "format": "svg",
-          "difficulty": "advanced",
-          "published": true,
-          "sourceType": "Original vector artwork",
-          "provider": "Hand-authored for Little Canvas",
-          "generatedDate": "2026-11-15",
-          "prompt": "Original friendly dragon with wings, spikes, a curled tail, and small scales. Thick black outlines, white background, detailed fillable regions, no text or watermark.",
-          "rightsNotes": "Original illustration created for this project.",
-          "usageTerms": "Included with this application for personal and educational use."
         }
       ]
     },
