@@ -132,6 +132,16 @@
       "rightsNotes": "AI-generated artwork. Not labeled public domain or CC0; provider terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot.",
       "attribution": "None required by this project; check xAI's terms.",
       "usageTerms": "Subject to xAI's applicable terms for Grok output."
+    },
+    {
+      "id": "unicorn-002",
+      "provider": "Grok (xAI)",
+      "generatedDate": "unknown",
+      "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a jumping unicorn (cartoon unicorn leaping over grass tufts, flowing mane and tail, striped horn). The exact prompt entered into Grok was not recorded.",
+      "humanModifications": "Received as a 784×1168 portrait JPEG. Converted to PNG and placed on a 1024×1024 square white canvas (subject scaled to about 944 px tall and centered, with margins); cleaned JPEG compression noise so lines are near-black (#111111) on pure white; removed one faint stray gray line near the ear; thickened lines (median stroke about 4.5 px to about 10 px at 1024×1024); filled tiny white specks (under 60 px), including the small white glint in the eye. Thumbnail created at 420×420. Subject and composition unchanged.",
+      "rightsNotes": "AI-generated artwork. Not labeled public domain or CC0; provider terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot.",
+      "attribution": "None required by this project; check xAI's terms.",
+      "usageTerms": "Subject to xAI's applicable terms for Grok output."
     }
   ]
 }

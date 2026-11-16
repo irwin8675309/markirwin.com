@@ -119,6 +119,21 @@
           "prompt": "Original unicorn head with a spiral horn, flowing mane, and a few stars. Thick black outlines, white background, medium detail, no text or watermark.",
           "rightsNotes": "Original illustration created for this project.",
           "usageTerms": "Included with this application for personal and educational use."
+        },
+        {
+          "id": "unicorn-002",
+          "name": "Jumping Unicorn",
+          "image": "images/unicorns/unicorn-002.png",
+          "thumbnail": "thumbnails/unicorns/unicorn-002.png",
+          "format": "png",
+          "difficulty": "medium",
+          "published": true,
+          "sourceType": "AI-generated artwork",
+          "provider": "Grok (xAI)",
+          "generatedDate": "unknown",
+          "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a jumping unicorn (cartoon unicorn leaping over grass tufts, flowing mane and tail, striped horn). The exact prompt entered into Grok was not recorded.",
+          "rightsNotes": "AI-generated artwork supplied by the site owner. Not labeled public domain or CC0; provider terms apply. No recognizable copyrighted character or branded mascot.",
+          "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
         }
       ]
     },
