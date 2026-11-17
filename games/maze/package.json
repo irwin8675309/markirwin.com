@@ -1,0 +1,14 @@
+{
+  "name": "maze-adventures",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A gentle, colorful maze adventure for Ghosty, Spin and Oakley.",
+  "scripts": {
+    "start": "python3 serve.py",
+    "serve": "python3 -m http.server 8080",
+    "check": "node --check src/config.js && node --check src/art.js && node --check src/world-art.js && node --check src/maze.js && node --check src/audio.js && node --check src/storage.js && node --check src/render.js && node --check src/game.js && node --check src/ui.js && node --check src/main.js"
+  },
+  "keywords": ["game", "maze", "kids", "ipad", "canvas"],
+  "license": "UNLICENSED"
+}
