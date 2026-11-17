@@ -47,6 +47,7 @@
   a.game:hover, a.game:focus { transform: translateY(-4px) scale(1.04); }
   a.game:active { transform: translateY(3px); box-shadow: 0 2px 0 #6a1fb5; }
   a.game .icon { display: block; font-size: 3.5rem; margin-bottom: 8px; }
+  a.game .icon svg { width: 3.5rem; height: 3.5rem; display: inline-block; vertical-align: top; }
 </style>
 </head>
 <body>
@@ -57,8 +58,8 @@
     <a class="game" href="pony2/"><span class="icon">🐴</span>Pony 2</a>
     <a class="game" href="pets/"><span class="icon">🐶</span>Pets</a>
     <a class="game" href="draw/"><span class="icon">🎨</span>Draw</a>
-    <a class="game" href="maze/"><span class="icon">🧩</span>Maze</a>
-    <a class="game" href="tilt/"><span class="icon">🎯</span>Tilt</a>
+    <a class="game" href="maze/"><span class="icon"><svg viewBox="0 0 60 60" fill="none" stroke="#8a2be2" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18V6H54V54H6V30"/><path d="M22 6V24H38V42H22"/></svg></span>Maze</a>
+    <a class="game" href="tilt/"><span class="icon"><svg viewBox="0 0 60 60" aria-hidden="true"><defs><radialGradient id="marbleG" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="#fff"/><stop offset="0.3" stop-color="#7ec8ff"/><stop offset="0.7" stop-color="#3a7bd5"/><stop offset="1" stop-color="#1b3f8f"/></radialGradient></defs><circle cx="30" cy="30" r="26" fill="url(#marbleG)"/><path d="M16 34C20 24 30 20 42 26" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="3" stroke-linecap="round"/></svg></span>Tilt</a>
   </div>
 </body>
 </html>
