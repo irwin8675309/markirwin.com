@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#8fd8ff" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="description" content="Pet Tilt Adventures - a gentle tilt-controlled marble adventure starring Ghosty, Spin and Oakley." />
+  <title>Pet Tilt Adventures</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='38' r='17' fill='%23fff'/%3E%3Ccircle cx='32' cy='38' r='17' fill='none' stroke='%238f7dff' stroke-width='4'/%3E%3Cellipse cx='15' cy='20' rx='7' ry='9' fill='%23fff'/%3E%3Cellipse cx='49' cy='20' rx='7' ry='9' fill='%23fff'/%3E%3Cellipse cx='25' cy='12' rx='6' ry='8' fill='%23fff'/%3E%3Cellipse cx='39' cy='12' rx='6' ry='8' fill='%23fff'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+  <div id="app">
+    <canvas id="game-canvas" aria-label="Pet Tilt Adventures play area"></canvas>
+
+    <div id="ui">
+
+      <!-- ============================ LOADING ============================ -->
+      <section id="screen-loading" class="screen screen--loading is-active" aria-label="Loading">
+        <div class="loading-card">
+          <div class="loading-paw" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="loading-title">Pet Tilt Adventures</div>
+          <div class="loading-dots"><i></i><i></i><i></i></div>
+          <div class="loading-tip" id="loading-tip">Getting the garden ready…</div>
+        </div>
+      </section>
+
+      <!-- ============================== HOME ============================== -->
+      <section id="screen-home" class="screen screen--home" aria-label="Pet Tilt Adventures home">
+        <div class="home-bg" aria-hidden="true">
+          <span class="bg-cloud c1"></span><span class="bg-cloud c2"></span><span class="bg-cloud c3"></span>
+          <span class="bg-hill h1"></span><span class="bg-hill h2"></span>
+          <span class="bg-sun"></span>
+          <span class="bg-sparkle s1">✦</span><span class="bg-sparkle s2">✦</span><span class="bg-sparkle s3">✦</span>
+        </div>
+
+        <header class="home-top">
+          <div class="brand-chip">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="38" r="16" fill="#fff" opacity=".9"/><circle cx="32" cy="38" r="16" fill="none" stroke="#8f7dff" stroke-width="4"/><circle cx="15" cy="20" r="6.5" fill="#fff" opacity=".9"/><circle cx="49" cy="20" r="6.5" fill="#fff" opacity=".9"/><circle cx="25" cy="12" r="5.5" fill="#fff" opacity=".9"/><circle cx="39" cy="12" r="5.5" fill="#fff" opacity=".9"/></svg>
+            <span>Pet Tilt Adventures</span>
+          </div>
+          <div class="top-actions">
+            <button class="icon-btn" id="btn-stickers" aria-label="Sticker book" title="Sticker book">
+              <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 8l6 15 16 1-12 11 4 16-14-8-14 8 4-16L10 24l16-1z" fill="currentColor"/><circle cx="32" cy="32" r="5" fill="#fff"/></svg>
+            </button>
+            <button class="icon-btn" id="btn-settings" aria-label="Settings" title="Settings">
+              <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="8" fill="none" stroke="currentColor" stroke-width="5"/><path d="M32 8v8M32 48v8M8 32h8M48 32h8M15 15l6 6M43 43l6 6M49 15l-6 6M21 43l-6 6" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>
+            </button>
+            <button class="icon-btn" id="btn-sound" aria-label="Toggle sound" title="Sound">
+              <svg class="icon-sound-on" viewBox="0 0 64 64" aria-hidden="true"><path d="M12 25h9l13-10v34L21 39h-9z" fill="currentColor"/><path d="M43 22c5 5 5 15 0 20" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path d="M50 15c9 9 9 25 0 34" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>
+              <svg class="icon-sound-off" viewBox="0 0 64 64" aria-hidden="true"><path d="M12 25h9l13-10v34L21 39h-9z" fill="currentColor"/><path d="M43 20l12 24M55 20L43 44" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+        </header>
+
+        <div class="title-wrap">
+          <div class="title-sparkle ts1">✦</div>
+          <div class="title-sparkle ts2">✦</div>
+          <h1 class="game-title"><span>Pet</span><span class="title-accent">Tilt</span><span>Adventures</span></h1>
+          <div class="title-ribbon">Ghosty <i></i> Spin <i></i> Oakley</div>
+        </div>
+
+        <div class="home-pets" aria-hidden="true">
+          <img class="home-pet pet-ghosty" id="home-ghosty" alt="" />
+          <img class="home-pet pet-spin" id="home-spin" alt="" />
+          <img class="home-pet pet-oakley" id="home-oakley" alt="" />
+          <span class="home-pet-shadow sh1"></span><span class="home-pet-shadow sh2"></span><span class="home-pet-shadow sh3"></span>
+        </div>
+
+        <div class="world-cards" id="world-cards" role="group" aria-label="Choose an adventure">
+          <!-- world cards injected by ui.js -->
+        </div>
+
+        <div class="difficulty-wrap">
+          <div class="difficulty-label">How bouncy?</div>
+          <div class="difficulty-row" id="difficulty-row" role="group" aria-label="Choose difficulty">
+            <button class="diff-btn is-active" data-diff="little" aria-label="Little Paws, easiest">
+              <span class="diff-paw">🐾</span>
+              <span class="diff-name">Little Paws</span>
+            </button>
+            <button class="diff-btn" data-diff="happy" aria-label="Happy Paws, medium">
+              <span class="diff-paw">🐾🐾</span>
+              <span class="diff-name">Happy Paws</span>
+            </button>
+            <button class="diff-btn" data-diff="super" aria-label="Super Paws, challenging">
+              <span class="diff-paw">🐾🐾🐾</span>
+              <span class="diff-name">Super Paws</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="home-bottom">
+          <button class="big-btn play-btn" id="btn-play">
+            <span class="play-triangle" aria-hidden="true"></span>
+            <span>LET’S PLAY</span>
+          </button>
+          <div class="home-hint" id="home-hint">Pick a pet, then tilt the iPad!</div>
+        </div>
+      </section>
+
+      <!-- ============================= GAME ============================== -->
+      <section id="screen-game" class="screen screen--game" aria-label="Adventure">
+        <div class="hud">
+          <div class="hud-left">
+            <button class="hud-btn" id="btn-pause" aria-label="Pause" title="Pause">
+              <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="18" y="14" width="11" height="36" rx="5" fill="currentColor"/><rect x="35" y="14" width="11" height="36" rx="5" fill="currentColor"/></svg>
+            </button>
+            <div class="hud-count" id="hud-count" aria-live="polite">
+              <img id="hud-count-icon" alt="" />
+              <span id="hud-count-num">0</span><span class="hud-count-total" id="hud-count-total"></span>
+            </div>
+          </div>
+          <div class="hud-center">
+            <div class="hud-world" id="hud-world">Garden Paths</div>
+            <div class="hud-diff" id="hud-diff">Little Paws</div>
+          </div>
+          <div class="hud-right">
+            <button class="hud-btn hud-btn--small" id="btn-hint" aria-label="Show the way" title="Show the way">
+              <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 58S10 42 10 25c0-8 7-14 14-14 4 0 7 2 8 5 1-3 4-5 8-5 7 0 14 6 14 14 0 17-22 33-22 33z" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/><circle cx="32" cy="28" r="6" fill="currentColor"/></svg>
+            </button>
+            <button class="hud-btn hud-btn--small" id="btn-recal" aria-label="Recalibrate" title="Recalibrate">
+              <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M20 12v10a16 16 0 100 32v10" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><path d="M44 52V42a16 16 0 10-32 0" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/></svg>
+            </button>
+            <button class="hud-btn hud-btn--small" id="btn-reset" aria-label="Reset level" title="Reset">
+              <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M14 32a18 18 0 1110 34" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><path d="M14 14v18h18" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="hud-btn hud-btn--small hud-btn--sound" id="btn-game-sound" aria-label="Toggle sound" title="Sound">
+              <svg class="icon-sound-on" viewBox="0 0 64 64" aria-hidden="true"><path d="M12 25h9l13-10v34L21 39h-9z" fill="currentColor"/><path d="M43 22c5 5 5 15 0 20" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path d="M50 15c9 9 9 25 0 34" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>
+              <svg class="icon-sound-off" viewBox="0 0 64 64" aria-hidden="true"><path d="M12 25h9l13-10v34L21 39h-9z" fill="currentColor"/><path d="M43 20l12 24M55 20L43 44" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="hud-toast" id="hud-toast" role="status"></div>
+
+        <div class="touch-pad" id="touch-pad" aria-label="Touch controls">
+          <button class="touch-btn up" data-dir="up" aria-label="Tilt up"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 12l22 24H38v16H26V36H10z" fill="currentColor"/></svg></button>
+          <button class="touch-btn left" data-dir="left" aria-label="Tilt left"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M52 32L28 10v14H12v16h16v14z" fill="currentColor"/></svg></button>
+          <button class="touch-btn right" data-dir="right" aria-label="Tilt right"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 32l24-22v14h16v16H36v14z" fill="currentColor"/></svg></button>
+          <button class="touch-btn down" data-dir="down" aria-label="Tilt down"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 52L10 28h14V12h16v16h14z" fill="currentColor"/></svg></button>
+          <div class="touch-knob" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <!-- ============================= PAUSE ============================= -->
+      <section id="screen-pause" class="screen screen--overlay" aria-label="Paused">
+        <div class="modal-card pause-card">
+          <div class="modal-pet"><img id="pause-pet" alt="" /></div>
+          <h2 class="modal-title">Snack Break?</h2>
+          <p class="modal-sub">Everything is safe and waiting.</p>
+          <div class="modal-actions">
+            <button class="big-btn coral-btn" id="btn-resume">Keep Playing</button>
+            <button class="pill-btn" id="btn-pause-recal">Recalibrate</button>
+            <button class="pill-btn" id="btn-pause-restart">Start Over</button>
+            <button class="pill-btn pill-btn--ghost" id="btn-pause-home">Home</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================ CALIBRATE =========================== -->
+      <section id="screen-calibrate" class="screen screen--overlay" aria-label="Get ready">
+        <div class="modal-card calibrate-card">
+          <div class="calibrate-top">
+            <img class="cal-pet" id="cal-pet" alt="" />
+            <div class="cal-copy">
+              <h2 class="modal-title" id="cal-title">Hold your iPad comfortably</h2>
+              <p class="modal-sub" id="cal-sub">Sit it on your lap, a pillow, or hold it with both hands — whatever feels cosy.</p>
+            </div>
+          </div>
+
+          <div class="tilt-meter" aria-hidden="true">
+            <div class="tilt-ring"></div>
+            <div class="tilt-cross h"></div>
+            <div class="tilt-cross v"></div>
+            <div class="tilt-bubble" id="tilt-bubble"></div>
+            <div class="tilt-arrow ta-up">▲</div>
+            <div class="tilt-arrow ta-down">▼</div>
+            <div class="tilt-arrow ta-left">◀</div>
+            <div class="tilt-arrow ta-right">▶</div>
+          </div>
+
+          <p class="cal-status" id="cal-status">Ready when you are!</p>
+          <div class="cal-permission" id="cal-permission" hidden>
+            <p class="permission-title">Let’s use the iPad’s tilt sensor</p>
+            <p class="permission-text">The game needs motion access so the marble follows your hands. If you say no, you can still play with the big arrow buttons.</p>
+          </div>
+
+          <div class="modal-actions cal-actions">
+            <button class="big-btn coral-btn" id="btn-cal-start">START</button>
+            <button class="pill-btn pill-btn--ghost" id="btn-cal-touch">Use arrow buttons instead</button>
+          </div>
+          <div class="cal-foot" id="cal-foot">Hold still for a moment while we find your comfy spot…</div>
+        </div>
+      </section>
+
+      <!-- ============================ COMPLETE ============================ -->
+      <section id="screen-complete" class="screen screen--overlay screen--complete" aria-label="Adventure complete">
+        <div class="confetti-layer" id="confetti-layer" aria-hidden="true"></div>
+        <div class="modal-card complete-card">
+          <div class="complete-pets" aria-hidden="true">
+            <img class="cp cp-left" id="cp-ghosty" alt="" />
+            <img class="cp cp-center" id="cp-leader" alt="" />
+            <img class="cp cp-right" id="cp-oakley" alt="" />
+          </div>
+          <h2 class="complete-title" id="complete-title">You did it!</h2>
+          <p class="complete-sub" id="complete-sub">Great rolling!</p>
+          <div class="complete-stats">
+            <div class="stat-pill"><img id="stat-icon" alt="" /><span id="stat-num">0</span><span class="stat-total" id="stat-total"></span></div>
+            <div class="sticker-award" id="sticker-award">
+              <img id="sticker-award-img" alt="" />
+              <span>New sticker!</span>
+            </div>
+          </div>
+          <div class="modal-actions complete-actions">
+            <button class="big-btn coral-btn" id="btn-again">Play Again</button>
+            <button class="pill-btn" id="btn-next">Next Level</button>
+            <button class="pill-btn pill-btn--ghost" id="btn-complete-home">Home</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================ STICKERS =========================== -->
+      <section id="screen-stickers" class="screen screen--stickers" aria-label="Sticker book">
+        <header class="screen-header">
+          <button class="round-btn back-btn" id="btn-stickers-back" aria-label="Back">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M38 14L20 32l18 18" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="screen-title">My Sticker Book</div>
+          <div class="sticker-progress"><span id="sticker-count">0</span> / 12</div>
+        </header>
+        <div class="sticker-book" id="sticker-grid"></div>
+        <p class="sticker-tip">Finish adventures to fill your book! <span>♥</span></p>
+      </section>
+
+      <!-- ============================ SETTINGS =========================== -->
+      <section id="screen-settings" class="screen screen--settings" aria-label="Settings">
+        <header class="screen-header">
+          <button class="round-btn back-btn" id="btn-settings-back" aria-label="Back">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M38 14L20 32l18 18" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="screen-title">Grown-up Settings</div>
+          <div class="header-space"></div>
+        </header>
+
+        <div class="settings-scroll">
+          <section class="set-card">
+            <h3 class="set-title">Motion</h3>
+            <div class="set-row">
+              <div class="set-label">Tilt sensitivity<span class="set-hint">How much the marble reacts</span></div>
+              <div class="seg" id="set-sens" role="group" aria-label="Tilt sensitivity">
+                <button data-sens="gentle">Gentle</button>
+                <button data-sens="normal">Normal</button>
+                <button data-sens="sensitive">Sensitive</button>
+              </div>
+            </div>
+            <div class="set-row">
+              <div class="set-label">Dead zone<span class="set-hint">Ignores tiny hand wobbles</span></div>
+              <div class="slider-wrap">
+                <input type="range" id="set-deadzone" min="0" max="10" step="1" value="3" aria-label="Dead zone" />
+                <span class="slider-val" id="deadzone-val">3</span>
+              </div>
+            </div>
+            <div class="set-row">
+              <div class="set-label">Controls<span class="set-hint">Tilt, or big arrow buttons</span></div>
+              <div class="seg" id="set-control" role="group" aria-label="Control mode">
+                <button data-control="tilt">Tilt</button>
+                <button data-control="touch">Arrows</button>
+                <button data-control="auto">Auto</button>
+              </div>
+            </div>
+            <div class="set-row set-row--compact">
+              <div class="set-label">If tilt feels backwards<span class="set-hint">Flip an axis to match your iPad</span></div>
+              <div class="flip-group">
+                <button class="chip-toggle" id="set-flip-x" aria-pressed="false">Flip sideways</button>
+                <button class="chip-toggle" id="set-flip-y" aria-pressed="false">Flip up/down</button>
+              </div>
+            </div>
+            <div class="set-row set-row--compact">
+              <div class="set-label">Tilt test<span class="set-hint">Watch the bubble follow your hands</span></div>
+              <button class="pill-btn pill-btn--small" id="btn-tilt-test">Open tilt test</button>
+            </div>
+          </section>
+
+          <section class="set-card">
+            <h3 class="set-title">Play</h3>
+            <div class="set-row">
+              <div class="set-label">Marble speed<span class="set-hint">Extra gentle for little hands</span></div>
+              <div class="seg" id="set-speed" role="group" aria-label="Marble speed">
+                <button data-speed="0.8">Sleepy</button>
+                <button data-speed="1">Normal</button>
+                <button data-speed="1.25">Zippy</button>
+              </div>
+            </div>
+            <div class="set-row set-row--compact">
+              <div class="set-label">Gentle guidance<span class="set-hint">A soft arrow points to the goal</span></div>
+              <button class="chip-toggle" id="set-guidance" aria-pressed="true">On</button>
+            </div>
+            <div class="set-row set-row--compact">
+              <div class="set-label">Show the way button<span class="set-hint">Lights up the route for a moment</span></div>
+              <button class="chip-toggle" id="set-showway" aria-pressed="true">On</button>
+            </div>
+            <div class="set-row">
+              <div class="set-label">Starting difficulty<span class="set-hint">You can change it on the home screen</span></div>
+              <div class="seg" id="set-difficulty" role="group" aria-label="Starting difficulty">
+                <button data-diff="little">Little</button>
+                <button data-diff="happy">Happy</button>
+                <button data-diff="super">Super</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="set-card">
+            <h3 class="set-title">Sound</h3>
+            <div class="set-row set-row--compact">
+              <div class="set-label">Music<span class="set-hint">Soft background tune</span></div>
+              <button class="chip-toggle" id="set-music" aria-pressed="true">On</button>
+            </div>
+            <div class="set-row set-row--compact">
+              <div class="set-label">Sound effects<span class="set-hint">Bumps, chimes and giggles</span></div>
+              <button class="chip-toggle" id="set-sfx" aria-pressed="true">On</button>
+            </div>
+            <div class="set-row">
+              <div class="set-label">Volume<span class="set-hint">Keep it cosy</span></div>
+              <div class="slider-wrap">
+                <input type="range" id="set-volume" min="0" max="100" step="5" value="70" aria-label="Volume" />
+                <span class="slider-val" id="volume-val">70</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="set-card set-card--danger">
+            <h3 class="set-title">Progress</h3>
+            <div class="set-row set-row--compact">
+              <div class="set-label">Saved on this device<span class="set-hint" id="save-status">Progress is safe</span></div>
+              <button class="pill-btn pill-btn--small pill-btn--warn" id="btn-reset-progress">Reset progress</button>
+            </div>
+          </section>
+
+          <div class="settings-foot">
+            <button class="big-btn teal-btn" id="btn-settings-done">All Done</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================ CONFIRM ============================ -->
+      <section id="screen-confirm" class="screen screen--overlay" aria-label="Are you sure">
+        <div class="modal-card confirm-card">
+          <h2 class="modal-title">Start fresh?</h2>
+          <p class="modal-sub">This clears stickers and progress on this device. Grown-ups only!</p>
+          <div class="modal-actions">
+            <button class="pill-btn" id="btn-confirm-yes">Yes, reset</button>
+            <button class="big-btn teal-btn" id="btn-confirm-no">Keep my progress</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

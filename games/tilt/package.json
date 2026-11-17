@@ -1,0 +1,13 @@
+{
+  "name": "pet-tilt-adventures",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A gentle iPad tilt-controlled marble adventure starring Ghosty, Spin and Oakley.",
+  "type": "module",
+  "scripts": {
+    "start": "python3 serve.py",
+    "serve": "python3 serve.py"
+  },
+  "keywords": ["game", "kids", "ipad", "tilt", "canvas"],
+  "license": "UNLICENSED"
+}
