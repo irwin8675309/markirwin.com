@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-11-15",
+  "lastUpdated": "2026-11-18",
   "notes": "This file documents the provenance of every sample image. Replace or extend it when adding new artwork. Do not mark AI-generated artwork as public domain or CC0 without checking the provider's applicable terms.",
   "sources": [
     {
@@ -89,6 +89,26 @@
       "generatedDate": "unknown",
       "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of some flowers (two six-petal flowers with stems, leaves and grass tufts). The exact prompt entered into Grok was not recorded.",
       "humanModifications": "Received as a 784×1168 portrait JPEG. Converted to PNG and placed on a 1024×1024 square white canvas (subject scaled to about 944 px tall and centered, with margins); cleaned JPEG compression noise so lines are near-black (#111111) on pure white; thickened lines (median stroke about 4.6 px to about 10 px at 1024×1024); filled tiny white specks (under 60 px) and two very thin enclosed slivers inside the stems so each stem reads as a single thick line. Thumbnail created at 420×420. Subject and composition unchanged.",
+      "rightsNotes": "AI-generated artwork. Not labeled public domain or CC0; provider terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot.",
+      "attribution": "None required by this project; check xAI's terms.",
+      "usageTerms": "Subject to xAI's applicable terms for Grok output."
+    },
+    {
+      "id": "lion-001",
+      "provider": "Grok (xAI)",
+      "generatedDate": "unknown",
+      "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a smiling cartoon lion sitting in front of a fence, with a tree stump, a rock and grass tufts. The exact prompt entered into Grok was not recorded.",
+      "humanModifications": "Received as a 784×1168 portrait JPEG. Converted to PNG and placed on a 1024×1024 square white canvas (subject scaled to about 944 px tall and centered, with margins); cleaned JPEG compression noise so lines are near-black (#111111) on pure white; thickened lines (median stroke about 4 px to about 10 px at 1024×1024); filled tiny white specks (under 60 px), including the small glints in the eyes. Thumbnail created at 420×420. Subject and composition unchanged.",
+      "rightsNotes": "AI-generated artwork. Not labeled public domain or CC0; provider terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot.",
+      "attribution": "None required by this project; check xAI's terms.",
+      "usageTerms": "Subject to xAI's applicable terms for Grok output."
+    },
+    {
+      "id": "hot-air-balloon-001",
+      "provider": "Grok (xAI)",
+      "generatedDate": "unknown",
+      "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a striped hot air balloon carrying two smiling children, with three clouds and two grass tufts. The exact prompt entered into Grok was not recorded.",
+      "humanModifications": "Received as a 784×1168 portrait JPEG. Converted to PNG and placed on a 1024×1024 square white canvas (subject scaled to about 944 px tall and centered, with margins); cleaned JPEG compression noise so lines are near-black (#111111) on pure white; thickened lines (median stroke about 4 px to about 10 px at 1024×1024); filled tiny white specks (under 60 px), including the small glints in the children's eyes. Thumbnail created at 420×420. Subject and composition unchanged.",
       "rightsNotes": "AI-generated artwork. Not labeled public domain or CC0; provider terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot.",
       "attribution": "None required by this project; check xAI's terms.",
       "usageTerms": "Subject to xAI's applicable terms for Grok output."
