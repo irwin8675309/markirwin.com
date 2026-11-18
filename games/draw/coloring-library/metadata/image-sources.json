@@ -4,36 +4,6 @@
   "notes": "This file documents the provenance of every sample image. Replace or extend it when adding new artwork. Do not mark AI-generated artwork as public domain or CC0 without checking the provider's applicable terms.",
   "sources": [
     {
-      "id": "elephant-001",
-      "provider": "Hand-authored original SVG for Little Canvas",
-      "generatedDate": "2026-11-15",
-      "prompt": "Friendly elephant with large ears, rounded body, and a curled trunk; thick black outlines; white background; large fillable regions.",
-      "humanModifications": "Vector paths authored and reviewed for child-friendly line-art quality, then rasterized to a 1024×1024 PNG for the library.",
-      "rightsNotes": "Original illustration. No recognizable copyrighted character or branded mascot.",
-      "attribution": "No attribution required for this sample.",
-      "usageTerms": "Included with this application for personal and educational use."
-    },
-    {
-      "id": "kitten-001",
-      "provider": "Hand-authored original SVG for Little Canvas",
-      "generatedDate": "2026-11-15",
-      "prompt": "Original kitten with triangular ears, round face, curled tail, and simple paws; thick black outlines; white background.",
-      "humanModifications": "Vector paths authored and reviewed for child-friendly line-art quality.",
-      "rightsNotes": "Original illustration.",
-      "attribution": "No attribution required for this sample.",
-      "usageTerms": "Included with this application for personal and educational use."
-    },
-    {
-      "id": "puppy-001",
-      "provider": "Hand-authored original SVG for Little Canvas",
-      "generatedDate": "2026-11-15",
-      "prompt": "Original floppy-eared puppy with a collar and wagging tail; thick black outlines; white background.",
-      "humanModifications": "Vector paths authored and reviewed for child-friendly line-art quality.",
-      "rightsNotes": "Original illustration.",
-      "attribution": "No attribution required for this sample.",
-      "usageTerms": "Included with this application for personal and educational use."
-    },
-    {
       "id": "brontosaurus-001",
       "provider": "Hand-authored original SVG for Little Canvas",
       "generatedDate": "2026-11-15",
