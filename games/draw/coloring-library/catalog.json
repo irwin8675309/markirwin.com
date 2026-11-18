@@ -54,6 +54,27 @@
       ]
     },
     {
+      "id": "cats",
+      "name": "Cats",
+      "images": [
+        {
+          "id": "kittens-001",
+          "name": "Kittens with Yarn",
+          "image": "images/cats/kittens-001.png",
+          "thumbnail": "thumbnails/cats/kittens-001.png",
+          "format": "png",
+          "difficulty": "advanced",
+          "published": true,
+          "sourceType": "AI-generated artwork",
+          "provider": "Grok (xAI)",
+          "generatedDate": "unknown",
+          "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of two smiling kittens sitting side by side with a ball of yarn and grass tufts. The exact prompt entered into Grok was not recorded.",
+          "rightsNotes": "AI-generated artwork supplied by the site owner. Not labeled public domain or CC0; provider terms apply. No recognizable copyrighted character or branded mascot.",
+          "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
+        }
+      ]
+    },
+    {
       "id": "dogs",
       "name": "Dogs",
       "images": [
