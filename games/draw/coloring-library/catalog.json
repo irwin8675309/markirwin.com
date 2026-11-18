@@ -7,21 +7,6 @@
       "name": "Animals",
       "images": [
         {
-          "id": "elephant-001",
-          "name": "Happy Elephant",
-          "image": "images/animals/elephant.png",
-          "thumbnail": "thumbnails/animals/elephant.png",
-          "format": "png",
-          "difficulty": "easy",
-          "published": true,
-          "sourceType": "Original vector artwork",
-          "provider": "Hand-authored for Little Canvas",
-          "generatedDate": "2026-11-15",
-          "prompt": "Original friendly elephant with large ears, rounded body, and a curled trunk. Thick black outlines, white background, large fillable regions, no text or watermark.",
-          "rightsNotes": "Original illustration created for this project. It does not depict a recognizable copyrighted character.",
-          "usageTerms": "Included with this application for personal and educational use."
-        },
-        {
           "id": "horse-001",
           "name": "Friendly Horse",
           "image": "images/animals/horse-001.png",
@@ -69,45 +54,9 @@
       ]
     },
     {
-      "id": "cats",
-      "name": "Cats",
-      "images": [
-        {
-          "id": "kitten-001",
-          "name": "Playful Kitten",
-          "image": "images/cats/kitten.svg",
-          "thumbnail": "thumbnails/cats/kitten.png",
-          "format": "svg",
-          "difficulty": "easy",
-          "published": true,
-          "sourceType": "Original vector artwork",
-          "provider": "Hand-authored for Little Canvas",
-          "generatedDate": "2026-11-15",
-          "prompt": "Original kitten with triangular ears, round face, curled tail, and simple paws. Thick black outlines, white background, large fillable regions, no text or watermark.",
-          "rightsNotes": "Original illustration created for this project.",
-          "usageTerms": "Included with this application for personal and educational use."
-        }
-      ]
-    },
-    {
       "id": "dogs",
       "name": "Dogs",
       "images": [
-        {
-          "id": "puppy-001",
-          "name": "Floppy Puppy",
-          "image": "images/dogs/puppy.svg",
-          "thumbnail": "thumbnails/dogs/puppy.png",
-          "format": "svg",
-          "difficulty": "medium",
-          "published": true,
-          "sourceType": "Original vector artwork",
-          "provider": "Hand-authored for Little Canvas",
-          "generatedDate": "2026-11-15",
-          "prompt": "Original floppy-eared puppy with a collar and wagging tail. Thick black outlines, white background, moderate detail, no text or watermark.",
-          "rightsNotes": "Original illustration created for this project.",
-          "usageTerms": "Included with this application for personal and educational use."
-        },
         {
           "id": "puppy-002",
           "name": "Smiling Puppy",
