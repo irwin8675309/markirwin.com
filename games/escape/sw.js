@@ -5,7 +5,7 @@
  * updates are never blocked by stale files.
  */
 
-const VERSION = 'great-escape-v2';
+const VERSION = 'great-escape-v3';
 const SHELL = [
   './',
   './index.html',

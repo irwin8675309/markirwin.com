@@ -291,14 +291,31 @@ const DECOR_BALLOON = svgDoc(
 /* Preview cards (480 x 300)                                           */
 /* ------------------------------------------------------------------ */
 
-function previewShell(skyTop, skyBottom, hill, ground, body) {
+/** Extract the inner markup of an SVG string (everything inside <svg>…</svg>). */
+function svgInner(svg) {
+  const open = svg.indexOf('>');
+  const close = svg.lastIndexOf('</svg>');
+  if (open < 0 || close < open) return '';
+  return svg.slice(open + 1, close);
+}
+
+// Gradients referenced by embedded collectible art (e.g. the butterfly).
+const PREVIEW_DEFS = `
+   <linearGradient id="pink" x1="35" y1="24" x2="92" y2="105" gradientUnits="userSpaceOnUse">
+     <stop stop-color="#ffb6d1"/><stop offset="1" stop-color="#ff648f"/>
+   </linearGradient>
+   <linearGradient id="violet" x1="30" y1="20" x2="96" y2="110" gradientUnits="userSpaceOnUse">
+     <stop stop-color="#cfb3ff"/><stop offset="1" stop-color="#8d67e8"/>
+   </linearGradient>`;
+
+function previewShell(sky, hill, ground, body) {
   return svgDoc(
     480,
     300,
     `<defs>
        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="300" gradientUnits="userSpaceOnUse">
-         <stop stop-color="${skyTop}"/><stop offset=".7" stop-color="${skyBottom}"/><stop offset="1" stop-color="#fff6d8"/>
-       </linearGradient>
+         <stop stop-color="${sky[0]}"/><stop offset=".7" stop-color="${sky[1]}"/><stop offset="1" stop-color="#fff6d8"/>
+       </linearGradient>${PREVIEW_DEFS}
      </defs>
      <rect width="480" height="300" fill="url(#sky)"/>
      <circle cx="392" cy="56" r="40" fill="#fff7b0" opacity=".7"/>
@@ -315,9 +332,9 @@ const PREVIEW_PILLOW = previewShell(
   ['#ffd6ea', '#ffeaf4'],
   '#d9b6ff',
   '#e7d2ff',
-  `<g transform="translate(150 96) scale(.9)">${PILLOW.body}</g>
-   <g transform="translate(250 132) scale(.62)">${CUSHION.body}</g>
-   <g transform="translate(96 150) scale(.5)">${PILLOW.body}</g>
+  `<g transform="translate(150 96) scale(.9)">${svgInner(PILLOW)}</g>
+   <g transform="translate(250 132) scale(.62)">${svgInner(CUSHION)}</g>
+   <g transform="translate(96 150) scale(.5)">${svgInner(PILLOW)}</g>
    <g fill="#fff6b0"><circle cx="360" cy="120" r="5"/><circle cx="392" cy="150" r="4"/><circle cx="330" cy="170" r="4"/></g>`,
 );
 
@@ -325,10 +342,10 @@ const PREVIEW_BACKYARD = previewShell(
   ['#9fe0ff', '#dff6ff'],
   '#a7e39a',
   '#6fd07a',
-  `<g transform="translate(96 84) scale(.42)">${DECOR_BUSH.body}</g>
-   <g transform="translate(288 150) scale(.44)">${DECOR_FLOWER.body}</g>
+  `<g transform="translate(96 84) scale(.42)">${svgInner(DECOR_BUSH)}</g>
+   <g transform="translate(288 150) scale(.44)">${svgInner(DECOR_FLOWER)}</g>
    <g transform="translate(360 116) scale(.3)">${Art.ITEMS.butterfly.body}</g>
-   <g transform="translate(190 214) scale(.3)">${DECOR_FLOWER.body}</g>
+   <g transform="translate(190 214) scale(.3)">${svgInner(DECOR_FLOWER)}</g>
    <g fill="#ff9fba"><circle cx="250" cy="242" r="5"/><circle cx="300" cy="250" r="4"/></g>`,
 );
 
@@ -336,10 +353,10 @@ const PREVIEW_TOYBOX = previewShell(
   ['#bfe9ff', '#eaf7ff'],
   '#ffd9a8',
   '#ffcf8a',
-  `<g transform="translate(112 92) scale(.6)">${BLOCK_RED.body}</g>
-   <g transform="translate(236 110) scale(.56)">${BLOCK_BLUE.body}</g>
-   <g transform="translate(320 150) scale(.5)">${BLOCK_YELLOW.body}</g>
-   <g transform="translate(180 180) scale(.42)">${BALL.body}</g>
+  `<g transform="translate(112 92) scale(.6)">${svgInner(BLOCK_RED)}</g>
+   <g transform="translate(236 110) scale(.56)">${svgInner(BLOCK_BLUE)}</g>
+   <g transform="translate(320 150) scale(.5)">${svgInner(BLOCK_YELLOW)}</g>
+   <g transform="translate(180 180) scale(.42)">${svgInner(BALL)}</g>
    <g fill="#fff6f9" opacity=".8"><circle cx="360" cy="96" r="5"/><circle cx="392" cy="130" r="4"/></g>`,
 );
 
@@ -347,9 +364,9 @@ const PREVIEW_ADVENTURE = previewShell(
   ['#ffcf8a', '#ffe9f0'],
   '#ffd0a0',
   '#ffb877',
-  `<g transform="translate(150 78) scale(.7)">${DEST_ADVENTURE.body}</g>
-   <g transform="translate(300 160) scale(.4)">${DECOR_BALLOON.body}</g>
-   <g transform="translate(96 176) scale(.3)">${DECOR_FLOWER.body}</g>
+  `<g transform="translate(150 78) scale(.7)">${svgInner(DEST_ADVENTURE)}</g>
+   <g transform="translate(300 160) scale(.4)">${svgInner(DECOR_BALLOON)}</g>
+   <g transform="translate(96 176) scale(.3)">${svgInner(DECOR_FLOWER)}</g>
    <g fill="#fff6b0"><circle cx="380" cy="110" r="5"/><circle cx="410" cy="146" r="4"/></g>`,
 );
 
@@ -398,7 +415,7 @@ export const WorldArt = {
     return svgDataURI(OBJECTS[key] || OBJECTS.pillow);
   },
   objectBody(key) {
-    return (OBJECTS[key] || OBJECTS.pillow).body;
+    return svgInner(OBJECTS[key] || OBJECTS.pillow);
   },
   destination(key) {
     return svgDataURI(DESTINATIONS[key] || DEST_PILLOWFORT);
