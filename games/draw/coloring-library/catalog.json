@@ -50,6 +50,21 @@
           "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a smiling cartoon lion sitting in front of a fence, with a tree stump, a rock and grass tufts. The exact prompt entered into Grok was not recorded.",
           "rightsNotes": "AI-generated artwork supplied by the site owner. Not labeled public domain or CC0; provider terms apply. No recognizable copyrighted character or branded mascot.",
           "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
+        },
+        {
+          "id": "elephant-002",
+          "name": "Cheerful Baby Elephant",
+          "image": "images/animals/elephant-002.png",
+          "thumbnail": "thumbnails/animals/elephant-002.png",
+          "format": "png",
+          "difficulty": "medium",
+          "published": true,
+          "sourceType": "AI-generated artwork",
+          "provider": "Grok (xAI)",
+          "generatedDate": "unknown",
+          "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a smiling baby elephant with big ears and a raised trunk, sitting among grass tufts. The exact prompt entered into Grok was not recorded.",
+          "rightsNotes": "AI-generated artwork supplied by the site owner. Not labeled public domain or CC0; provider terms apply. No recognizable copyrighted character or branded mascot.",
+          "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
         }
       ]
     },
@@ -92,6 +107,21 @@
           "prompt": "Original floppy-eared puppy with a collar and wagging tail. Thick black outlines, white background, moderate detail, no text or watermark.",
           "rightsNotes": "Original illustration created for this project.",
           "usageTerms": "Included with this application for personal and educational use."
+        },
+        {
+          "id": "puppy-002",
+          "name": "Smiling Puppy",
+          "image": "images/dogs/puppy-002.png",
+          "thumbnail": "thumbnails/dogs/puppy-002.png",
+          "format": "png",
+          "difficulty": "medium",
+          "published": true,
+          "sourceType": "AI-generated artwork",
+          "provider": "Grok (xAI)",
+          "generatedDate": "unknown",
+          "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a smiling sitting puppy with floppy ears and a wagging tail, among grass tufts. The exact prompt entered into Grok was not recorded.",
+          "rightsNotes": "AI-generated artwork supplied by the site owner. Not labeled public domain or CC0; provider terms apply. No recognizable copyrighted character or branded mascot.",
+          "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
         }
       ]
     },

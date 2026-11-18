@@ -112,6 +112,26 @@
       "rightsNotes": "AI-generated artwork. Not labeled public domain or CC0; provider terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot.",
       "attribution": "None required by this project; check xAI's terms.",
       "usageTerms": "Subject to xAI's applicable terms for Grok output."
+    },
+    {
+      "id": "elephant-002",
+      "provider": "Grok (xAI)",
+      "generatedDate": "unknown",
+      "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a smiling baby elephant with big ears and a raised trunk, sitting among grass tufts. The exact prompt entered into Grok was not recorded.",
+      "humanModifications": "Received as a 784×1168 portrait JPEG. Converted to PNG and placed on a 1024×1024 square white canvas (subject scaled to about 944 px tall and centered, with margins); cleaned JPEG compression noise so lines are near-black (#111111) on pure white; removed one faint gray smudge near the left foot; thickened lines (median stroke about 4.5 px to about 10 px at 1024×1024); filled tiny white specks (under 60 px), including the small glints in the eyes. Thumbnail created at 420×420. Subject and composition unchanged.",
+      "rightsNotes": "AI-generated artwork. Not labeled public domain or CC0; provider terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot.",
+      "attribution": "None required by this project; check xAI's terms.",
+      "usageTerms": "Subject to xAI's applicable terms for Grok output."
+    },
+    {
+      "id": "puppy-002",
+      "provider": "Grok (xAI)",
+      "generatedDate": "unknown",
+      "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a smiling sitting puppy with floppy ears and a wagging tail, among grass tufts. The exact prompt entered into Grok was not recorded.",
+      "humanModifications": "Received as a 784×1168 portrait JPEG. Converted to PNG and placed on a 1024×1024 square white canvas (subject scaled to about 944 px tall and centered, with margins); cleaned JPEG compression noise so lines are near-black (#111111) on pure white; thickened lines (median stroke about 5.7 px to about 10 px at 1024×1024); filled tiny white specks (under 60 px), including the small glints in the eyes. Thumbnail created at 420×420. Subject and composition unchanged.",
+      "rightsNotes": "AI-generated artwork. Not labeled public domain or CC0; provider terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot.",
+      "attribution": "None required by this project; check xAI's terms.",
+      "usageTerms": "Subject to xAI's applicable terms for Grok output."
     }
   ]
 }
