@@ -1,0 +1,15 @@
+{
+  "name": "ghosty-spin-oakley-great-escape",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A gentle, colorful tap-and-drag escape adventure for two young children, starring Ghosty, Spin and Oakley — the family's real pets.",
+  "scripts": {
+    "start": "python3 serve.py",
+    "serve": "python3 serve.py",
+    "check": "node --check src/config.js && node --check src/world-art.js && node --check src/levels.js && node --check src/board.js && node --check src/art.js && node --check src/audio.js && node --check src/storage.js && node --check src/render.js && node --check src/game.js && node --check src/ui.js && node --check src/main.js",
+    "test": "node tests/levels.test.mjs && node tests/game.test.mjs"
+  },
+  "keywords": ["game", "kids", "ipad", "canvas", "puzzle", "pets"],
+  "license": "UNLICENSED"
+}

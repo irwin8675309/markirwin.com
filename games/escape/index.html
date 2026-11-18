@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffd6ea" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="description" content="A gentle, colorful escape adventure starring Ghosty, Spin and Oakley — the family's real pets." />
+  <title>Ghosty, Spin, and Oakley's Great Escape</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23ffd6ea'/%3E%3Cellipse cx='32' cy='40' rx='13' ry='11' fill='%23fff'/%3E%3Ccircle cx='19' cy='26' r='6' fill='%23fff'/%3E%3Ccircle cx='32' cy='20' r='6' fill='%23fff'/%3E%3Ccircle cx='45' cy='26' r='6' fill='%23fff'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Loading -->
+    <section id="screen-loading" class="screen screen--loading is-active" aria-label="Loading">
+      <div class="loading-card">
+        <div class="loading-paw" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="loading-title">Great Escape</div>
+        <div class="loading-dots"><i></i><i></i><i></i></div>
+      </div>
+    </section>
+
+    <!-- Home -->
+    <section id="screen-home" class="screen screen--home" aria-label="Great Escape home">
+      <div class="home-bg" aria-hidden="true">
+        <span class="bg-cloud c1"></span><span class="bg-cloud c2"></span><span class="bg-cloud c3"></span>
+        <span class="bg-blob b1"></span><span class="bg-blob b2"></span>
+      </div>
+
+      <header class="home-top">
+        <div class="brand-chip">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="40" rx="13" ry="11" fill="currentColor"/><circle cx="19" cy="26" r="6" fill="currentColor"/><circle cx="32" cy="20" r="6" fill="currentColor"/><circle cx="45" cy="26" r="6" fill="currentColor"/></svg>
+          <span>Great Escape</span>
+        </div>
+        <div class="top-actions">
+          <button class="icon-btn" id="btn-stickers" aria-label="Sticker book" title="Sticker book">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 8l6 15 16 1-12 11 4 16-14-8-14 8 4-16L10 24l16-1z" fill="currentColor"/><circle cx="32" cy="32" r="5" fill="#fff"/></svg>
+          </button>
+          <button class="icon-btn" id="btn-sound" aria-label="Toggle sound" title="Sound">
+            <svg class="icon-sound-on" viewBox="0 0 64 64" aria-hidden="true"><path d="M12 25h9l13-10v34L21 39h-9z" fill="currentColor"/><path d="M43 22c5 5 5 15 0 20" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path d="M50 15c9 9 9 25 0 34" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>
+            <svg class="icon-sound-off" viewBox="0 0 64 64" aria-hidden="true"><path d="M12 25h9l13-10v34L21 39h-9z" fill="currentColor"/><path d="M43 20l12 24M55 20L43 44" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>
+          </button>
+          <button class="icon-btn" id="btn-settings" aria-label="Settings" title="Settings">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="8" fill="none" stroke="currentColor" stroke-width="5"/><path d="M32 8v8M32 48v8M8 32h8M48 32h8M15 15l6 6M43 43l6 6M49 15l-6 6M21 43l-6 6" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <main class="home-main">
+        <section class="hero">
+          <div class="title-wrap">
+            <span class="title-sparkle s1">✦</span>
+            <span class="title-sparkle s2">✦</span>
+            <span class="title-sparkle s3">✦</span>
+            <h1 class="game-title" aria-label="Ghosty, Spin, and Oakley's Great Escape">
+              <span class="gt-line">Ghosty, Spin,</span>
+              <span class="gt-line">and Oakley's</span>
+              <span class="gt-line gt-accent">Great Escape</span>
+            </h1>
+          </div>
+
+          <div class="hero-friends" aria-hidden="true">
+            <img class="hero-pet ghosty" data-pet-img="ghosty" alt="" />
+            <img class="hero-pet spin" data-pet-img="spin" alt="" />
+            <img class="hero-pet oakley" data-pet-img="oakley" alt="" />
+          </div>
+
+          <div class="speech-bubble" id="hero-message" aria-live="polite">Let’s go on an adventure!</div>
+
+          <button class="play-btn" id="btn-play">
+            <span class="play-triangle" aria-hidden="true"></span>
+            <span>PLAY</span>
+          </button>
+          <div class="play-summary" id="play-summary">Ghosty · Pillow Fort · Little Paws</div>
+        </section>
+
+        <section class="chooser" aria-label="Adventure choices">
+          <div class="chooser-group">
+            <div class="group-label"><span>1</span> Choose your helper</div>
+            <div class="character-row" id="character-row"></div>
+          </div>
+
+          <div class="chooser-group">
+            <div class="group-label"><span>2</span> Choose a world</div>
+            <div class="world-row" id="world-row"></div>
+          </div>
+
+          <div class="chooser-group">
+            <div class="group-label"><span>3</span> How big an adventure?</div>
+            <div class="difficulty-row" id="difficulty-row"></div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="home-foot">
+        <span>Tap a helper, a world and a size — then PLAY!</span>
+      </footer>
+    </section>
+
+    <!-- Game -->
+    <section id="screen-game" class="screen screen--game" aria-label="Game">
+      <header class="game-hud">
+        <div class="hud-left">
+          <button class="hud-btn" id="btn-game-home" aria-label="Go home">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 30L32 10l22 20v24H40v-14H24v14H10z" fill="currentColor"/></svg>
+          </button>
+          <div class="hud-character">
+            <img id="hud-pet" alt="" />
+            <div class="hud-char-text">
+              <span id="hud-pet-name">Ghosty</span>
+              <small id="hud-level-name">Cozy Opening</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="hud-counter" aria-live="polite">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 8l6 15 16 1-12 11 4 16-14-8-14 8 4-16L10 24l16-1z" fill="#ffd84d" stroke="#e0a52a" stroke-width="3"/></svg>
+          <span id="hud-collect">0</span>
+          <span class="hud-counter-total" id="hud-total">/ 0</span>
+        </div>
+
+        <div class="hud-right">
+          <button class="hud-btn" id="btn-restart" aria-label="Restart this level">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M20 16a22 22 0 11-6 14" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><path d="M8 14v16h16" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="hud-btn" id="btn-pause" aria-label="Pause">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="18" y="12" width="9" height="40" rx="4" fill="currentColor"/><rect x="37" y="12" width="9" height="40" rx="4" fill="currentColor"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="playfield" id="playfield">
+        <canvas id="game-canvas" aria-label="Play area"></canvas>
+
+        <div class="game-controls" id="game-controls">
+          <button class="assist-btn" id="btn-help" aria-label="Help">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 8a18 18 0 00-10 33v7h20v-7A18 18 0 0032 8z" fill="currentColor"/><rect x="22" y="50" width="20" height="7" rx="3.5" fill="currentColor"/><path d="M26 20c0-4 3-6 6-6s6 2 6 6" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/></svg>
+            <span>Help</span>
+          </button>
+          <button class="assist-btn assist-btn--auto" id="btn-auto" aria-label="Do it for me">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="40" rx="13" ry="11" fill="currentColor"/><circle cx="19" cy="26" r="6" fill="currentColor"/><circle cx="32" cy="20" r="6" fill="currentColor"/><circle cx="45" cy="26" r="6" fill="currentColor"/><path d="M14 48l-4 8M50 48l4 8" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>
+            <span>Do it</span>
+          </button>
+        </div>
+
+        <div class="toast" id="game-toast" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- Sticker book -->
+    <section id="screen-stickers" class="screen screen--stickers" aria-label="Sticker book">
+      <header class="screen-header">
+        <button class="round-btn back-btn" id="btn-stickers-back" aria-label="Back">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M38 14L20 32l18 18" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="screen-title">My Sticker Book</div>
+        <div class="sticker-count" id="sticker-count">0 / 0</div>
+      </header>
+      <div class="sticker-grid" id="sticker-grid"></div>
+      <div class="sticker-tip">Every adventure earns stickers. Keep exploring!</div>
+    </section>
+
+    <!-- Pause modal -->
+    <div class="overlay" id="modal-pause" role="dialog" aria-modal="true" aria-labelledby="pause-title">
+      <div class="modal-card pause-card">
+        <div class="modal-paw" aria-hidden="true">
+          <svg viewBox="0 0 64 64"><ellipse cx="32" cy="40" rx="13" ry="11" fill="currentColor"/><circle cx="19" cy="26" r="6" fill="currentColor"/><circle cx="32" cy="20" r="6" fill="currentColor"/><circle cx="45" cy="26" r="6" fill="currentColor"/></svg>
+        </div>
+        <h2 id="pause-title">Taking a little break</h2>
+        <p class="modal-sub">Your adventure will be right here.</p>
+        <div class="modal-actions">
+          <button class="big-btn primary-btn" id="btn-resume">Keep Playing</button>
+          <button class="pill-btn" id="btn-pause-restart">Restart</button>
+          <button class="pill-btn soft-btn" id="btn-pause-home">Go Home</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Completion modal -->
+    <div class="overlay overlay--celebrate" id="modal-complete" role="dialog" aria-modal="true" aria-labelledby="complete-title">
+      <div class="confetti" id="confetti" aria-hidden="true"></div>
+      <div class="modal-card complete-card">
+        <div class="complete-friends" id="complete-friends" aria-hidden="true"></div>
+        <h2 id="complete-title">You did it!</h2>
+        <p class="complete-message" id="complete-message">Great helping!</p>
+        <div class="complete-stats" id="complete-stats">You found 0 treasures</div>
+        <div class="sticker-award" id="sticker-award">
+          <div class="sticker-award-label">Sticker earned!</div>
+          <img id="sticker-award-img" alt="" />
+          <div class="sticker-award-name" id="sticker-award-name">Star</div>
+        </div>
+        <div class="modal-actions complete-actions">
+          <button class="big-btn primary-btn" id="btn-complete-again">Play Again</button>
+          <button class="big-btn next-btn" id="btn-complete-next">Next</button>
+          <button class="pill-btn soft-btn" id="btn-complete-home">Home</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings modal -->
+    <div class="overlay" id="modal-settings" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+      <div class="modal-card settings-card">
+        <header class="settings-head">
+          <h2 id="settings-title">Grown-Up Settings</h2>
+          <button class="round-btn close-btn" id="btn-settings-close" aria-label="Close settings">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M18 18l28 28M46 18L18 46" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/></svg>
+          </button>
+        </header>
+
+        <div class="setting-row">
+          <div class="setting-label"><strong>Sound</strong><span>All music and effects</span></div>
+          <button class="switch" id="set-sound" role="switch" aria-checked="true"><span></span></button>
+        </div>
+        <div class="setting-row">
+          <div class="setting-label"><strong>Music</strong><span>Gentle background tunes</span></div>
+          <button class="switch" id="set-music" role="switch" aria-checked="true"><span></span></button>
+        </div>
+        <div class="setting-row">
+          <div class="setting-label"><strong>Sound Effects</strong><span>Collects and happy sounds</span></div>
+          <button class="switch" id="set-sfx" role="switch" aria-checked="true"><span></span></button>
+        </div>
+
+        <div class="setting-row setting-row--slider">
+          <div class="setting-label"><strong>Music Volume</strong><span>Keep it soft</span></div>
+          <input type="range" id="set-music-volume" min="0" max="1" step="0.05" aria-label="Music volume" />
+        </div>
+        <div class="setting-row setting-row--slider">
+          <div class="setting-label"><strong>Effects Volume</strong><span>Collects and taps</span></div>
+          <input type="range" id="set-sfx-volume" min="0" max="1" step="0.05" aria-label="Sound effects volume" />
+        </div>
+
+        <div class="setting-row setting-row--stack">
+          <div class="setting-label"><strong>Movement Speed</strong><span>A pace that feels right</span></div>
+          <div class="segmented" id="set-speed">
+            <button data-value="chill">Chill</button>
+            <button data-value="normal">Normal</button>
+            <button data-value="zippy">Zippy</button>
+          </div>
+        </div>
+
+        <div class="settings-danger">
+          <button class="danger-btn" id="btn-reset-progress">Reset all progress</button>
+          <span class="danger-hint" id="reset-hint">Stickers and finished adventures will be cleared.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- App-level toast -->
+    <div class="app-toast" id="app-toast" aria-live="polite"></div>
+  </div>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
