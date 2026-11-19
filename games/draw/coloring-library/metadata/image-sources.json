@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-11-18",
+  "lastUpdated": "2026-11-19",
   "notes": "This file documents the provenance of every sample image. Replace or extend it when adding new artwork. Do not mark AI-generated artwork as public domain or CC0 without checking the provider's applicable terms.",
   "sources": [
     {
@@ -109,6 +109,26 @@
       "generatedDate": "unknown",
       "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of two smiling kittens sitting side by side with a ball of yarn and grass tufts. The exact prompt entered into Grok was not recorded.",
       "humanModifications": "Received as a 784×1168 portrait JPEG. Converted to PNG and placed on a 1024×1024 square white canvas (subject scaled to about 944 px tall and centered, with margins); cleaned JPEG compression noise so lines are near-black (#111111) on pure white; thickened lines (median stroke about 4 px to about 10 px at 1024×1024); filled tiny white specks (under 60 px), including the small glints in the eyes. Thumbnail created at 420×420. Subject and composition unchanged. The yarn ball is dense and may need a paint-bucket check.",
+      "rightsNotes": "AI-generated artwork. Not labeled public domain or CC0; provider terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot.",
+      "attribution": "None required by this project; check xAI's terms.",
+      "usageTerms": "Subject to xAI's applicable terms for Grok output."
+    },
+    {
+      "id": "dinosaur-002",
+      "provider": "Grok (xAI)",
+      "generatedDate": "unknown",
+      "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a smiling cartoon dinosaur standing on grass, with back spikes, a curved tail and three grass tufts. The exact prompt entered into Grok was not recorded.",
+      "humanModifications": "Received as a 784×1168 portrait JPEG. Converted to PNG and placed on a 1024×1024 square white canvas (subject scaled to about 944 px tall and centered, with margins); cleaned JPEG compression noise so lines are near-black (#111111) on pure white; thickened lines (median stroke about 4.5 px to about 9 px at 1024×1024); filled tiny white specks (under 60 px), including the small glints in the eyes. Thumbnail created at 420×420. Subject and composition unchanged. Passed visual inspection; not functionally tested with the paint bucket.",
+      "rightsNotes": "AI-generated artwork. Not labeled public domain or CC0; provider terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot.",
+      "attribution": "None required by this project; check xAI's terms.",
+      "usageTerms": "Subject to xAI's applicable terms for Grok output."
+    },
+    {
+      "id": "giraffe-001",
+      "provider": "Grok (xAI)",
+      "generatedDate": "unknown",
+      "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a smiling baby giraffe with a long neck, spots, a tufted tail and grass tufts. The exact prompt entered into Grok was not recorded.",
+      "humanModifications": "Received as a 784×1168 portrait JPEG. Converted to PNG and placed on a 1024×1024 square white canvas (subject scaled to about 944 px tall and centered, with margins); cleaned JPEG compression noise so lines are near-black (#111111) on pure white; thickened lines (median stroke about 4 px to about 8 px at 1024×1024); filled tiny white specks (under 60 px), including the small glints in the eyes. Thumbnail created at 420×420. Subject and composition unchanged. Many small spots on the legs make it fiddly; passed visual inspection but not functionally tested with the paint bucket.",
       "rightsNotes": "AI-generated artwork. Not labeled public domain or CC0; provider terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot.",
       "attribution": "None required by this project; check xAI's terms.",
       "usageTerms": "Subject to xAI's applicable terms for Grok output."
