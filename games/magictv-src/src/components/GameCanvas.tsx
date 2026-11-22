@@ -7,6 +7,8 @@ import { WORLD_HEIGHT, WORLD_WIDTH } from '../types';
 import { DEBUG } from '../utils/debug';
 import { TeamPlay } from '../games/shared/team';
 import { DemoOverlay } from '../games/shared/demo';
+import { StickerToast } from '../games/shared/stickerToast';
+import { addPlaySeconds } from '../games/shared/stickers';
 
 interface Props {
   game: GameDefinition;
@@ -73,6 +75,9 @@ export function GameCanvas({ game }: Props) {
     const instance = game.create();
     const team = new TeamPlay();
     const demo = DemoOverlay.create(game.id);
+    const toast = new StickerToast();
+    toast.attach();
+    const earnsStickers = game.id !== 'sticker-book' && game.id !== 'buddies';
     const startTime = performance.now();
     let last = startTime;
     drainEvents(); // forget gestures from before this game started
@@ -166,6 +171,10 @@ export function GameCanvas({ game }: Props) {
         demo.update(g);
         demo.draw(ctx, g);
       }
+      // Stickers: time spent playing with a hand on screen earns them.
+      if (earnsStickers && rawFrame.hands.length > 0) addPlaySeconds(dt);
+      toast.update(g);
+      toast.draw(ctx);
       renderMs = renderMs * 0.9 + (performance.now() - t0) * 0.1;
       statFrames++;
       if (now - statSince > 500) {
@@ -183,6 +192,7 @@ export function GameCanvas({ game }: Props) {
 
     return () => {
       cancelAnimationFrame(raf);
+      toast.detach();
       window.removeEventListener('pointermove', onMove);
       window.removeEventListener('pointerdown', onDown);
       window.removeEventListener('pointerup', onUp);

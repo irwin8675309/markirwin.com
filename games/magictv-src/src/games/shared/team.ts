@@ -6,6 +6,7 @@ import { star } from '../../utils/draw';
 import { FONT_STACK } from '../../utils/font';
 import { CANDY } from '../../utils/palette';
 import { drawHint } from './hud';
+import { grantSticker } from './stickers';
 
 /** High fives needed to fill the team stars and trigger the big celebration. */
 export const TEAM_STARS = 5;
@@ -47,6 +48,7 @@ export class TeamPlay {
       g.audio.play('celebrate');
       g.audio.speak('Teamwork! You did it together!', { force: true });
       this.particles.confetti(960, 300, 70, 900);
+      window.setTimeout(() => grantSticker('teamwork'), 2500);
     }
   }
 

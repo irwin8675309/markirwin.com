@@ -57,6 +57,13 @@ The Magic Character game now stars **Teddy**, a furry teddy bear with a bow tie,
 - **"Show me" demos:** the first time a game opens, a yellow ghost hand ("Watch me!") shows what to do, with words and a spoken line. It disappears when a real hand joins in and is not shown again once a child has joined in. Settings has "Show tutorials again & reset buddies".
 - **High Five Friends:** a practice game with two example hands that meet in the middle; real high fives fill the team stars. A child on her own is invited to clap.
 
+## Stickers, Teddy's friends and counting games
+
+- **Sticker book:** every 2.5 minutes of play with a hand in view earns a sticker (also for finishing the team stars, meeting a friend, or finishing learning rounds). **My Sticker Book** shows the collection; touch a sticker to hear its name. Stored in this browser; reset from Settings.
+- **Teddy's friends:** in the Magic Character game an animal friend visits every half minute or so. Touch it to make it hop; the first time you meet each friend earns a sticker.
+- **Pop & Count**, **Who Says?** and **Shapes & Letters**: simple learning games with no wrong-answer penalties.
+- Checked by unit tests and offscreen renders only; none of this has been tried on a real TV with children.
+
 ## Team play (two children)
 
 - The app guesses which hands belong to which child: a Left and Right hand close together are one child; a hand on its own is a separate player. Once decided, the grouping is kept, so children bringing hands together are not merged.

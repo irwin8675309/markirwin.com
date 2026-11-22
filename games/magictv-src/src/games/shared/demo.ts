@@ -55,6 +55,30 @@ export const DEMOS: Record<string, DemoScript> = {
     pose: 'open',
     seconds: 5,
   },
+  'color-count': {
+    text: 'Pop the bubbles that match the colour!',
+    path: [[520, 700], [900, 450], [1350, 650]],
+    pose: 'open',
+    seconds: 5,
+  },
+  'animal-sounds': {
+    text: 'Hold your hand on the animal that makes the sound!',
+    path: [[700, 700], [960, 650], [1460, 700]],
+    pose: 'open',
+    seconds: 5,
+  },
+  'shapes-letters': {
+    text: 'Touch a shape or letter to hear its name!',
+    path: [[620, 560], [960, 560], [1300, 700]],
+    pose: 'open',
+    seconds: 5,
+  },
+  'sticker-book': {
+    text: 'Touch a sticker to see it sparkle!',
+    path: [[520, 520], [900, 640], [1350, 520]],
+    pose: 'open',
+    seconds: 5,
+  },
   buddies: {
     text: 'Hold your hand on an animal friend!',
     path: [[620, 620], [960, 420], [1300, 620]],

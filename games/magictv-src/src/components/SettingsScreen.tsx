@@ -1,5 +1,7 @@
 import { resetDemos } from '../games/shared/demo';
 import { resetBuddies } from '../games/shared/buddies';
+import { resetStickers } from '../games/shared/stickers';
+import { resetFriends } from '../games/shared/friends';
 import { useState } from 'react';
 import { useCamera } from '../camera/CameraProvider';
 import { CameraPreview } from './CameraPreview';
@@ -131,9 +133,11 @@ export function SettingsScreen({ onBack, onCalibrate, onTrackingTest }: Props) {
               onClick={() => {
                 resetDemos();
                 resetBuddies();
+                resetStickers();
+                resetFriends();
               }}
             >
-              Show tutorials again &amp; reset buddies
+              Show tutorials again &amp; reset buddies and stickers
             </button>
           </div>
 

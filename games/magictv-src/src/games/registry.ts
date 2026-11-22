@@ -7,6 +7,10 @@ import { balloonPartyGame } from './balloon-party/BalloonPartyGame';
 import { underwaterGame } from './underwater-adventure/UnderwaterGame';
 import { highFiveGame } from './high-five/HighFiveGame';
 import { buddyGame } from './buddies/BuddyGame';
+import { stickerBookGame } from './sticker-book/StickerBookGame';
+import { colorCountGame } from './color-count/ColorCountGame';
+import { animalSoundsGame } from './animal-sounds/AnimalSoundsGame';
+import { shapesLettersGame } from './shapes-letters/ShapesLettersGame';
 
 export const GAMES: GameDefinition[] = [
   bubblePopGame,
@@ -17,6 +21,10 @@ export const GAMES: GameDefinition[] = [
   underwaterGame,
   highFiveGame,
   buddyGame,
+  colorCountGame,
+  animalSoundsGame,
+  shapesLettersGame,
+  stickerBookGame,
 ];
 
 export function getGame(id: string): GameDefinition | undefined {

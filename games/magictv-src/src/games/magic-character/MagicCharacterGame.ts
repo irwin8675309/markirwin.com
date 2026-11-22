@@ -1,7 +1,9 @@
 import type { GameContext, GameDefinition, GameInstance } from '../types';
 import type { GestureEvent } from '../../types';
 import { Particles } from '../shared/particles';
-import { drawHandCursors, drawHint, drawVignette } from '../shared/hud';
+import { drawHandCursors, drawHint, drawVignette, handTouchesCircle } from '../shared/hud';
+import { FRIENDS, drawFriend, friendsMet, meetFriend } from '../shared/friends';
+import { grantSticker } from '../shared/stickers';
 import { TAU, clamp01, dist, damp, lerp } from '../../utils/math';
 import { CANDY } from '../../utils/palette';
 import { ellipse, glow, heart, roundRect, sparkle, star } from '../../utils/draw';
@@ -84,6 +86,8 @@ class MagicCharacterGame implements GameInstance {
   private stars: Array<{ x: number; y: number; r: number; p: number }> = [];
   private lastVx = 0;
   private lastTickle = -10;
+  private friend: { id: string; side: number; age: number; hop: number; touchedAt: number } | null = null;
+  private nextFriendAt = 16;
 
   enter(): void {
     for (let i = 0; i < 50; i++) {
@@ -187,6 +191,44 @@ class MagicCharacterGame implements GameInstance {
       if (score < best) {
         best = score;
         focus = { x: h.tip.x, y: h.tip.y, pointing: h.pointing || h.pinchActive };
+      }
+    }
+
+    // A friend drops by now and then; touching the friend makes a new pal (and earns a sticker).
+    if (!this.friend && this.time > this.nextFriendAt) {
+      const unmet = FRIENDS.filter((f) => !friendsMet().includes(f.id));
+      const f = pick(unmet.length > 0 && chance(0.8) ? unmet : FRIENDS);
+      this.friend = { id: f.id, side: chance(0.5) ? -1 : 1, age: 0, hop: 0, touchedAt: -10 };
+      this.say(`Look! ${f.name} came to play!`, 3);
+      ctx.audio.play('whoosh');
+    }
+    if (this.friend) {
+      const fr = this.friend;
+      fr.age += ctx.dt;
+      fr.hop = Math.max(0, fr.hop - ctx.dt * 1.4);
+      const fx = 960 + fr.side * 600;
+      if (fr.age > 1 && this.time - fr.touchedAt > 1.6) {
+        for (const h of hands) {
+          if (h.tracked && handTouchesCircle(h, fx, 780, 110)) {
+            fr.touchedAt = this.time;
+            fr.hop = 1;
+            ctx.audio.play('giggle');
+            this.particles.hearts(fx, 640, 5);
+            const name = FRIENDS.find((f) => f.id === fr.id)?.name ?? 'Friend';
+            if (meetFriend(fr.id)) {
+              grantSticker('friend');
+              this.say(`${name} is your new friend!`, 3);
+            } else {
+              this.say(`${name} says hi!`, 2.2);
+            }
+            break;
+          }
+        }
+      }
+      if (fr.age > 16) {
+        this.friend = null;
+        this.nextFriendAt = this.time + rand(25, 40);
+        ctx.audio.play('whoosh');
       }
     }
 
@@ -429,6 +471,14 @@ class MagicCharacterGame implements GameInstance {
     ellipse(ctx, 960, 930, 520, 70, 'rgba(255,210,250,0.10)');
 
     drawCharacter(ctx, this.kind, this.pose, this.time);
+    if (this.friend) {
+      const fr = this.friend;
+      const settle = Math.min(1, fr.age / 1.1);
+      const e = 1 - Math.pow(1 - settle, 3);
+      const fx = 960 + fr.side * (600 + (1 - e) * 700);
+      const leave = fr.age > 15 ? (fr.age - 15) : 0;
+      drawFriend(ctx, fr.id, fx + fr.side * leave * 700, 905, this.time, fr.hop);
+    }
     this.particles.draw(ctx);
 
     // Speech bubble

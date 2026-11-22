@@ -490,9 +490,9 @@ button {
   flex: 1;
   min-height: 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 1.5vh 1.5vw;
+  grid-template-columns: repeat(var(--cols, 3), 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1.2vh 1.2vw;
   padding: 1.6vh 0;
 }
 
@@ -1291,7 +1291,7 @@ input[type="range"] {
 
   .menu-grid {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(6, 1fr);
   }
 
   .card-art {
@@ -1331,6 +1331,10 @@ input[type="range"] {
 .magic-idle .menu-grid .game-card:nth-child(6) { animation-delay: 5s !important; }
 .magic-idle .menu-grid .game-card:nth-child(7) { animation-delay: 6s !important; }
 .magic-idle .menu-grid .game-card:nth-child(8) { animation-delay: 7s !important; }
+.magic-idle .menu-grid .game-card:nth-child(9) { animation-delay: 8s !important; }
+.magic-idle .menu-grid .game-card:nth-child(10) { animation-delay: 9s !important; }
+.magic-idle .menu-grid .game-card:nth-child(11) { animation-delay: 10s !important; }
+.magic-idle .menu-grid .game-card:nth-child(12) { animation-delay: 11s !important; }
 
 .rest-screen {
   display: flex;

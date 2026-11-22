@@ -190,6 +190,46 @@ export function GameArt({ id }: Props) {
           <path className="twinkle" d="M150 30l5 12 12 5-12 5-5 12-5-12-12-5 12-5z" fill="#fff7b0" />
         </svg>
       );
+    case 'color-count':
+      return (
+        <svg className="art-svg" viewBox="0 0 300 200" aria-hidden="true">
+          <g className="float-a"><circle cx="80" cy="90" r="40" fill="#ff6b6b" stroke="#a82a2a" strokeWidth="4" /><text x="80" y="104" textAnchor="middle" fontSize="40" fontWeight="900" fill="#fff">1</text></g>
+          <g className="float-b"><circle cx="160" cy="110" r="40" fill="#4f9dff" stroke="#1f5bb5" strokeWidth="4" /><text x="160" y="124" textAnchor="middle" fontSize="40" fontWeight="900" fill="#fff">2</text></g>
+          <g className="float-a"><circle cx="230" cy="80" r="36" fill="#5ed18a" stroke="#2a8a50" strokeWidth="4" /><text x="230" y="93" textAnchor="middle" fontSize="36" fontWeight="900" fill="#fff">3</text></g>
+        </svg>
+      );
+    case 'animal-sounds':
+      return (
+        <svg className="art-svg" viewBox="0 0 300 200" aria-hidden="true">
+          <g className="float-a">
+            <path d="M92 90l-8-44 36 22z" fill="#ffe2b8" stroke="#b06a10" strokeWidth="4" strokeLinejoin="round" />
+            <path d="M164 90l8-44-36 22z" fill="#ffe2b8" stroke="#b06a10" strokeWidth="4" strokeLinejoin="round" />
+            <circle cx="128" cy="120" r="44" fill="#ffe9cc" stroke="#b06a10" strokeWidth="5" />
+            <circle cx="114" cy="114" r="5" fill="#3a2350" /><circle cx="142" cy="114" r="5" fill="#3a2350" />
+            <path d="M120 132q8 8 16 0" fill="none" stroke="#3a2350" strokeWidth="3.5" strokeLinecap="round" />
+          </g>
+          <g className="twinkle"><path d="M196 70q22 14 0 28M212 58q34 26 0 52" fill="none" stroke="#fff7b0" strokeWidth="6" strokeLinecap="round" /></g>
+          <text x="262" y="100" fontSize="40" fontWeight="900" fill="#fff7b0">?</text>
+        </svg>
+      );
+    case 'shapes-letters':
+      return (
+        <svg className="art-svg" viewBox="0 0 300 200" aria-hidden="true">
+          <g className="float-a"><path d="M70 40l40 72H30z" fill="#ffd166" stroke="#b07d10" strokeWidth="5" strokeLinejoin="round" /></g>
+          <g className="float-b"><rect x="130" y="60" width="64" height="64" rx="8" fill="#6ee7b7" stroke="#1f9a6e" strokeWidth="5" /></g>
+          <g className="float-a"><text x="238" y="120" textAnchor="middle" fontSize="80" fontWeight="900" fill="#ff8ad8" stroke="#a83a8a" strokeWidth="3">A</text></g>
+          <circle cx="90" cy="156" r="18" fill="#7ab8ff" stroke="#2a5fb0" strokeWidth="4" />
+        </svg>
+      );
+    case 'sticker-book':
+      return (
+        <svg className="art-svg" viewBox="0 0 300 200" aria-hidden="true">
+          <rect x="60" y="30" width="180" height="140" rx="14" fill="#fff4d6" stroke="#b07d10" strokeWidth="5" />
+          <path className="twinkle" d="M110 62l8 18 19 2-14 13 4 19-17-10-17 10 4-19-14-13 19-2z" fill="#ffd400" stroke="#b07d10" strokeWidth="3" />
+          <path d="M190 80c-12-14-34 2-18 20l18 16 18-16c16-18-6-34-18-20z" fill="#ff6b9d" stroke="#a82a5a" strokeWidth="4" />
+          <circle cx="130" cy="136" r="14" fill="#7ab8ff" stroke="#2a5fb0" strokeWidth="4" />
+        </svg>
+      );
     default:
       return null;
   }
