@@ -1,0 +1,40 @@
+name: Build Magic TV
+
+# Magic TV's source lives in games/magictv-src. Whenever it changes, this builds it
+# and publishes the finished game into games/magictv (the folder the site serves).
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'games/magictv-src/**'
+      - '.github/workflows/build-magictv.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install, test and build
+        working-directory: games/magictv-src
+        run: |
+          npm ci
+          npm test
+          npm run build
+      - name: Publish into games/magictv
+        run: |
+          rm -rf games/magictv
+          cp -r games/magictv-src/dist games/magictv
+      - name: Commit the built game
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add games/magictv
+          git diff --cached --quiet || git commit -m "Build Magic TV [skip ci]"
+          git push
