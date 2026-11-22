@@ -317,3 +317,8 @@ Number keys **1–6** open games directly from the menu.
 - **Seating memory:** children are numbered by where they stand. After a break (more than 3 s out of view) a child comes back as the child whose seat is nearest to where she appears, so her colour and animal stay with her. Children arriving together are numbered left to right.
 - **Wave hello:** pressing Play starts a "Wave hello!" screen. Each child waves for about a second; she is greeted by her animal, and the menu opens a couple of seconds after the last greeting (or after 28 s if nobody waves). It shows once per visit and is skipped in "Pretend hands" mode.
 - Checked with simulated hands only, not yet with real children on a real TV. A child who waves first on the right gets child 1's animal; only children arriving together are numbered left to right.
+
+## Underwater friends and the safety-net test
+
+- Underwater Adventure now also has an octopus, a whale and a seahorse. Point at one and it reacts (the octopus wiggles, the whale spouts) and the name is spoken.
+- `tests/games-smoke.test.ts` opens every game plus the Wave hello screen, runs 8 seconds of moving hands and fails if any of them throws. It uses a stand-in canvas, so it catches crashes, not how things look.

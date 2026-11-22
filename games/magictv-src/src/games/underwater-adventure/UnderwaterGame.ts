@@ -7,7 +7,10 @@ import { FISH_COLORS } from '../../utils/palette';
 import { ellipse, fishShape, glow, sparkle } from '../../utils/draw';
 import { chance, pick, rand } from '../../utils/random';
 
-type CreatureKind = 'fish' | 'dolphin' | 'turtle';
+type CreatureKind = 'fish' | 'dolphin' | 'turtle' | 'octopus' | 'whale' | 'seahorse';
+
+const KIND_SPEED: Record<CreatureKind, number> = { fish: 90, dolphin: 120, turtle: 34, octopus: 55, whale: 40, seahorse: 45 };
+const KIND_NAME: Record<CreatureKind, string> = { fish: 'Fish', dolphin: 'Dolphin', turtle: 'Turtle', octopus: 'Octopus', whale: 'Whale', seahorse: 'Seahorse' };
 
 interface Creature {
   id: number;
@@ -63,6 +66,9 @@ class UnderwaterGame implements GameInstance {
     for (let i = 0; i < 16; i++) this.spawnFish();
     for (let i = 0; i < 2; i++) this.spawnDolphin();
     this.spawnTurtle();
+    this.spawnFriend('octopus', 560, 400, '#ff8fb8', 70);
+    this.spawnFriend('whale', 1450, 330, '#6f9be0', 120);
+    this.spawnFriend('seahorse', 900, 700, '#ffc24d', 60);
     for (let i = 0; i < 26; i++) this.spawnBubble(rand(0, 1));
     for (let i = 0; i < 26; i++) {
       this.weeds.push({
@@ -132,6 +138,14 @@ class UnderwaterGame implements GameInstance {
       leaping: false,
       baseY: rand(300, 650),
       spin: 0,
+    });
+  }
+
+  private spawnFriend(kind: CreatureKind, x: number, y: number, color: string, size: number): void {
+    this.creatures.push({
+      id: this.nextId++, kind, x, y, vx: 0, vy: 0, size, color,
+      phase: rand(0, TAU), dir: chance(0.5) ? 1 : -1, tx: x, ty: y, wander: rand(1, 3),
+      reaction: 0, leapT: 0, leaping: false, baseY: y, spin: 0,
     });
   }
 
@@ -247,7 +261,7 @@ class UnderwaterGame implements GameInstance {
 
     // Creatures.
     for (const c of this.creatures) {
-      c.phase += ctx.dt * (c.kind === 'turtle' ? 2 : 6);
+      c.phase += ctx.dt * (c.kind === 'turtle' || c.kind === 'whale' ? 2 : c.kind === 'octopus' ? 3.5 : 6);
       c.wander -= ctx.dt;
       c.reaction = Math.max(0, c.reaction - ctx.dt);
       c.spin = Math.max(0, c.spin - ctx.dt * 2);
@@ -276,7 +290,7 @@ class UnderwaterGame implements GameInstance {
         }
       }
       if (target) {
-        c.tx = target.palm.x + Math.sin(this.time * 1.1 + c.phase) * (c.kind === 'turtle' ? 60 : 130);
+        c.tx = target.palm.x + Math.sin(this.time * 1.1 + c.phase) * (c.kind === 'turtle' || c.kind === 'whale' ? 60 : 130);
         c.ty = target.palm.y + Math.cos(this.time * 0.9 + c.phase) * 80;
         c.wander = 1.2;
       } else if (c.wander <= 0) {
@@ -288,7 +302,7 @@ class UnderwaterGame implements GameInstance {
       const dx = c.tx - c.x;
       const dy = c.ty - c.y;
       const d = Math.hypot(dx, dy) || 1;
-      const speed = c.kind === 'turtle' ? 34 : c.kind === 'dolphin' ? 120 : 90;
+      const speed = KIND_SPEED[c.kind];
       const steer = 1 - Math.pow(0.1, ctx.dt);
       c.vx += ((dx / d) * speed - c.vx) * steer;
       c.vy += ((dy / d) * speed - c.vy) * steer;
@@ -324,10 +338,12 @@ class UnderwaterGame implements GameInstance {
           if (this.time - last > 1.6) {
             this.lastPoint.set(c.id, this.time);
             c.reaction = 1.2;
-            c.spin = c.kind === 'turtle' ? 1 : 0;
+            c.spin = c.kind === 'turtle' || c.kind === 'octopus' ? 1 : 0;
+            if (c.kind === 'whale') this.particles.sparkleBurst(c.x + c.dir * c.size * 0.6, c.y - c.size * 0.9, 22, ['#bff6ff', '#ffffff'], 380);
+            if (c.kind !== 'fish') ctx.audio.speak(KIND_NAME[c.kind], { force: false });
             if (c.kind === 'dolphin') this.leap(c);
             this.particles.hearts(c.x, c.y - c.size, 3);
-            ctx.audio.play(c.kind === 'turtle' ? 'boing' : 'sparkle');
+            ctx.audio.play(c.kind === 'turtle' || c.kind === 'octopus' ? 'boing' : 'sparkle');
           }
         }
       }
@@ -418,8 +434,14 @@ class UnderwaterGame implements GameInstance {
         }
       } else if (c.kind === 'dolphin') {
         this.drawDolphin(ctx, c);
-      } else {
+      } else if (c.kind === 'turtle') {
         this.drawTurtle(ctx, c);
+      } else if (c.kind === 'octopus') {
+        this.drawOctopus(ctx, c);
+      } else if (c.kind === 'whale') {
+        this.drawWhale(ctx, c);
+      } else {
+        this.drawSeahorse(ctx, c);
       }
     }
 
@@ -523,6 +545,117 @@ class UnderwaterGame implements GameInstance {
     ctx.beginPath();
     ctx.arc(s * 0.95, s * 0.06, s * 0.18, 0.15 * Math.PI, 0.7 * Math.PI);
     ctx.stroke();
+    ctx.restore();
+  }
+
+  private face(ctx: CanvasRenderingContext2D, x: number, y: number, r: number, happy: boolean): void {
+    ellipse(ctx, x - r, y, r * 0.5, r * 0.6, '#ffffff');
+    ellipse(ctx, x + r, y, r * 0.5, r * 0.6, '#ffffff');
+    ellipse(ctx, x - r, y + r * 0.1, r * 0.25, r * 0.3, '#2a1a40');
+    ellipse(ctx, x + r, y + r * 0.1, r * 0.25, r * 0.3, '#2a1a40');
+    ctx.strokeStyle = '#2a1a40';
+    ctx.lineWidth = Math.max(3, r * 0.22);
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.arc(x, y + r * 0.9, r * (happy ? 0.7 : 0.5), 0.15 * Math.PI, 0.85 * Math.PI);
+    ctx.stroke();
+  }
+
+  private drawOctopus(ctx: CanvasRenderingContext2D, c: Creature): void {
+    ctx.save();
+    ctx.translate(c.x, c.y + Math.sin(c.phase) * 8);
+    if (c.spin > 0) ctx.rotate(Math.sin((1 - c.spin) * TAU) * 0.5);
+    const s = c.size;
+    ctx.strokeStyle = c.color;
+    ctx.lineCap = 'round';
+    ctx.lineWidth = s * 0.2;
+    for (let i = 0; i < 8; i++) {
+      const bx = (i - 3.5) * s * 0.22;
+      ctx.beginPath();
+      ctx.moveTo(bx, s * 0.5);
+      const w = Math.sin(c.phase * 1.3 + i) * s * 0.22;
+      ctx.bezierCurveTo(bx + w, s * 0.9, bx - w, s * 1.2, bx + w * 1.4, s * 1.5);
+      ctx.stroke();
+    }
+    const g = ctx.createRadialGradient(-s * 0.2, -s * 0.3, s * 0.1, 0, 0, s * 0.9);
+    g.addColorStop(0, '#ffc2da');
+    g.addColorStop(1, c.color);
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, s * 0.78, s * 0.85, 0, 0, TAU);
+    ctx.fill();
+    ctx.strokeStyle = '#b0467a';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+    this.face(ctx, 0, s * 0.05, s * 0.22, true);
+    ctx.restore();
+  }
+
+  private drawWhale(ctx: CanvasRenderingContext2D, c: Creature): void {
+    ctx.save();
+    ctx.translate(c.x, c.y + Math.sin(c.phase) * 6);
+    ctx.scale(c.dir, 1);
+    const s = c.size;
+    const tail = Math.sin(c.phase * 1.5) * 0.25;
+    ctx.save();
+    ctx.translate(-s * 1.45, 0);
+    ctx.rotate(tail);
+    ctx.fillStyle = c.color;
+    ctx.beginPath();
+    ctx.moveTo(s * 0.3, 0);
+    ctx.quadraticCurveTo(-s * 0.1, -s * 0.2, -s * 0.35, -s * 0.6);
+    ctx.quadraticCurveTo(-s * 0.1, -s * 0.05, -s * 0.25, 0);
+    ctx.quadraticCurveTo(-s * 0.1, s * 0.05, -s * 0.35, s * 0.6);
+    ctx.quadraticCurveTo(-s * 0.1, s * 0.2, s * 0.3, 0);
+    ctx.fill();
+    ctx.restore();
+    const g = ctx.createLinearGradient(0, -s * 0.7, 0, s * 0.7);
+    g.addColorStop(0, '#86aef0');
+    g.addColorStop(1, '#4f78c8');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, s * 1.5, s * 0.78, 0, 0, TAU);
+    ctx.fill();
+    ctx.strokeStyle = '#2f4f98';
+    ctx.lineWidth = 4;
+    ctx.stroke();
+    ctx.fillStyle = '#e8f0ff';
+    ctx.beginPath();
+    ctx.ellipse(s * 0.1, s * 0.34, s * 1.2, s * 0.36, 0, 0.1, Math.PI - 0.1);
+    ctx.fill();
+    ellipse(ctx, -s * 0.1, s * 0.5, s * 0.34, s * 0.12, '#4f78c8');
+    this.face(ctx, s * 0.85, -s * 0.1, s * 0.14, true);
+    ctx.restore();
+  }
+
+  private drawSeahorse(ctx: CanvasRenderingContext2D, c: Creature): void {
+    ctx.save();
+    ctx.translate(c.x, c.y + Math.sin(c.phase * 0.8) * 10);
+    ctx.scale(c.dir, 1);
+    const s = c.size;
+    ctx.strokeStyle = c.color;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    // curly tail
+    ctx.lineWidth = s * 0.22;
+    ctx.beginPath();
+    ctx.moveTo(0, s * 0.4);
+    ctx.bezierCurveTo(-s * 0.4, s * 0.9, s * 0.1, s * 1.3, -s * 0.2, s * 1.1);
+    ctx.stroke();
+    // body
+    ctx.lineWidth = s * 0.55;
+    ctx.beginPath();
+    ctx.moveTo(0, -s * 0.1);
+    ctx.quadraticCurveTo(s * 0.2, s * 0.2, 0, s * 0.5);
+    ctx.stroke();
+    // head and snout
+    ellipse(ctx, s * 0.05, -s * 0.42, s * 0.34, s * 0.3, c.color);
+    ellipse(ctx, s * 0.5, -s * 0.38, s * 0.3, s * 0.11, c.color);
+    // fin
+    ellipse(ctx, -s * 0.3, s * 0.1 + Math.sin(c.phase * 3) * 4, s * 0.16, s * 0.28, 'rgba(255,230,160,0.9)');
+    ellipse(ctx, s * 0.12, -s * 0.46, s * 0.07, s * 0.08, '#2a1a40');
+    ctx.fillStyle = '#ff8a4d';
+    for (let i = 0; i < 3; i++) ellipse(ctx, -s * 0.12 - i * s * 0.04, -s * 0.7 + i * s * 0.1, s * 0.06, s * 0.06, '#ff8a4d');
     ctx.restore();
   }
 
