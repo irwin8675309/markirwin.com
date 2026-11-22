@@ -23,9 +23,183 @@ export interface CursorOptions {
   scale?: number;
 }
 
+/** Which colour/number each child gets. Stable while the child stays in view. */
+const playerSlots = new Map<number, { slot: number; seen: number }>();
+
+function slotsFor(players: number[], now: number): Map<number, number> {
+  for (const [id, v] of playerSlots) if (now - v.seen > 3000 && !players.includes(id)) playerSlots.delete(id);
+  const out = new Map<number, number>();
+  for (const p of players) {
+    let v = playerSlots.get(p);
+    if (!v) {
+      const used = new Set(Array.from(playerSlots.values()).map((x) => x.slot));
+      let slot = 0;
+      while (used.has(slot)) slot++;
+      v = { slot, seen: now };
+      playerSlots.set(p, v);
+    }
+    v.seen = now;
+    out.set(p, v.slot);
+  }
+  return out;
+}
+
+function lighten(hex: string, amt: number): string {
+  const n = parseInt(hex.slice(1), 16);
+  const f = (c: number) => Math.round(c + (255 - c) * amt);
+  return `rgb(${f((n >> 16) & 255)}, ${f((n >> 8) & 255)}, ${f(n & 255)})`;
+}
+
+function darken(hex: string, amt: number): string {
+  const n = parseInt(hex.slice(1), 16);
+  const f = (c: number) => Math.round(c * (1 - amt));
+  return `rgb(${f((n >> 16) & 255)}, ${f((n >> 8) & 255)}, ${f(n & 255)})`;
+}
+
+type HandPose = 'open' | 'point' | 'closed';
+
 /**
- * The "magic hand" feedback: every child sees exactly where the TV thinks
- * their hand is. Large, bright and friendly.
+ * One cute cartoon hand with a smiley face, drawn so that the INDEX FINGERTIP is at
+ * (0, 0): that is exactly the spot the games use as the touch point.
+ * Units are roughly pixels at scale 1. `t` drives the little animations.
+ */
+function drawCuteHand(
+  ctx: CanvasRenderingContext2D,
+  pose: HandPose,
+  color: string,
+  t: number,
+  seed: number,
+  happy: boolean,
+): void {
+  const fill = lighten(color, 0.28);
+  const edge = darken(color, 0.38);
+  const wig = pose === 'open' ? 1 : 0;
+
+  const finger = (x0: number, y0: number, x1: number, y1: number, w: number) => {
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = edge;
+    ctx.lineWidth = w + 9;
+    ctx.beginPath();
+    ctx.moveTo(x0, y0);
+    ctx.lineTo(x1, y1);
+    ctx.stroke();
+  };
+  const fingerFill = (x0: number, y0: number, x1: number, y1: number, w: number) => {
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = fill;
+    ctx.lineWidth = w;
+    ctx.beginPath();
+    ctx.moveTo(x0, y0);
+    ctx.lineTo(x1, y1);
+    ctx.stroke();
+  };
+
+  const w = 27;
+  // Fingers: [baseX, tipX, tipY] (tip drawn as the capsule end, so the visible top is tipY - w/2).
+  const sway = (i: number) => Math.sin(t * 5 + seed + i * 0.9) * 4 * wig;
+  let fingers: Array<[number, number, number, number]> = [];
+  if (pose === 'open') {
+    fingers = [
+      [4, 4 + sway(0), 14, 100], // index (tip at the origin)
+      [32, 34 + sway(1), 8, 100],
+      [58, 62 + sway(2), 20, 104],
+      [80, 87 + sway(3), 44, 112],
+    ];
+  } else if (pose === 'point') {
+    fingers = [[4, 4, 14, 100]];
+  }
+
+  // Thumb.
+  const thumb: [number, number, number, number] =
+    pose === 'closed' ? [-40, -30, 70, 96] : [-30, -62 + (wig ? Math.sin(t * 5 + seed) * 4 : 0), 74, 118];
+
+  const drawBody = (outline: boolean) => {
+    const f = outline ? finger : fingerFill;
+    for (const [bx, tx, ty, by] of fingers) f(bx, by, tx, ty + 13, w);
+    if (pose !== 'closed') f(thumb[0], thumb[3], thumb[1], thumb[2] + 6, w - 2);
+    ctx.beginPath();
+    if (pose === 'closed') {
+      // A round mitten; its top is the touch point.
+      ctx.ellipse(10, 72, 62, 70, 0, 0, Math.PI * 2);
+    } else {
+      ctx.roundRect(-34, 70, 138, 108, 44);
+    }
+    if (outline) {
+      ctx.strokeStyle = edge;
+      ctx.lineWidth = 9;
+      ctx.stroke();
+    } else {
+      ctx.fillStyle = fill;
+      ctx.fill();
+    }
+    if (pose === 'closed') {
+      // tucked thumb
+      f(-40, 96, -22, 66, 26);
+    }
+  };
+  drawBody(true);
+  drawBody(false);
+  if (pose === 'closed') {
+    // Curled fingers on the mitten so it reads as a little fist.
+    ctx.strokeStyle = edge;
+    ctx.lineWidth = 6;
+    ctx.lineCap = 'round';
+    for (const cx of [-10, 14, 38]) {
+      ctx.beginPath();
+      ctx.moveTo(cx, 22);
+      ctx.lineTo(cx, 50);
+      ctx.stroke();
+    }
+  }
+
+  // Cuff.
+  ctx.fillStyle = '#ffffff';
+  ctx.strokeStyle = edge;
+  ctx.lineWidth = 6;
+  ctx.beginPath();
+  ctx.roundRect(pose === 'closed' ? -30 : -20, pose === 'closed' ? 134 : 172, pose === 'closed' ? 80 : 110, 28, 12);
+  ctx.fill();
+  ctx.stroke();
+
+  // Face on the palm.
+  const fx = pose === 'closed' ? 10 : 36;
+  const fy = pose === 'closed' ? 84 : 124;
+  const blink = Math.sin(t * 1.3 + seed * 2) > 0.985;
+  ctx.fillStyle = '#3a2350';
+  ctx.strokeStyle = '#3a2350';
+  ctx.lineWidth = 5;
+  ctx.lineCap = 'round';
+  for (const ex of [-17, 17]) {
+    if (happy || blink) {
+      ctx.beginPath();
+      ctx.arc(fx + ex, fy, 8, Math.PI * 1.1, Math.PI * 1.9);
+      ctx.stroke();
+    } else {
+      ctx.beginPath();
+      ctx.ellipse(fx + ex, fy, 6.5, 9, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.arc(fx + ex + 2, fy - 3, 2.6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#3a2350';
+    }
+  }
+  ctx.fillStyle = 'rgba(255,110,140,0.55)';
+  for (const ex of [-30, 30]) {
+    ctx.beginPath();
+    ctx.ellipse(fx + ex, fy + 14, 9, 6, 0, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.beginPath();
+  ctx.arc(fx, fy + 10, happy ? 12 : 9, 0.15 * Math.PI, 0.85 * Math.PI);
+  ctx.stroke();
+}
+
+/**
+ * The "magic hand" feedback: every child sees exactly where the TV thinks their
+ * hand is. Each hand is a cute cartoon hand with a smiley face and a name tag in
+ * the child's own colour. The index fingertip is the touch point.
  */
 export function drawHandCursors(
   ctx: CanvasRenderingContext2D,
@@ -34,10 +208,14 @@ export function drawHandCursors(
   opts: CursorOptions = {},
 ): void {
   const scale = opts.scale ?? 1;
+  const players = Array.from(new Set(frame.hands.map((h) => h.player)));
+  const slots = slotsFor(players, performance.now());
+  const many = players.length > 1;
+
   frame.hands.forEach((h, i) => {
-    const color = handColor(i);
+    const slot = slots.get(h.player) ?? 0;
+    const color = handColor(slot);
     const t = frame.time;
-    const pulse = 0.85 + Math.sin(t * 6 + i) * 0.15;
 
     if (opts.showSkeleton && settings.showSkeleton && h.landmarks.length === 21) {
       ctx.save();
@@ -48,13 +226,11 @@ export function drawHandCursors(
 
     const x = h.tip.x;
     const y = h.tip.y;
-    const r = (h.pinchActive ? 34 : h.open ? 52 : 42) * scale * pulse;
 
-    // soft aura
+    // soft aura around the touch point
     ctx.save();
     ctx.globalCompositeOperation = 'lighter';
-    glow(ctx, x, y, r * 3.1, mixAlpha(color, 0.28));
-    glow(ctx, x, y, r * 1.5, mixAlpha(color, 0.5));
+    glow(ctx, x, y, 70 * scale, mixAlpha(color, 0.35));
     ctx.restore();
 
     // touch radius (forgiving)
@@ -70,25 +246,45 @@ export function drawHandCursors(
       ctx.restore();
     }
 
-    // core
+    const pose: HandPose = h.pinchActive || h.fist ? 'closed' : h.pointing ? 'point' : 'open';
+    const k = 0.82 * scale * (1 + Math.sin(t * 6 + i) * (pose === 'closed' ? 0.02 : 0.03));
+    const tilt = Math.max(-0.3, Math.min(0.3, h.velocity.x / 5000)) + Math.sin(t * 2.4 + i) * 0.04;
+    const flip = h.handedness === 'Left' ? -1 : 1;
+
     ctx.save();
-    const g = ctx.createRadialGradient(x - r * 0.25, y - r * 0.3, r * 0.1, x, y, r);
-    g.addColorStop(0, '#ffffff');
-    g.addColorStop(0.55, color);
-    g.addColorStop(1, mixAlpha(color, 0.9));
-    ctx.fillStyle = g;
+    if (!h.tracked) ctx.globalAlpha = 0.55;
+    ctx.translate(x, y);
+    ctx.rotate(tilt);
+    ctx.scale(k * flip, k);
+    ctx.shadowColor = 'rgba(30,10,60,0.35)';
+    ctx.shadowBlur = 0;
+    drawCuteHand(ctx, pose, color, t, i * 1.7, h.pinchActive);
+    ctx.restore();
+
+    // Name tag under the hand, in the child's colour.
+    const label = many ? `Player ${slot + 1}` : 'Your hand';
+    ctx.save();
+    if (!h.tracked) ctx.globalAlpha = 0.55;
+    const ty = y + (pose === 'closed' ? 200 : 232) * k + 14;
+    ctx.font = `800 ${Math.round(30 * Math.max(0.85, scale))}px ${FONT_STACK}`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const tw = ctx.measureText(label).width + 40;
+    ctx.fillStyle = darken(color, 0.32);
     ctx.beginPath();
-    ctx.arc(x, y, r, 0, TAU);
+    ctx.roundRect(x + 30 * k - tw / 2, ty - 24, tw, 48, 24);
     ctx.fill();
-    ctx.strokeStyle = 'rgba(255,255,255,0.9)';
-    ctx.lineWidth = 3 * scale;
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 4;
     ctx.stroke();
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(label, x + 30 * k, ty + 1);
+    ctx.restore();
 
     // tiny sparkle when pinching
     if (h.pinchActive) {
-      sparkle(ctx, x + Math.cos(t * 8) * r * 1.8, y + Math.sin(t * 8) * r * 1.8, 9 * scale, '#ffffff', t);
+      sparkle(ctx, x + Math.cos(t * 8) * 60 * scale, y + Math.sin(t * 8) * 60 * scale, 10 * scale, '#ffffff', t);
     }
-    ctx.restore();
   });
 }
 
