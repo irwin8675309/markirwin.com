@@ -77,7 +77,7 @@ export function GameCanvas({ game }: Props) {
     const demo = DemoOverlay.create(game.id);
     const toast = new StickerToast();
     toast.attach();
-    const earnsStickers = game.id !== 'sticker-book' && game.id !== 'buddies';
+    const earnsStickers = game.id !== 'sticker-book' && game.id !== 'buddies' && game.id !== 'hello';
     const startTime = performance.now();
     let last = startTime;
     drainEvents(); // forget gestures from before this game started

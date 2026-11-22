@@ -4,6 +4,7 @@ import { TAU, clamp01, dist } from '../../utils/math';
 import { glow, skeleton, sparkle } from '../../utils/draw';
 import { FONT_STACK } from '../../utils/font';
 import { drawAnimalFace, getBuddy } from './buddies';
+import { SlotAssigner } from '../../tracking/slots';
 
 export const HAND_COLORS = ['#6ff2ff', '#ff8ad8', '#ffe14d', '#9dff8a'];
 
@@ -25,30 +26,24 @@ export interface CursorOptions {
   scale?: number;
 }
 
-/** Which colour/number each child gets. Stable while the child stays in view. */
-const playerSlots = new Map<number, { slot: number; seen: number }>();
+/** Which colour/number each child gets. Stable while she stays in view and remembers where she sat. */
+const assigner = new SlotAssigner();
 
 /** Which child number (0, 1, ...) each player in this frame is. */
 export function slotsForFrame(frame: FrameState): Map<number, number> {
-  return slotsFor(Array.from(new Set(frame.hands.map((h) => h.player))), performance.now());
+  const xs = new Map<number, number[]>();
+  for (const h of frame.hands) {
+    const l = xs.get(h.player) ?? [];
+    l.push(h.palm.x);
+    xs.set(h.player, l);
+  }
+  const players = Array.from(xs, ([id, l]) => ({ id, x: l.reduce((a, b) => a + b, 0) / l.length }));
+  return assigner.assign(players, performance.now());
 }
 
-function slotsFor(players: number[], now: number): Map<number, number> {
-  for (const [id, v] of playerSlots) if (now - v.seen > 3000 && !players.includes(id)) playerSlots.delete(id);
-  const out = new Map<number, number>();
-  for (const p of players) {
-    let v = playerSlots.get(p);
-    if (!v) {
-      const used = new Set(Array.from(playerSlots.values()).map((x) => x.slot));
-      let slot = 0;
-      while (used.has(slot)) slot++;
-      v = { slot, seen: now };
-      playerSlots.set(p, v);
-    }
-    v.seen = now;
-    out.set(p, v.slot);
-  }
-  return out;
+/** Forget who sat where (used by the "wave hello" start-up). */
+export function resetSlots(): void {
+  assigner.reset();
 }
 
 function lighten(hex: string, amt: number): string {
@@ -215,8 +210,7 @@ export function drawHandCursors(
   opts: CursorOptions = {},
 ): void {
   const scale = opts.scale ?? 1;
-  const players = Array.from(new Set(frame.hands.map((h) => h.player)));
-  const slots = slotsFor(players, performance.now());
+  const slots = slotsForFrame(frame);
 
   frame.hands.forEach((h, i) => {
     const slot = slots.get(h.player) ?? 0;

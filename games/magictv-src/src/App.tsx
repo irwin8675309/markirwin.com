@@ -10,6 +10,7 @@ import { HoldZone } from './components/HoldZone';
 import { CameraStatusOverlay } from './components/CameraStatusOverlay';
 import type { GameDefinition } from './games/types';
 import { GAMES } from './games/registry';
+import { helloGame, HELLO_DONE_EVENT } from './games/hello/HelloGame';
 import { audio } from './audio/AudioEngine';
 import { toggleFullscreen } from './utils/fullscreen';
 import { DEBUG } from './utils/debug';
@@ -74,6 +75,28 @@ function AppShell() {
     window.setTimeout(() => audio.speak(g.voice, { force: true }), 650);
   }, []);
 
+  // Start-up "Wave hello!" (once per visit): children wave, meet their buddies, then the menu opens.
+  const helloDone = useRef(false);
+  const startPlaying = useCallback(() => {
+    if (helloDone.current || settings.demoMode) {
+      goMenu();
+      return;
+    }
+    helloDone.current = true;
+    audio.init();
+    setGame(helloGame);
+    setScreen('game');
+    window.setTimeout(() => audio.speak(helloGame.voice, { force: true }), 500);
+  }, [settings.demoMode, goMenu]);
+
+  useEffect(() => {
+    const onDone = () => {
+      if (gameRef.current?.id === 'hello') goMenu();
+    };
+    window.addEventListener(HELLO_DONE_EVENT, onDone);
+    return () => window.removeEventListener(HELLO_DONE_EVENT, onDone);
+  }, [goMenu]);
+
   const openSettings = useCallback(() => {
     setScreen('settings');
   }, []);
@@ -135,7 +158,7 @@ function AppShell() {
     <div className="app">
       {screen === 'boot' && (
         <BootScreen
-          onPlay={() => setScreen('menu')}
+          onPlay={startPlaying}
           onSettings={openSettings}
           onTrackingTest={() => openTracking('boot')}
         />

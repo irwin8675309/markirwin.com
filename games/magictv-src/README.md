@@ -312,3 +312,8 @@ Number keys **1–6** open games directly from the menu.
 - Built with React, TypeScript, Vite and the Web Audio API.
 
 **Privacy by design:** no network calls during play, no recording, no accounts, no analytics.
+## Who is who, and "Wave hello"
+
+- **Seating memory:** children are numbered by where they stand. After a break (more than 3 s out of view) a child comes back as the child whose seat is nearest to where she appears, so her colour and animal stay with her. Children arriving together are numbered left to right.
+- **Wave hello:** pressing Play starts a "Wave hello!" screen. Each child waves for about a second; she is greeted by her animal, and the menu opens a couple of seconds after the last greeting (or after 28 s if nobody waves). It shows once per visit and is skipped in "Pretend hands" mode.
+- Checked with simulated hands only, not yet with real children on a real TV. A child who waves first on the right gets child 1's animal; only children arriving together are numbered left to right.
