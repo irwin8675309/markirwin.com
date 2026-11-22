@@ -322,3 +322,7 @@ Number keys **1–6** open games directly from the menu.
 
 - Underwater Adventure now also has an octopus, a whale and a seahorse. Point at one and it reacts (the octopus wiggles, the whale spouts) and the name is spoken.
 - `tests/games-smoke.test.ts` opens every game plus the Wave hello screen, runs 8 seconds of moving hands and fails if any of them throws. It uses a stand-in canvas, so it catches crashes, not how things look.
+
+## Grown-up page: how they are playing
+
+Hold the bottom-right corner on the menu to open the grown-up settings. The top panel shows minutes played today (time with a hand in view), a 7-day bar chart, favourite games this week, stickers and friends collected, and each child's animal. It is kept only in this browser (last 14 days) and can be cleared there. The rest reminder is in the "Screen & grown-ups" panel.

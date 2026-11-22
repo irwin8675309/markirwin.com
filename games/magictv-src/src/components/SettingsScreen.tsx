@@ -3,6 +3,11 @@ import { resetBuddies } from '../games/shared/buddies';
 import { resetStickers } from '../games/shared/stickers';
 import { resetFriends } from '../games/shared/friends';
 import { useState } from 'react';
+import { GAMES } from '../games/registry';
+import { getBuddy } from '../games/shared/buddies';
+import { STICKERS, ownedStickers } from '../games/shared/stickers';
+import { FRIENDS, friendsMet } from '../games/shared/friends';
+import { summarize, resetStats } from '../games/shared/stats';
 import { useCamera } from '../camera/CameraProvider';
 import { CameraPreview } from './CameraPreview';
 import { PointerOverlay } from './PointerOverlay';
@@ -67,6 +72,77 @@ function Slider({
   );
 }
 
+function minutes(sec: number): string {
+  const m = Math.round(sec / 60);
+  return m < 1 ? (sec > 0 ? 'under a minute' : '0 min') : `${m} min`;
+}
+
+export function PlaySummary() {
+  const [tick, setTick] = useState(0);
+  void tick;
+  const sum = summarize();
+  const maxDay = Math.max(60, ...sum.week.map((d) => d.seconds));
+  const names = new Map(GAMES.map((g) => [g.id, g.title]));
+  const dayLetter = (k: string) => 'SMTWTFS'[new Date(`${k}T12:00:00`).getDay()];
+  return (
+    <section className="panel panel-wide">
+      <h2>📊 How they are playing</h2>
+      <div className="summary-grid">
+        <div>
+          <p className="summary-big">{minutes(sum.todaySeconds)}</p>
+          <p className="summary-small">played today (time with a hand in view)</p>
+          <div className="week-bars" aria-label="Minutes played, last 7 days">
+            {sum.week.map((d) => (
+              <div key={d.day} className="week-col" title={`${d.day}: ${minutes(d.seconds)}`}>
+                <div className="week-bar" style={{ height: `${Math.max(4, (d.seconds / maxDay) * 100)}%` }} />
+                <span>{dayLetter(d.day)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h3>Favourite games this week</h3>
+          {sum.topGames.length === 0 ? (
+            <p className="summary-small">Nothing played yet.</p>
+          ) : (
+            <ol className="summary-list">
+              {sum.topGames.slice(0, 4).map((g) => (
+                <li key={g.id}>
+                  {names.get(g.id) ?? g.id} <em>{minutes(g.seconds)}</em>
+                </li>
+              ))}
+            </ol>
+          )}
+        </div>
+        <div>
+          <h3>Collections</h3>
+          <p className="summary-line">
+            Stickers: <strong>{ownedStickers().length}</strong> of {STICKERS.length}
+          </p>
+          <p className="summary-line">
+            Teddy's friends met: <strong>{friendsMet().length}</strong> of {FRIENDS.length}
+          </p>
+          <p className="summary-line">
+            Animals: first child <strong>{getBuddy(0).name}</strong>, second child <strong>{getBuddy(1).name}</strong>
+          </p>
+          <div className="button-row">
+            <button
+              className="soft-btn"
+              onClick={() => {
+                resetStats();
+                setTick((t) => t + 1);
+              }}
+            >
+              Clear play history
+            </button>
+          </div>
+        </div>
+      </div>
+      <p className="summary-small">Kept only in this browser. The rest reminder is set under Screen &amp; grown-ups below.</p>
+    </section>
+  );
+}
+
 export function SettingsScreen({ onBack, onCalibrate, onTrackingTest }: Props) {
   const { settings, updateSettings, devices, status, error, notice, fps, handCount, startCamera, demo, setDemoMode } =
     useCamera();
@@ -91,6 +167,8 @@ export function SettingsScreen({ onBack, onCalibrate, onTrackingTest }: Props) {
       </header>
 
       <div className="settings-grid">
+        <PlaySummary />
+
         <section className="panel">
           <h2>📷 Camera</h2>
           <CameraPreview className="settings-preview" label="Preview" />

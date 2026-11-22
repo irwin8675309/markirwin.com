@@ -1354,3 +1354,68 @@ input[type="range"] {
 @media (prefers-reduced-motion: reduce) {
   .magic-idle .menu-grid .game-card, .rest-emoji { animation: none; }
 }
+
+/* Grown-up page: play summary */
+.panel-wide {
+  grid-column: 1 / -1;
+}
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+.summary-grid h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 800;
+}
+.summary-big {
+  margin: 0;
+  font-size: 40px;
+  font-weight: 900;
+}
+.summary-small {
+  margin: 4px 0 8px;
+  font-size: 14px;
+  opacity: 0.8;
+}
+.summary-line {
+  margin: 0 0 6px;
+  font-size: 17px;
+}
+.summary-list {
+  margin: 0;
+  padding-left: 22px;
+  font-size: 17px;
+}
+.summary-list em {
+  opacity: 0.75;
+  font-style: normal;
+  margin-left: 6px;
+}
+.week-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 90px;
+  margin-top: 6px;
+}
+.week-col {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 13px;
+}
+.week-bar {
+  width: 100%;
+  border-radius: 8px 8px 3px 3px;
+  background: linear-gradient(180deg, #ffd166, #ff8ad8);
+}
+@media (max-width: 900px) {
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+}

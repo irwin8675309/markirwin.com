@@ -9,6 +9,7 @@ import { TeamPlay } from '../games/shared/team';
 import { DemoOverlay } from '../games/shared/demo';
 import { StickerToast } from '../games/shared/stickerToast';
 import { addPlaySeconds } from '../games/shared/stickers';
+import { recordPlay, flushStats } from '../games/shared/stats';
 
 interface Props {
   game: GameDefinition;
@@ -173,6 +174,7 @@ export function GameCanvas({ game }: Props) {
       }
       // Stickers: time spent playing with a hand on screen earns them.
       if (earnsStickers && rawFrame.hands.length > 0) addPlaySeconds(dt);
+      if (game.id !== 'hello' && rawFrame.hands.length > 0) recordPlay(game.id, dt);
       toast.update(g);
       toast.draw(ctx);
       renderMs = renderMs * 0.9 + (performance.now() - t0) * 0.1;
@@ -193,6 +195,7 @@ export function GameCanvas({ game }: Props) {
     return () => {
       cancelAnimationFrame(raf);
       toast.detach();
+      flushStats();
       window.removeEventListener('pointermove', onMove);
       window.removeEventListener('pointerdown', onDown);
       window.removeEventListener('pointerup', onUp);
