@@ -179,7 +179,7 @@ class UnderwaterGame implements GameInstance {
       }
       for (const b of this.bubbles) b.vy -= 40;
     }
-    if (e.type === 'clap') {
+    if (e.type === 'clap' || e.type === 'highFive') {
       ctx.audio.play('splash');
       for (let i = 0; i < 14; i++) this.spawnBubble(0.3);
       this.particles.sparkleBurst(e.x ?? 960, e.y ?? 500, 20, ['#bff6ff', '#ffffff'], 320);

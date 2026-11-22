@@ -5,6 +5,7 @@ import { useCamera } from '../camera/CameraProvider';
 import { audio } from '../audio/AudioEngine';
 import { WORLD_HEIGHT, WORLD_WIDTH } from '../types';
 import { DEBUG } from '../utils/debug';
+import { TeamPlay } from '../games/shared/team';
 
 interface Props {
   game: GameDefinition;
@@ -43,6 +44,7 @@ function makeMouseHand(x: number, y: number, prev: Vec2 | null, pinch: boolean, 
     palmSize: 90,
     confidence: 1,
     tracked: true,
+    player: -1,
     pinchStartedAt: time,
     history: [],
   };
@@ -68,6 +70,7 @@ export function GameCanvas({ game }: Props) {
     canvas.height = WORLD_HEIGHT;
 
     const instance = game.create();
+    const team = new TeamPlay();
     const startTime = performance.now();
     let last = startTime;
     drainEvents(); // forget gestures from before this game started
@@ -147,11 +150,16 @@ export function GameCanvas({ game }: Props) {
       const g = buildContext(rawFrame, time, dt);
 
       // Every gesture is delivered exactly once, even if a frame was slow.
-      for (const e of drainEvents()) instance.onGesture?.(e, g);
+      for (const e of drainEvents()) {
+        instance.onGesture?.(e, g);
+        if (e.type === 'highFive') team.onHighFive(e, g);
+      }
 
       const t0 = performance.now();
       instance.update(g);
       instance.draw(ctx, g);
+      team.update(g);
+      team.draw(ctx);
       renderMs = renderMs * 0.9 + (performance.now() - t0) * 0.1;
       statFrames++;
       if (now - statSince > 500) {

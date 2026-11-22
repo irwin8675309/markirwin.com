@@ -193,7 +193,7 @@ class BubblePopGame implements GameInstance {
   }
 
   onGesture(e: GestureEvent, ctx: GameContext): void {
-    if (e.type === 'clap') {
+    if (e.type === 'clap' || e.type === 'highFive') {
       this.particles.confetti(e.x ?? 960, e.y ?? 540, 30, 520);
       ctx.audio.play('celebrate');
     }

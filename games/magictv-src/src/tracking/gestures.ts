@@ -40,6 +40,8 @@ export class GestureEngine {
   private waveLastSeen = -10;
   private waveSeen = false;
   private pairIds: [number, number] | null = null;
+  private lastFive = new Map<string, number>();
+  private apartAt = new Map<string, number>();
 
   /**
    * Picks the pair of hands used for two-hand gestures. A child's own hands are
@@ -77,6 +79,8 @@ export class GestureEngine {
 
   reset(): void {
     this.pairIds = null;
+    this.lastFive.clear();
+    this.apartAt.clear();
     this.waves.clear();
     this.prevPinch.clear();
     this.prevOpen.clear();
@@ -258,6 +262,42 @@ export class GestureEngine {
       this.prevDown = false;
     }
 
+    this.detectHighFives(hands, now, events);
+
     return { events, handsApart };
+  }
+
+  /**
+   * High five: a hand of one child meets a hand of ANOTHER child, after the two
+   * were clearly apart. Needs two players (see tracking/players.ts), so a child
+   * clapping their own hands is never a high five.
+   */
+  private detectHighFives(hands: HandState[], now: number, events: GestureEvent[]): void {
+    const live = hands.filter((h) => h.tracked);
+    for (let i = 0; i < live.length; i++) {
+      for (let j = i + 1; j < live.length; j++) {
+        const a = live[i];
+        const b = live[j];
+        if (a.player === b.player) continue;
+        const key = `${Math.min(a.id, b.id)}:${Math.max(a.id, b.id)}`;
+        const d = dist(a.palm, b.palm);
+        const near = Math.max(200, ((a.palmSize + b.palmSize) / 2) * 2.2);
+        if (d > near * 2.5) this.apartAt.set(key, now);
+        const wasApart = now - (this.apartAt.get(key) ?? -10) < 2;
+        if (d < near && wasApart && !a.fist && !b.fist && now - (this.lastFive.get(key) ?? -10) > 1.8) {
+          this.lastFive.set(key, now);
+          this.apartAt.delete(key);
+          events.push({
+            type: 'highFive',
+            handIds: [a.id, b.id],
+            x: (a.palm.x + b.palm.x) / 2,
+            y: (a.palm.y + b.palm.y) / 2,
+          });
+        }
+      }
+    }
+    for (const m of [this.lastFive, this.apartAt]) {
+      for (const [k, t] of m) if (now - t > 10) m.delete(k);
+    }
   }
 }

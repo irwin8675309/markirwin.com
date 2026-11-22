@@ -6,6 +6,7 @@ import type { RawHand } from './landmarker';
 import { buildHandState, pinchRatioOf } from './handBuilder';
 import { Vec2Filter, smoothingToParams } from './filters';
 import { createMapper } from './mapping';
+import { PlayerTracker } from './players';
 
 interface Track {
   id: number;
@@ -44,8 +45,10 @@ export class HandTracker {
   private lost: LostTrack[] = [];
   private nextId = 1;
   private lastHands: HandState[] = [];
+  private players = new PlayerTracker();
 
   reset(): void {
+    this.players.reset();
     this.tracks.clear();
     this.lost = [];
     this.lastHands = [];
@@ -208,6 +211,7 @@ export class HandTracker {
     }
 
     hands.sort((a, b) => a.id - b.id);
+    this.players.assign(hands);
     this.lastHands = hands;
     return hands;
   }

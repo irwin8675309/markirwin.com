@@ -121,6 +121,7 @@ class MagicCharacterGame implements GameInstance {
         this.startAction('jump', ctx);
         break;
       case 'clap':
+      case 'highFive':
         this.startAction('celebrate', ctx);
         break;
       case 'handsTogether':

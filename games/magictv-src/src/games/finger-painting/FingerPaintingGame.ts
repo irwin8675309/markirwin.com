@@ -132,7 +132,7 @@ class FingerPaintingGame implements GameInstance {
       }
       ctx.audio.play('sparkle');
     }
-    if (e.type === 'clap') {
+    if (e.type === 'clap' || e.type === 'highFive') {
       ctx.audio.play('celebrate');
       this.particles.confetti(e.x ?? 960, e.y ?? 540, 40, 520);
     }

@@ -147,7 +147,7 @@ class ButterflyGardenGame implements GameInstance {
         }
       }
       this.particles.sparkleBurst(x, y, 16, ['#ffffff', '#ffe14d', '#ff8ad8'], 320);
-    } else if (e.type === 'clap') {
+    } else if (e.type === 'clap' || e.type === 'highFive') {
       ctx.audio.play('celebrate');
       this.particles.petalShower(60);
       for (const f of this.flowers) f.growth = clamp01(f.growth + 0.18);

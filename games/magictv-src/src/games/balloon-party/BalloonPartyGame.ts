@@ -103,7 +103,7 @@ class BalloonPartyGame implements GameInstance {
         this.spawnGiant((hands[0].palm.x + hands[1].palm.x) / 2, (hands[0].palm.y + hands[1].palm.y) / 2 - 120, ctx);
       }
     }
-    if (e.type === 'clap') {
+    if (e.type === 'clap' || e.type === 'highFive') {
       this.particles.confetti(e.x ?? 960, e.y ?? 400, 30, 520);
       ctx.audio.play('celebrate');
     }

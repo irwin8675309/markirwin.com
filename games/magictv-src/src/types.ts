@@ -49,6 +49,11 @@ export interface HandState {
    * single missed camera frame.
    */
   tracked: boolean;
+  /**
+   * Which child the hand probably belongs to: hands of the same child share the
+   * number, different children differ. A best guess (see tracking/players.ts).
+   */
+  player: number;
   /** Time (seconds, performance.now based) the pinch began. */
   pinchStartedAt: number;
   /** World position the hand was at one second ago (for swipes). */
@@ -67,7 +72,9 @@ export type GestureType =
   | 'openPalm'
   | 'fist'
   | 'point'
-  | 'fastSwipe';
+  | 'fastSwipe'
+  /** Hands of two DIFFERENT children meet. handIds = the two hands. */
+  | 'highFive';
 
 export interface GestureEvent {
   type: GestureType;

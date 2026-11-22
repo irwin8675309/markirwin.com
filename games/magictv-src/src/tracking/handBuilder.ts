@@ -100,6 +100,7 @@ export function buildHandState(
     palmSize,
     confidence: raw.confidence,
     tracked,
+    player: id,
     pinchStartedAt,
     history,
   };

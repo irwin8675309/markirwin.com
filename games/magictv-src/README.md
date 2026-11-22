@@ -46,6 +46,14 @@ The app is designed for a 16:9 television at 1920×1080. Press **F** (or use Set
 - **Rest reminder** (Settings → Screen & grown-ups): optional "Time for a little rest" screen after 10/20/30 minutes of play. Hold the Grown-ups corner to continue.
 - **Install and offline**: a web-app manifest and offline helper (service worker) let it be added to a home screen and run without internet after the first load.
 
+## Team play (two children)
+
+- The app guesses which hands belong to which child: a Left and Right hand close together are one child; a hand on its own is a separate player. Once decided, the grouping is kept, so children bringing hands together are not merged.
+- **High five:** when a hand of one child meets a hand of another (after being apart), every game celebrates, a gold ring and "High five!" appear, and a **team star** lights up at the top.
+- **Five team stars** make a big "Teamwork! You did it together!" fireworks show, then start over.
+- When two children seem to be playing, it suggests "Try a high five with your friend!" once per game.
+- Limits: children standing shoulder to shoulder may be taken for one player (their high five counts as a clap instead). One child's own clap never counts as a high five.
+
 ## The six games
 
 | Game | What children do |
