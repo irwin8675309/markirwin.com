@@ -1,3 +1,5 @@
+import { resetDemos } from '../games/shared/demo';
+import { resetBuddies } from '../games/shared/buddies';
 import { useState } from 'react';
 import { useCamera } from '../camera/CameraProvider';
 import { CameraPreview } from './CameraPreview';
@@ -122,6 +124,18 @@ export function SettingsScreen({ onBack, onCalibrate, onTrackingTest }: Props) {
               <option value={1920}>Large (sharpest)</option>
             </select>
           </label>
+
+          <div className="button-row">
+            <button
+              className="soft-btn"
+              onClick={() => {
+                resetDemos();
+                resetBuddies();
+              }}
+            >
+              Show tutorials again &amp; reset buddies
+            </button>
+          </div>
 
           <div className="button-row">
             <button className="soft-btn" onClick={() => void startCamera()}>

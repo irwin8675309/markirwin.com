@@ -3,11 +3,13 @@ import type { Settings } from '../../settings';
 import { TAU, clamp01, dist } from '../../utils/math';
 import { glow, skeleton, sparkle } from '../../utils/draw';
 import { FONT_STACK } from '../../utils/font';
+import { drawAnimalFace, getBuddy } from './buddies';
 
 export const HAND_COLORS = ['#6ff2ff', '#ff8ad8', '#ffe14d', '#9dff8a'];
 
-export function handColor(index: number): string {
-  return HAND_COLORS[index % HAND_COLORS.length];
+/** Colour of child number `slot`: her buddy's colour. */
+export function handColor(slot: number): string {
+  return getBuddy(slot).color;
 }
 
 function mixAlpha(hex: string, a: number): string {
@@ -25,6 +27,11 @@ export interface CursorOptions {
 
 /** Which colour/number each child gets. Stable while the child stays in view. */
 const playerSlots = new Map<number, { slot: number; seen: number }>();
+
+/** Which child number (0, 1, ...) each player in this frame is. */
+export function slotsForFrame(frame: FrameState): Map<number, number> {
+  return slotsFor(Array.from(new Set(frame.hands.map((h) => h.player))), performance.now());
+}
 
 function slotsFor(players: number[], now: number): Map<number, number> {
   for (const [id, v] of playerSlots) if (now - v.seen > 3000 && !players.includes(id)) playerSlots.delete(id);
@@ -56,14 +63,14 @@ function darken(hex: string, amt: number): string {
   return `rgb(${f((n >> 16) & 255)}, ${f((n >> 8) & 255)}, ${f(n & 255)})`;
 }
 
-type HandPose = 'open' | 'point' | 'closed';
+export type HandPose = 'open' | 'point' | 'closed';
 
 /**
  * One cute cartoon hand with a smiley face, drawn so that the INDEX FINGERTIP is at
  * (0, 0): that is exactly the spot the games use as the touch point.
  * Units are roughly pixels at scale 1. `t` drives the little animations.
  */
-function drawCuteHand(
+export function drawCuteHand(
   ctx: CanvasRenderingContext2D,
   pose: HandPose,
   color: string,
@@ -210,7 +217,6 @@ export function drawHandCursors(
   const scale = opts.scale ?? 1;
   const players = Array.from(new Set(frame.hands.map((h) => h.player)));
   const slots = slotsFor(players, performance.now());
-  const many = players.length > 1;
 
   frame.hands.forEach((h, i) => {
     const slot = slots.get(h.player) ?? 0;
@@ -261,24 +267,29 @@ export function drawHandCursors(
     drawCuteHand(ctx, pose, color, t, i * 1.7, h.pinchActive);
     ctx.restore();
 
-    // Name tag under the hand, in the child's colour.
-    const label = many ? `Player ${slot + 1}` : 'Your hand';
+    // Name tag under the hand: the child's buddy picture and name, in her colour.
+    const buddy = getBuddy(slot);
     ctx.save();
     if (!h.tracked) ctx.globalAlpha = 0.55;
     const ty = y + (pose === 'closed' ? 200 : 232) * k + 14;
-    ctx.font = `800 ${Math.round(30 * Math.max(0.85, scale))}px ${FONT_STACK}`;
-    ctx.textAlign = 'center';
+    const fs = Math.round(30 * Math.max(0.85, scale));
+    ctx.font = `800 ${fs}px ${FONT_STACK}`;
+    ctx.textAlign = 'left';
     ctx.textBaseline = 'middle';
-    const tw = ctx.measureText(label).width + 40;
+    const textW = ctx.measureText(buddy.name).width;
+    const iconR = 25;
+    const tw = textW + iconR * 2 + 52;
+    const cx = x + 30 * k;
     ctx.fillStyle = darken(color, 0.32);
     ctx.beginPath();
-    ctx.roundRect(x + 30 * k - tw / 2, ty - 24, tw, 48, 24);
+    ctx.roundRect(cx - tw / 2, ty - 30, tw, 60, 30);
     ctx.fill();
     ctx.strokeStyle = '#ffffff';
     ctx.lineWidth = 4;
     ctx.stroke();
+    drawAnimalFace(ctx, buddy.id, cx - tw / 2 + 12 + iconR, ty + 2, iconR * 0.8);
     ctx.fillStyle = '#ffffff';
-    ctx.fillText(label, x + 30 * k, ty + 1);
+    ctx.fillText(buddy.name, cx - tw / 2 + 24 + iconR * 2, ty + 2);
     ctx.restore();
 
     // tiny sparkle when pinching

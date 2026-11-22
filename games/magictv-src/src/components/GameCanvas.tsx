@@ -6,6 +6,7 @@ import { audio } from '../audio/AudioEngine';
 import { WORLD_HEIGHT, WORLD_WIDTH } from '../types';
 import { DEBUG } from '../utils/debug';
 import { TeamPlay } from '../games/shared/team';
+import { DemoOverlay } from '../games/shared/demo';
 
 interface Props {
   game: GameDefinition;
@@ -71,6 +72,7 @@ export function GameCanvas({ game }: Props) {
 
     const instance = game.create();
     const team = new TeamPlay();
+    const demo = DemoOverlay.create(game.id);
     const startTime = performance.now();
     let last = startTime;
     drainEvents(); // forget gestures from before this game started
@@ -160,6 +162,10 @@ export function GameCanvas({ game }: Props) {
       instance.draw(ctx, g);
       team.update(g);
       team.draw(ctx);
+      if (demo) {
+        demo.update(g);
+        demo.draw(ctx, g);
+      }
       renderMs = renderMs * 0.9 + (performance.now() - t0) * 0.1;
       statFrames++;
       if (now - statSince > 500) {

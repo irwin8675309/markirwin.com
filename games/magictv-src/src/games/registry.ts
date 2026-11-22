@@ -5,6 +5,8 @@ import { magicCharacterGame } from './magic-character/MagicCharacterGame';
 import { butterflyGardenGame } from './butterfly-garden/ButterflyGardenGame';
 import { balloonPartyGame } from './balloon-party/BalloonPartyGame';
 import { underwaterGame } from './underwater-adventure/UnderwaterGame';
+import { highFiveGame } from './high-five/HighFiveGame';
+import { buddyGame } from './buddies/BuddyGame';
 
 export const GAMES: GameDefinition[] = [
   bubblePopGame,
@@ -13,6 +15,8 @@ export const GAMES: GameDefinition[] = [
   butterflyGardenGame,
   balloonPartyGame,
   underwaterGame,
+  highFiveGame,
+  buddyGame,
 ];
 
 export function getGame(id: string): GameDefinition | undefined {

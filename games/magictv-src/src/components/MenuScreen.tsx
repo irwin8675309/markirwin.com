@@ -121,7 +121,7 @@ export function MenuScreen({ onSelect }: Props) {
         </div>
       </header>
 
-      <main className="menu-grid">
+      <main className="menu-grid" style={{ gridTemplateColumns: `repeat(${Math.ceil(GAMES.length / 2)}, 1fr)` }}>
         {GAMES.map((game, i) => (
           <div
             key={game.id}

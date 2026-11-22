@@ -1317,18 +1317,20 @@ input[type="range"] {
 /* Menu "attract" mode: when nobody has been seen for a while the pictures take
    turns to bounce, inviting a child to come and wave. */
 @keyframes attractBounce {
-  0%, 12%, 100% { transform: translateY(0) scale(1); }
+  0%, 10%, 100% { transform: translateY(0) scale(1); }
   4% { transform: translateY(-18px) scale(1.06); }
   8% { transform: translateY(0) scale(1); }
 }
 .magic-idle .menu-grid .game-card {
-  animation: attractBounce 6s ease-in-out infinite !important;
+  animation: attractBounce 8s ease-in-out infinite !important;
 }
 .magic-idle .menu-grid .game-card:nth-child(2) { animation-delay: 1s !important; }
 .magic-idle .menu-grid .game-card:nth-child(3) { animation-delay: 2s !important; }
 .magic-idle .menu-grid .game-card:nth-child(4) { animation-delay: 3s !important; }
 .magic-idle .menu-grid .game-card:nth-child(5) { animation-delay: 4s !important; }
 .magic-idle .menu-grid .game-card:nth-child(6) { animation-delay: 5s !important; }
+.magic-idle .menu-grid .game-card:nth-child(7) { animation-delay: 6s !important; }
+.magic-idle .menu-grid .game-card:nth-child(8) { animation-delay: 7s !important; }
 
 .rest-screen {
   display: flex;

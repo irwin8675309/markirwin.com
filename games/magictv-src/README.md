@@ -46,6 +46,13 @@ The app is designed for a 16:9 television at 1920×1080. Press **F** (or use Set
 - **Rest reminder** (Settings → Screen & grown-ups): optional "Time for a little rest" screen after 10/20/30 minutes of play. Hold the Grown-ups corner to continue.
 - **Install and offline**: a web-app manifest and offline helper (service worker) let it be added to a home screen and run without internet after the first load.
 
+## Buddies, demos and High Five Friends
+
+- **Buddies:** each child gets an animal (bunny, kitty, puppy, unicorn, panda, froggy) drawn in code. Her glove takes that animal's colour and her name tag shows the animal's face and name, in every game. Pick buddies in the **Pick Your Buddy** game by resting a hand on an animal; if a child takes her friend's animal, the two swap. Choices are remembered in this browser.
+- **Which child is "1" or "2"** is decided by who appears first on the camera, so after a long break the two may swap.
+- **"Show me" demos:** the first time a game opens, a yellow ghost hand ("Watch me!") shows what to do, with words and a spoken line. It disappears when a real hand joins in and is not shown again once a child has joined in. Settings has "Show tutorials again & reset buddies".
+- **High Five Friends:** a practice game with two example hands that meet in the middle; real high fives fill the team stars. A child on her own is invited to clap.
+
 ## Team play (two children)
 
 - The app guesses which hands belong to which child: a Left and Right hand close together are one child; a hand on its own is a separate player. Once decided, the grouping is kept, so children bringing hands together are not merged.

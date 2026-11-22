@@ -138,6 +138,52 @@ export function GameArt({ id }: Props) {
           <circle cx="70" cy="70" r="3" fill="#bff6ff" opacity="0.6" />
         </svg>
       );
+    case 'high-five-friends':
+      return (
+        <svg className="art-svg" viewBox="0 0 300 200" aria-hidden="true">
+          <g className="float-a">
+            <rect x="52" y="86" width="70" height="66" rx="24" fill="#ffd0ec" stroke="#c0559f" strokeWidth="5" />
+            <rect x="58" y="36" width="15" height="64" rx="8" fill="#ffd0ec" stroke="#c0559f" strokeWidth="5" />
+            <rect x="76" y="28" width="15" height="72" rx="8" fill="#ffd0ec" stroke="#c0559f" strokeWidth="5" />
+            <rect x="94" y="34" width="15" height="66" rx="8" fill="#ffd0ec" stroke="#c0559f" strokeWidth="5" />
+            <circle cx="80" cy="120" r="4" fill="#3a2350" />
+            <circle cx="98" cy="120" r="4" fill="#3a2350" />
+            <path d="M82 132q8 8 16 0" fill="none" stroke="#3a2350" strokeWidth="3" strokeLinecap="round" />
+          </g>
+          <g className="float-b">
+            <rect x="178" y="86" width="70" height="66" rx="24" fill="#ffe9a8" stroke="#c08a00" strokeWidth="5" />
+            <rect x="191" y="34" width="15" height="66" rx="8" fill="#ffe9a8" stroke="#c08a00" strokeWidth="5" />
+            <rect x="209" y="28" width="15" height="72" rx="8" fill="#ffe9a8" stroke="#c08a00" strokeWidth="5" />
+            <rect x="227" y="36" width="15" height="64" rx="8" fill="#ffe9a8" stroke="#c08a00" strokeWidth="5" />
+            <circle cx="202" cy="120" r="4" fill="#3a2350" />
+            <circle cx="220" cy="120" r="4" fill="#3a2350" />
+            <path d="M204 132q8 8 16 0" fill="none" stroke="#3a2350" strokeWidth="3" strokeLinecap="round" />
+          </g>
+          <path className="twinkle" d="M150 54l7 16 16 7-16 7-7 16-7-16-16-7 16-7z" fill="#fff7b0" />
+        </svg>
+      );
+    case 'buddies':
+      return (
+        <svg className="art-svg" viewBox="0 0 300 200" aria-hidden="true">
+          <g className="float-a">
+            <ellipse cx="80" cy="46" rx="10" ry="30" fill="#ffd0ec" stroke="#c0559f" strokeWidth="4" />
+            <ellipse cx="116" cy="46" rx="10" ry="30" fill="#ffd0ec" stroke="#c0559f" strokeWidth="4" />
+            <circle cx="98" cy="108" r="46" fill="#ffe0f2" stroke="#c0559f" strokeWidth="5" />
+            <circle cx="84" cy="102" r="5" fill="#3a2350" />
+            <circle cx="112" cy="102" r="5" fill="#3a2350" />
+            <path d="M90 120q8 8 16 0" fill="none" stroke="#3a2350" strokeWidth="3.5" strokeLinecap="round" />
+          </g>
+          <g className="float-b">
+            <path d="M178 96l-8-44 36 22z" fill="#ffe2b8" stroke="#b06a10" strokeWidth="4" strokeLinejoin="round" />
+            <path d="M250 96l8-44-36 22z" fill="#ffe2b8" stroke="#b06a10" strokeWidth="4" strokeLinejoin="round" />
+            <circle cx="214" cy="126" r="42" fill="#ffe9cc" stroke="#b06a10" strokeWidth="5" />
+            <circle cx="201" cy="120" r="5" fill="#3a2350" />
+            <circle cx="227" cy="120" r="5" fill="#3a2350" />
+            <path d="M206 138q8 8 16 0" fill="none" stroke="#3a2350" strokeWidth="3.5" strokeLinecap="round" />
+          </g>
+          <path className="twinkle" d="M150 30l5 12 12 5-12 5-5 12-5-12-12-5 12-5z" fill="#fff7b0" />
+        </svg>
+      );
     default:
       return null;
   }
