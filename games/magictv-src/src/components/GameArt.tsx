@@ -49,20 +49,26 @@ export function GameArt({ id }: Props) {
     case 'magic-character':
       return (
         <svg className="art-svg" viewBox="0 0 300 200" aria-hidden="true">
-          <ellipse cx="150" cy="178" rx="70" ry="12" fill="#2a1240" opacity="0.35" />
+          <ellipse cx="150" cy="182" rx="74" ry="11" fill="#2a1240" opacity="0.35" />
           <g className="float-a">
-            <circle cx="86" cy="132" r="26" fill="#a97bff" />
-            <circle cx="214" cy="132" r="26" fill="#a97bff" />
-            <ellipse cx="150" cy="116" rx="66" ry="58" fill="#b78bff" />
-            <ellipse cx="150" cy="132" rx="38" ry="34" fill="#e2d4ff" />
-            <circle cx="130" cy="100" r="14" fill="#fff" />
-            <circle cx="170" cy="100" r="14" fill="#fff" />
-            <circle cx="132" cy="102" r="6" fill="#33204a" />
-            <circle cx="172" cy="102" r="6" fill="#33204a" />
-            <path d="M136 124q14 14 28 0" fill="none" stroke="#432a55" strokeWidth="5" strokeLinecap="round" />
-            <path d="M120 62l-6-20M180 62l6-20" stroke="#7c4dff" strokeWidth="6" strokeLinecap="round" />
-            <circle cx="114" cy="38" r="9" fill="#ffd93d" />
-            <circle cx="186" cy="38" r="9" fill="#ffd93d" />
+            <circle cx="100" cy="34" r="24" fill="#a56a2e" />
+            <circle cx="200" cy="34" r="24" fill="#a56a2e" />
+            <circle cx="100" cy="36" r="13" fill="#f2b68a" />
+            <circle cx="200" cy="36" r="13" fill="#f2b68a" />
+            <ellipse cx="86" cy="150" rx="26" ry="20" fill="#c68642" />
+            <ellipse cx="214" cy="150" rx="26" ry="20" fill="#c68642" />
+            <ellipse cx="150" cy="140" rx="58" ry="46" fill="#c68642" />
+            <ellipse cx="150" cy="148" rx="34" ry="28" fill="#f8e1b8" />
+            <circle cx="150" cy="78" r="56" fill="#c68642" />
+            <ellipse cx="150" cy="96" rx="30" ry="23" fill="#f8e1b8" />
+            <ellipse cx="150" cy="86" rx="12" ry="8" fill="#4a2a1c" />
+            <circle cx="128" cy="68" r="9" fill="#fff" />
+            <circle cx="172" cy="68" r="9" fill="#fff" />
+            <circle cx="130" cy="70" r="4.5" fill="#33204a" />
+            <circle cx="174" cy="70" r="4.5" fill="#33204a" />
+            <path d="M138 104q12 10 24 0" fill="none" stroke="#432a55" strokeWidth="4" strokeLinecap="round" />
+            <path d="M124 124l26 10 26-10v16l-26-6-26 6z" fill="#ff5d7a" />
+            <circle cx="150" cy="132" r="7" fill="#ff8aa5" />
           </g>
         </svg>
       );

@@ -15,7 +15,19 @@ import {
   type CharacterPose,
 } from './character';
 
-type Action = 'idle' | 'wave' | 'jump' | 'dance' | 'celebrate' | 'funny' | 'kiss' | 'peek';
+type Action = 'idle' | 'wave' | 'jump' | 'dance' | 'celebrate' | 'funny' | 'kiss' | 'peek' | 'hug' | 'tickle';
+
+/** Things Teddy says now and then to invite play. */
+const CHATTER = [
+  'Want a hug?',
+  'I love honey!',
+  'Tickle my tummy!',
+  'Wave at me!',
+  'Can you dance with me?',
+  'You are my best friend!',
+  'Clap your hands!',
+  'Let us play!',
+];
 
 const ACTION_DURATION: Record<Action, number> = {
   idle: 0,
@@ -26,12 +38,14 @@ const ACTION_DURATION: Record<Action, number> = {
   funny: 1.8,
   kiss: 1.8,
   peek: 2.2,
+  hug: 2.4,
+  tickle: 1.6,
 };
 
 class MagicCharacterGame implements GameInstance {
   private time = 0;
   private kindIndex = 0;
-  private kind: CharacterKind = 'monster';
+  private kind: CharacterKind = 'teddy';
   private pose: CharacterPose = {
     x: 960,
     y: 900,
@@ -49,6 +63,7 @@ class MagicCharacterGame implements GameInstance {
     spin: 0,
     dance: 0,
     wave: 0,
+    hat: 0,
   };
   private action: Action = 'idle';
   private actionT = 0;
@@ -68,6 +83,7 @@ class MagicCharacterGame implements GameInstance {
   private speech = { text: '', until: 0 };
   private stars: Array<{ x: number; y: number; r: number; p: number }> = [];
   private lastVx = 0;
+  private lastTickle = -10;
 
   enter(): void {
     for (let i = 0; i < 50; i++) {
@@ -109,6 +125,15 @@ class MagicCharacterGame implements GameInstance {
       ctx.audio.play('whoosh');
     } else if (action === 'peek') {
       ctx.audio.play('boing');
+    } else if (action === 'hug') {
+      ctx.audio.play('heart');
+      this.pose.squash = 0.86;
+      this.particles.hearts(this.pose.x, 520, 9);
+      this.say('Aww, a big hug!', 2.2);
+    } else if (action === 'tickle') {
+      ctx.audio.play('giggle');
+      this.particles.hearts(this.pose.x, 640, 4);
+      this.say('Hee hee! That tickles!', 1.8);
     }
   }
 
@@ -125,7 +150,7 @@ class MagicCharacterGame implements GameInstance {
         this.startAction('celebrate', ctx);
         break;
       case 'handsTogether':
-        this.startAction('funny', ctx);
+        this.startAction('hug', ctx);
         break;
       case 'fastSwipe':
         this.startAction('dance', ctx);
@@ -143,7 +168,7 @@ class MagicCharacterGame implements GameInstance {
     this.actionT += ctx.dt;
 
     // Appearance changes now and then, to keep things fresh.
-    if (this.time > this.nextAppearance) {
+    if (CHARACTER_KINDS.length > 1 && this.time > this.nextAppearance) {
       this.nextAppearance = this.time + 52;
       this.kindIndex = (this.kindIndex + 1) % CHARACTER_KINDS.length;
       this.kind = CHARACTER_KINDS[this.kindIndex];
@@ -162,6 +187,17 @@ class MagicCharacterGame implements GameInstance {
       if (score < best) {
         best = score;
         focus = { x: h.tip.x, y: h.tip.y, pointing: h.pointing || h.pinchActive };
+      }
+    }
+
+    // Tickle the tummy: a hand resting on Teddy's belly makes him giggle.
+    if (this.time - this.lastTickle > 2.6 && (this.action === 'idle' || this.action === 'peek')) {
+      for (const h of hands) {
+        if (h.tracked && dist(h.tip, { x: this.pose.x, y: 760 }) < 150) {
+          this.lastTickle = this.time;
+          this.startAction('tickle', ctx);
+          break;
+        }
       }
     }
 
@@ -217,6 +253,7 @@ class MagicCharacterGame implements GameInstance {
       this.nextIdle = this.time + rand(6.5, 11);
       const opts: Action[] = ['wave', 'kiss', 'peek', 'wave', 'dance'];
       this.startAction(pick(opts), ctx);
+      if (chance(0.5)) this.say(pick(CHATTER), 2.8);
     }
 
     // Jump physics.
@@ -272,6 +309,20 @@ class MagicCharacterGame implements GameInstance {
         mouth = 'wavy';
         happy = 1;
         break;
+      case 'hug':
+        armL = -0.95;
+        armR = -0.95;
+        lean = Math.sin(this.time * 4) * 0.05;
+        mouth = 'smile';
+        happy = 1;
+        break;
+      case 'tickle':
+        armL = 1.0 + Math.sin(this.time * 26) * 0.35;
+        armR = 1.0 - Math.sin(this.time * 26) * 0.35;
+        lean = Math.sin(this.time * 30) * 0.07;
+        mouth = 'grin';
+        happy = 1;
+        break;
       case 'kiss':
         armR = 1.5 + Math.sin(this.time * 3) * 0.1;
         armL = 0.4;
@@ -298,6 +349,8 @@ class MagicCharacterGame implements GameInstance {
     this.pose.jumpY = this.jumpY;
     this.pose.squash = damp(this.pose.squash, 1, 0.0005, ctx.dt);
     this.pose.wave = this.action === 'wave' ? 1 : 0;
+    const wantHat = this.action === 'celebrate' || this.action === 'dance' ? 1 : 0;
+    this.pose.hat = damp(this.pose.hat ?? 0, wantHat, 0.002, ctx.dt);
 
     // Occasional hearts.
     if (this.pose.happy > 0.9 && chance(ctx.dt * 1.2)) {
@@ -389,10 +442,10 @@ class MagicCharacterGame implements GameInstance {
     if (this.greeting > 0) {
       ctx.save();
       ctx.globalAlpha = Math.min(1, this.greeting);
-      drawHint(ctx, 'Can you make me dance?', 0.95);
+      drawHint(ctx, 'Wave, clap, or tickle Teddy\'s tummy!', 0.95);
       ctx.restore();
     }
-    drawHint(ctx, 'Magic Character', 0.32);
+    drawHint(ctx, 'Magic Teddy', 0.32);
   }
 
   private drawSpeech(ctx: CanvasRenderingContext2D, text: string, alpha: number): void {
@@ -424,10 +477,10 @@ class MagicCharacterGame implements GameInstance {
 
 export const magicCharacterGame: GameDefinition = {
   id: 'magic-character',
-  title: 'Magic Character',
-  adultLabel: 'Magic Character',
-  voice: 'Can you make me dance?',
-  colors: ['#b78bff', '#ff8ad8'],
+  title: 'Magic Teddy',
+  adultLabel: 'Magic Teddy Bear',
+  voice: 'Say hi to Teddy!',
+  colors: ['#d9904a', '#ff8ad8'],
   create: () => new MagicCharacterGame(),
 };
 

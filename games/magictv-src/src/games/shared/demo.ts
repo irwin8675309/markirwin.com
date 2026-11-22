@@ -32,7 +32,7 @@ export const DEMOS: Record<string, DemoScript> = {
     seconds: 5,
   },
   'magic-character': {
-    text: 'Wave your hands and watch me dance!',
+    text: 'Wave your hands, or tickle his tummy!',
     path: [[620, 520], [1300, 420], [620, 520]],
     pose: 'open',
     seconds: 4,

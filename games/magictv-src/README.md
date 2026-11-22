@@ -46,6 +46,10 @@ The app is designed for a 16:9 television at 1920×1080. Press **F** (or use Set
 - **Rest reminder** (Settings → Screen & grown-ups): optional "Time for a little rest" screen after 10/20/30 minutes of play. Hold the Grown-ups corner to continue.
 - **Install and offline**: a web-app manifest and offline helper (service worker) let it be added to a home screen and run without internet after the first load.
 
+## Magic Teddy
+
+The Magic Character game now stars **Teddy**, a furry teddy bear with a bow tie, paw pads and a stitched heart. Teddy waves back, dances when hands swish, jumps when both hands go up, gives a **big hug** when hands come together, throws a **party** (hat and confetti) on a clap or high five, and **giggles when a hand tickles his tummy**. He chats now and then ("Want a hug?", "I love honey!"). The older monster, dragon, kitten, puppy and unicorn drawings are still in the code but not used.
+
 ## Buddies, demos and High Five Friends
 
 - **Buddies:** each child gets an animal (bunny, kitty, puppy, unicorn, panda, froggy) drawn in code. Her glove takes that animal's colour and her name tag shows the animal's face and name, in every game. Pick buddies in the **Pick Your Buddy** game by resting a hand on an animal; if a child takes her friend's animal, the two swap. Choices are remembered in this browser.

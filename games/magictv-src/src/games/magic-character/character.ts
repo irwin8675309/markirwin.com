@@ -1,7 +1,7 @@
 import { TAU, clamp01 } from '../../utils/math';
-import { ellipse, roundRect, sparkle, star } from '../../utils/draw';
+import { ellipse, heartPath, roundRect, sparkle, star } from '../../utils/draw';
 
-export type CharacterKind = 'monster' | 'dragon' | 'kitten' | 'puppy' | 'unicorn';
+export type CharacterKind = 'teddy' | 'monster' | 'dragon' | 'kitten' | 'puppy' | 'unicorn';
 
 export interface CharacterPose {
   x: number;
@@ -21,6 +21,8 @@ export interface CharacterPose {
   spin: number;
   dance: number;
   wave: number;
+  /** 0..1: a party hat pops onto the head (celebrations and dancing). */
+  hat?: number;
 }
 
 interface Palette {
@@ -32,6 +34,7 @@ interface Palette {
 }
 
 const PALETTES: Record<CharacterKind, Palette> = {
+  teddy: { body: '#c68642', bodyDark: '#8c5a2b', belly: '#f8e1b8', accent: '#ff5d7a', cheek: 'rgba(255,120,140,0.55)' },
   monster: { body: '#b78bff', bodyDark: '#7c4dff', belly: '#e2d4ff', accent: '#ffd93d', cheek: 'rgba(255,120,170,0.55)' },
   dragon: { body: '#5fdc7a', bodyDark: '#2f9e63', belly: '#d9ffe6', accent: '#ffe14d', cheek: 'rgba(255,150,120,0.5)' },
   kitten: { body: '#ffb35c', bodyDark: '#f08a2e', belly: '#ffe3c2', accent: '#ff8ad8', cheek: 'rgba(255,120,120,0.5)' },
@@ -43,6 +46,8 @@ function bodyMetrics(kind: CharacterKind) {
   switch (kind) {
     case 'monster':
       return { cx: 0, cy: -175, rx: 150, ry: 165, head: null as null | { x: number; y: number; r: number } };
+    case 'teddy':
+      return { cx: 0, cy: -150, rx: 126, ry: 136, head: { x: 0, y: -312, r: 108 } };
     case 'dragon':
       return { cx: 0, cy: -160, rx: 128, ry: 140, head: { x: 0, y: -315, r: 92 } };
     default:
@@ -160,6 +165,7 @@ function drawArm(
   color: string,
   dark: string,
   handR: number,
+  pad?: string,
 ): void {
   const ex = sx + Math.sin(angle) * length * dir;
   const ey = sy + Math.cos(angle) * length;
@@ -180,7 +186,72 @@ function drawArm(
   ctx.stroke();
   ctx.restore();
   ellipse(ctx, ex, ey, handR, handR, color);
-  ellipse(ctx, ex - handR * 0.2, ey - handR * 0.25, handR * 0.28, handR * 0.2, 'rgba(255,255,255,0.5)');
+  if (pad) {
+    // Teddy paw: a big pad with three little toe beans.
+    ellipse(ctx, ex, ey + handR * 0.2, handR * 0.52, handR * 0.42, pad);
+    for (const t of [-1, 0, 1]) ellipse(ctx, ex + t * handR * 0.36, ey - handR * 0.36 + Math.abs(t) * handR * 0.1, handR * 0.15, handR * 0.17, pad);
+  } else {
+    ellipse(ctx, ex - handR * 0.2, ey - handR * 0.25, handR * 0.28, handR * 0.2, 'rgba(255,255,255,0.5)');
+  }
+}
+
+/** Fuzzy outline: a ring of little bumps around an ellipse (drawn BEHIND the shape). */
+function drawFluffRing(
+  ctx: CanvasRenderingContext2D,
+  cx: number,
+  cy: number,
+  rx: number,
+  ry: number,
+  n: number,
+  bump: number,
+  c1: string,
+  c2: string,
+  time: number,
+): void {
+  for (let i = 0; i < n; i++) {
+    const a = (i / n) * TAU;
+    const wob = 1 + Math.sin(time * 2.2 + i * 1.7) * 0.035;
+    ellipse(
+      ctx,
+      cx + Math.cos(a) * rx * 0.97 * wob,
+      cy + Math.sin(a) * ry * 0.97 * wob,
+      bump,
+      bump * 0.9,
+      i % 2 === 0 ? c1 : c2,
+      a,
+    );
+  }
+}
+
+/** Short curly fur strokes scattered inside an ellipse (clipped to it). */
+function drawFurTicks(
+  ctx: CanvasRenderingContext2D,
+  cx: number,
+  cy: number,
+  rx: number,
+  ry: number,
+  n: number,
+  color: string,
+): void {
+  ctx.save();
+  ctx.beginPath();
+  ctx.ellipse(cx, cy, rx, ry, 0, 0, TAU);
+  ctx.clip();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 4;
+  ctx.lineCap = 'round';
+  for (let i = 0; i < n; i++) {
+    const t = i * 2.39996;
+    const rr = Math.sqrt((i + 0.5) / n);
+    const x = cx + Math.cos(t) * rx * 0.94 * rr;
+    const y = cy + Math.sin(t) * ry * 0.94 * rr;
+    const a = Math.cos(t) * 0.6 + 0.4;
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.quadraticCurveTo(x + Math.cos(a) * 6, y + 3, x + Math.cos(a) * 9, y + 10);
+    ctx.stroke();
+  }
+  ctx.restore();
 }
 
 export function drawCharacter(
@@ -263,17 +334,28 @@ export function drawCharacter(
     const step = Math.sin(pose.dance + (dir > 0 ? Math.PI : 0)) * 6;
     ellipse(ctx, m.cx + dir * 62, -18 + step, 48, 30, pal.bodyDark);
     ellipse(ctx, m.cx + dir * 62, -22 + step, 44, 26, pal.body);
+    if (kind === 'teddy') {
+      ellipse(ctx, m.cx + dir * 62, -20 + step, 26, 15, '#f2b68a');
+      for (const t of [-1, 0, 1]) ellipse(ctx, m.cx + dir * 62 + t * 14, -36 + step + Math.abs(t) * 3, 6, 7, '#f2b68a');
+    }
+  }
+
+  // teddy: fuzzy outline behind the body
+  if (kind === 'teddy') {
+    drawFluffRing(ctx, m.cx, m.cy + bob, m.rx, m.ry, 22, 24, pal.body, pal.bodyDark, time);
   }
 
   // body
   const bg = ctx.createRadialGradient(m.cx - 40, m.cy - 60, 20, m.cx, m.cy, m.rx * 1.25);
-  bg.addColorStop(0, '#ffffff');
+  bg.addColorStop(0, kind === 'teddy' ? '#e9b27c' : '#ffffff');
   bg.addColorStop(0.18, pal.body);
   bg.addColorStop(1, pal.bodyDark);
   ctx.fillStyle = bg;
   ctx.beginPath();
   ctx.ellipse(m.cx, m.cy + bob, m.rx, m.ry, 0, 0, TAU);
   ctx.fill();
+
+  if (kind === 'teddy') drawFurTicks(ctx, m.cx, m.cy + bob, m.rx, m.ry, 70, 'rgba(110,64,24,0.3)');
 
   // monster fluff
   if (kind === 'monster') {
@@ -297,12 +379,35 @@ export function drawCharacter(
   ctx.globalAlpha = 0.9;
   ellipse(ctx, m.cx, m.cy + 40 + bob, m.rx * 0.58, m.ry * 0.55, pal.belly);
   ctx.restore();
+  if (kind === 'teddy') {
+    // a little stitched heart on the tummy
+    heartPath(ctx, m.cx, m.cy + 52 + bob, 62);
+    ctx.fillStyle = '#ff8aa5';
+    ctx.fill();
+    ctx.setLineDash([7, 6]);
+    ctx.strokeStyle = '#fff4f7';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
 
   // head (animals)
   if (m.head) {
     const h = m.head;
     // ears
-    if (kind === 'kitten') {
+    if (kind === 'teddy') {
+      drawFluffRing(ctx, h.x, h.y, h.r, h.r * 0.96, 24, 22, pal.body, pal.bodyDark, time);
+      for (const dir of [-1, 1]) {
+        const wig = Math.sin(time * 3 + dir) * 0.06 + Math.sin(pose.dance * 2 + dir) * 0.05;
+        ctx.save();
+        ctx.translate(h.x + dir * 82, h.y - 82);
+        ctx.rotate(dir * wig);
+        ellipse(ctx, 0, 0, 46, 44, pal.bodyDark);
+        ellipse(ctx, 0, 1, 42, 40, pal.body);
+        ellipse(ctx, 0, 4, 26, 24, '#f2b68a');
+        ctx.restore();
+      }
+    } else if (kind === 'kitten') {
       for (const dir of [-1, 1]) {
         ctx.fillStyle = pal.body;
         ctx.beginPath();
@@ -388,7 +493,7 @@ export function drawCharacter(
     }
 
     const hg = ctx.createRadialGradient(h.x - 30, h.y - 40, 10, h.x, h.y, h.r * 1.2);
-    hg.addColorStop(0, '#ffffff');
+    hg.addColorStop(0, kind === 'teddy' ? '#e9b27c' : '#ffffff');
     hg.addColorStop(0.25, pal.body);
     hg.addColorStop(1, pal.bodyDark);
     ctx.fillStyle = hg;
@@ -396,6 +501,24 @@ export function drawCharacter(
     ctx.arc(h.x, h.y, h.r, 0, TAU);
     ctx.fill();
 
+    if (kind === 'teddy') {
+      drawFurTicks(ctx, h.x, h.y, h.r, h.r * 0.96, 60, 'rgba(110,64,24,0.3)');
+      // forehead curl
+      ctx.strokeStyle = pal.bodyDark;
+      ctx.lineWidth = 5;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(h.x - 6, h.y - 96);
+      ctx.quadraticCurveTo(h.x - 26, h.y - 80, h.x - 8, h.y - 70);
+      ctx.moveTo(h.x + 10, h.y - 98);
+      ctx.quadraticCurveTo(h.x + 30, h.y - 84, h.x + 14, h.y - 72);
+      ctx.stroke();
+      // muzzle, nose
+      ellipse(ctx, h.x, h.y + 36, 56, 44, pal.belly);
+      ellipse(ctx, h.x, h.y + 36, 56, 44, 'rgba(255,255,255,0.0)');
+      ellipse(ctx, h.x, h.y + 20, 22, 15, '#4a2a1c');
+      ellipse(ctx, h.x - 7, h.y + 15, 7, 4, 'rgba(255,255,255,0.55)');
+    }
     if (kind === 'puppy') {
       ellipse(ctx, h.x, h.y + 46, 62, 44, pal.belly);
       ellipse(ctx, h.x, h.y + 30, 18, 13, '#4a2c35');
@@ -419,8 +542,13 @@ export function drawCharacter(
       ellipse(ctx, h.x, h.y + 34, 13, 9, '#e0457b');
     }
 
-    drawEyes(ctx, h.x, h.y - 12, 44, 34, pose.lookX, pose.lookY, pose.blink, pose.happy);
-    drawMouth(ctx, h.x, h.y + 58, 34, pose.mouth, pose.happy);
+    if (kind === 'teddy') {
+      drawEyes(ctx, h.x, h.y - 16, 46, 30, pose.lookX, pose.lookY, pose.blink, pose.happy);
+      drawMouth(ctx, h.x, h.y + 56, 30, pose.mouth, pose.happy);
+    } else {
+      drawEyes(ctx, h.x, h.y - 12, 44, 34, pose.lookX, pose.lookY, pose.blink, pose.happy);
+      drawMouth(ctx, h.x, h.y + 58, 34, pose.mouth, pose.happy);
+    }
     if (pose.happy > 0.5) {
       ctx.save();
       ctx.globalAlpha = pose.happy * 0.5;
@@ -462,8 +590,59 @@ export function drawCharacter(
   const shoulderX = m.rx * 0.82;
   const armLen = m.head ? 105 : 115;
   const handR = m.head ? 30 : 34;
-  drawArm(ctx, -shoulderX, shoulderY + bob, -1, pose.armL, armLen, pal.body, pal.bodyDark, handR);
-  drawArm(ctx, shoulderX, shoulderY + bob, 1, pose.armR, armLen, pal.body, pal.bodyDark, handR);
+  const pad = kind === 'teddy' ? '#f2b68a' : undefined;
+  drawArm(ctx, -shoulderX, shoulderY + bob, -1, pose.armL, armLen, pal.body, pal.bodyDark, handR, pad);
+  drawArm(ctx, shoulderX, shoulderY + bob, 1, pose.armR, armLen, pal.body, pal.bodyDark, handR, pad);
+
+  if (kind === 'teddy' && m.head) {
+    // bow tie at the neck
+    const bx = 0;
+    const by = m.head.y + m.head.r - 12;
+    for (const dir of [-1, 1]) {
+      ctx.fillStyle = pal.accent;
+      ctx.beginPath();
+      ctx.moveTo(bx, by);
+      ctx.lineTo(bx + dir * 54, by - 30);
+      ctx.lineTo(bx + dir * 54, by + 30);
+      ctx.closePath();
+      ctx.fill();
+      ctx.strokeStyle = '#c93a5a';
+      ctx.lineWidth = 4;
+      ctx.stroke();
+      ellipse(ctx, bx + dir * 34, by - 8, 5, 5, '#fff4f7');
+      ellipse(ctx, bx + dir * 34, by + 10, 5, 5, '#fff4f7');
+    }
+    ellipse(ctx, bx, by, 15, 17, '#ff8aa5');
+    ellipse(ctx, bx, by, 15, 17, 'rgba(0,0,0,0)');
+
+    // party hat for celebrations and dances
+    const hat = pose.hat ?? 0;
+    if (hat > 0.02) {
+      const hx = m.head.x + 24;
+      const hy = m.head.y - m.head.r + 10;
+      ctx.save();
+      ctx.translate(hx, hy);
+      ctx.rotate(0.22);
+      ctx.scale(hat, hat);
+      ctx.fillStyle = '#4dc4ff';
+      ctx.beginPath();
+      ctx.moveTo(-42, 8);
+      ctx.lineTo(0, -118);
+      ctx.lineTo(42, 8);
+      ctx.closePath();
+      ctx.fill();
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 9;
+      for (const t of [0.3, 0.62]) {
+        ctx.beginPath();
+        ctx.moveTo(-42 * (1 - t) - 2, 8 - 126 * t);
+        ctx.lineTo(42 * (1 - t) + 2, 8 - 126 * t + 8);
+        ctx.stroke();
+      }
+      ellipse(ctx, 0, -122, 16, 16, '#ffd93d');
+      ctx.restore();
+    }
+  }
 
   // dragon back spikes
   if (kind === 'dragon') {
@@ -498,9 +677,10 @@ export function drawCharacter(
   }
 }
 
-export const CHARACTER_KINDS: CharacterKind[] = ['monster', 'dragon', 'kitten', 'puppy', 'unicorn'];
+export const CHARACTER_KINDS: CharacterKind[] = ['teddy'];
 
 export const CHARACTER_NAMES: Record<CharacterKind, string> = {
+  teddy: 'Teddy the Fuzzy Bear',
   monster: 'Momo the Fluffy Monster',
   dragon: 'Dizzy the Friendly Dragon',
   kitten: 'Mittens the Kitten',
