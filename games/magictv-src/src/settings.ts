@@ -28,6 +28,10 @@ export interface Settings {
   musicEnabled: boolean;
   voiceEnabled: boolean;
   fullscreen: boolean;
+  /** Also look at zoomed-in crops so children standing far from the TV are found. */
+  farMode: boolean;
+  /** Friendly "time for a rest" pause after this many minutes of one game session (0 = never). */
+  breakMinutes: 0 | 10 | 20 | 30;
   /** Usable tracking area learned during calibration (normalised). */
   trackingArea: TrackingArea | null;
 }
@@ -50,6 +54,8 @@ export const DEFAULT_SETTINGS: Settings = {
   musicEnabled: true,
   voiceEnabled: true,
   fullscreen: false,
+  farMode: true,
+  breakMinutes: 0,
   trackingArea: null,
 };
 
@@ -85,5 +91,7 @@ export function clampSettings(s: Settings): Settings {
     cameraWidth: ([640, 1280, 1920].includes(s.cameraWidth) ? s.cameraWidth : 1280) as 640 | 1280 | 1920,
     numHands: s.numHands === 2 ? 2 : 4,
     trackingFps: s.trackingFps === 60 ? 60 : 30,
+    farMode: s.farMode !== false,
+    breakMinutes: ([0, 10, 20, 30].includes(s.breakMinutes) ? s.breakMinutes : 0) as 0 | 10 | 20 | 30,
   };
 }

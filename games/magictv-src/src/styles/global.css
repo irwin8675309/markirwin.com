@@ -1313,3 +1313,38 @@ input[type="range"] {
     height: 64%;
   }
 }
+
+/* Menu "attract" mode: when nobody has been seen for a while the pictures take
+   turns to bounce, inviting a child to come and wave. */
+@keyframes attractBounce {
+  0%, 12%, 100% { transform: translateY(0) scale(1); }
+  4% { transform: translateY(-18px) scale(1.06); }
+  8% { transform: translateY(0) scale(1); }
+}
+.magic-idle .menu-grid .game-card {
+  animation: attractBounce 6s ease-in-out infinite !important;
+}
+.magic-idle .menu-grid .game-card:nth-child(2) { animation-delay: 1s !important; }
+.magic-idle .menu-grid .game-card:nth-child(3) { animation-delay: 2s !important; }
+.magic-idle .menu-grid .game-card:nth-child(4) { animation-delay: 3s !important; }
+.magic-idle .menu-grid .game-card:nth-child(5) { animation-delay: 4s !important; }
+.magic-idle .menu-grid .game-card:nth-child(6) { animation-delay: 5s !important; }
+
+.rest-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+  padding: 40px;
+  background: radial-gradient(circle at 50% 40%, #3b2a7a, #120a2a 75%);
+  color: #fff;
+}
+.rest-screen h1 { font-size: clamp(40px, 6vw, 96px); margin: 0; }
+.rest-screen p { font-size: clamp(22px, 2.6vw, 44px); margin: 0; opacity: 0.9; }
+.rest-emoji { font-size: clamp(90px, 14vw, 220px); line-height: 1; animation: friendlyBob 3s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .magic-idle .menu-grid .game-card, .rest-emoji { animation: none; }
+}

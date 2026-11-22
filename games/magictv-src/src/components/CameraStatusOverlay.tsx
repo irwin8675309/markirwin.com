@@ -30,6 +30,7 @@ export function CameraStatusOverlay({ idlePrompt = true }: { idlePrompt?: boolea
       if (frameRef.current.hands.length > 0) lastHandAt.current = now;
       const isIdle = now - lastHandAt.current > IDLE_SECONDS * 1000;
       setIdle(isIdle);
+      document.documentElement.classList.toggle('magic-idle', isIdle);
       if (isIdle && !wasIdle.current && idlePromptRef.current) audio.speak('Wave your hand to start the magic!', { minGap: 30000 });
       wasIdle.current = isIdle;
     }, 400);
@@ -37,6 +38,7 @@ export function CameraStatusOverlay({ idlePrompt = true }: { idlePrompt?: boolea
       window.removeEventListener('pointermove', touch);
       window.removeEventListener('pointerdown', touch);
       window.clearInterval(timer);
+      document.documentElement.classList.remove('magic-idle');
     };
   }, [frameRef]);
 

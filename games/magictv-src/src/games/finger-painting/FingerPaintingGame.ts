@@ -7,7 +7,7 @@ import { CANDY } from '../../utils/palette';
 import { ellipse, flower, heart, roundRect, sparkle, star } from '../../utils/draw';
 import { chance, pick, rand } from '../../utils/random';
 
-type Brush = 'rainbow' | 'glitter' | 'star' | 'bubble' | 'stamp' | 'eraser';
+type Brush = 'rainbow' | 'glitter' | 'star' | 'bubble' | 'stamp' | 'eraser' | 'save';
 
 interface DockItem {
   id: Brush;
@@ -80,6 +80,7 @@ class FingerPaintingGame implements GameInstance {
       ['star', 'Stars'],
       ['bubble', 'Bubbles'],
       ['stamp', 'Stamps'],
+      ['save', 'Save'],
       ['eraser', 'Clear'],
     ];
     const n = items.length;
@@ -330,6 +331,8 @@ class FingerPaintingGame implements GameInstance {
         item.hover = 0;
         if (item.id === 'eraser') {
           this.clearPaint(ctx);
+        } else if (item.id === 'save') {
+          this.savePicture(ctx);
         } else {
           this.chooseBrush(item.id);
           ctx.audio.play('click');
@@ -430,6 +433,37 @@ class FingerPaintingGame implements GameInstance {
     }
 
     this.particles.update(ctx.dt);
+  }
+
+  /** Saves the picture as a PNG (on a phone this opens the share/save sheet). */
+  private savePicture(ctx: GameContext): void {
+    try {
+      const out = document.createElement('canvas');
+      out.width = 1920;
+      out.height = 1080;
+      const o = out.getContext('2d')!;
+      const g = o.createLinearGradient(0, 0, 1920, 1080);
+      g.addColorStop(0, '#2b1b5e');
+      g.addColorStop(1, '#14103a');
+      o.fillStyle = g;
+      o.fillRect(0, 0, 1920, 1080);
+      o.drawImage(this.paint, 0, 0);
+      out.toBlob((blob) => {
+        if (!blob) return;
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `magic-painting-${new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-')}.png`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.setTimeout(() => URL.revokeObjectURL(url), 10000);
+      }, 'image/png');
+      this.particles.sparkleBurst(960, 700, 40, CANDY, 500);
+      ctx.audio.play('chime', 4);
+    } catch (err) {
+      console.warn('[MagicTV] could not save painting', err);
+    }
   }
 
   private clearPaint(ctx: GameContext): void {
@@ -567,6 +601,23 @@ class FingerPaintingGame implements GameInstance {
       case 'stamp':
         flower(ctx, 0, 0, r * 0.62, { petalColor: '#ff8ad8', petalColor2: '#b78bff', open: 1 });
         break;
+      case 'save': {
+        // A little picture frame with a down arrow.
+        roundRect(ctx, -r * 0.42, -r * 0.34, r * 0.84, r * 0.68, r * 0.1);
+        ctx.fillStyle = '#d9f1ff';
+        ctx.fill();
+        ctx.strokeStyle = '#3a7bd5';
+        ctx.lineWidth = 4;
+        ctx.stroke();
+        ctx.fillStyle = '#3a7bd5';
+        ctx.beginPath();
+        ctx.moveTo(-r * 0.16, -r * 0.08);
+        ctx.lineTo(r * 0.16, -r * 0.08);
+        ctx.lineTo(0, r * 0.18);
+        ctx.closePath();
+        ctx.fill();
+        break;
+      }
       case 'eraser':
         ctx.rotate(-0.5);
         roundRect(ctx, -r * 0.36, -r * 0.24, r * 0.72, r * 0.48, r * 0.12);

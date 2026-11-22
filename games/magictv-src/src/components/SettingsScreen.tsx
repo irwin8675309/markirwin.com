@@ -172,6 +172,14 @@ export function SettingsScreen({ onBack, onCalibrate, onTrackingTest }: Props) {
             <Toggle checked={settings.showSkeleton} onChange={(v) => updateSettings({ showSkeleton: v })} label="Show skeleton" />
           </div>
 
+          <div className="toggle-row">
+            <div>
+              <strong>Help far-away hands</strong>
+              <p>Zooms in when nobody is seen, so children standing back are found.</p>
+            </div>
+            <Toggle checked={settings.farMode} onChange={(v) => updateSettings({ farMode: v })} label="Far-away hands" />
+          </div>
+
           <div className="two-col">
             <label className="field">
               <span>Hands to track</span>
@@ -247,6 +255,19 @@ export function SettingsScreen({ onBack, onCalibrate, onTrackingTest }: Props) {
               updateSettings({ fullscreen: isFullscreen() });
             }} label="Fullscreen" />
           </div>
+
+          <label className="field">
+            <span>Rest reminder</span>
+            <select
+              value={settings.breakMinutes}
+              onChange={(e) => updateSettings({ breakMinutes: Number(e.target.value) as 0 | 10 | 20 | 30 })}
+            >
+              <option value={0}>Never</option>
+              <option value={10}>After 10 minutes of play</option>
+              <option value={20}>After 20 minutes of play</option>
+              <option value={30}>After 30 minutes of play</option>
+            </select>
+          </label>
 
           <div className="button-row">
             <button className="soft-btn" onClick={onCalibrate}>

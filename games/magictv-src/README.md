@@ -38,6 +38,14 @@ The app is designed for a 16:9 television at 1920×1080. Press **F** (or use Set
 
 ---
 
+## New in round 2
+
+- **Far-away hands** (Settings → Tracking): when nobody is seen for 2 seconds the camera also looks at zoomed-in crops of the picture, and locks on when it finds a small, distant hand. Uses a second copy of the hand model, loaded only when needed. Turn it off in settings if it ever causes trouble.
+- **Waiting screen**: the game pictures take turns bouncing when nobody has been seen for a few seconds, and the friendly "Wave your hand" message appears on the menu too.
+- **Save my painting**: a new Save button in the painting dock saves the picture as a PNG.
+- **Rest reminder** (Settings → Screen & grown-ups): optional "Time for a little rest" screen after 10/20/30 minutes of play. Hold the Grown-ups corner to continue.
+- **Install and offline**: a web-app manifest and offline helper (service worker) let it be added to a home screen and run without internet after the first load.
+
 ## The six games
 
 | Game | What children do |

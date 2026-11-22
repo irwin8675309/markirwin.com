@@ -14,7 +14,7 @@ import { audio } from './audio/AudioEngine';
 import { toggleFullscreen } from './utils/fullscreen';
 import { DEBUG } from './utils/debug';
 
-type Screen = 'boot' | 'menu' | 'game' | 'settings' | 'tracking';
+type Screen = 'boot' | 'menu' | 'game' | 'settings' | 'tracking' | 'rest';
 
 function AppShell() {
   const { settings, status, startCalibration, cancelCalibration, frameRef } = useCamera();
@@ -28,6 +28,26 @@ function AppShell() {
   const calibratingRef = useRef(calibrating);
   calibratingRef.current = calibrating;
   const trackingReturn = useRef<Screen>('menu');
+  const playSeconds = useRef(0);
+  const breakMinutesRef = useRef(settings.breakMinutes);
+  breakMinutesRef.current = settings.breakMinutes;
+
+  // Optional rest reminder: after N minutes inside games, pause for a grown-up.
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      if (screenRef.current !== 'game' || document.hidden) return;
+      playSeconds.current += 1;
+      const limit = breakMinutesRef.current * 60;
+      if (limit > 0 && playSeconds.current >= limit) {
+        playSeconds.current = 0;
+        setGame(null);
+        setScreen('rest');
+        audio.stopSpeech();
+        audio.speak('Time for a little rest!', { force: true });
+      }
+    }, 1000);
+    return () => window.clearInterval(timer);
+  }, []);
 
   // Audio must be created from a user gesture.
   useEffect(() => {
@@ -80,7 +100,7 @@ function AppShell() {
         if (calibratingRef.current) {
           cancelCalibration();
           setCalibrating(false);
-        } else if (screen === 'game' || screen === 'settings' || screen === 'tracking') {
+        } else if (screen === 'game' || screen === 'settings' || screen === 'tracking' || screen === 'rest') {
           goMenu();
         }
       }
@@ -145,6 +165,19 @@ function AppShell() {
         </>
       )}
 
+      {screen === 'rest' && (
+        <>
+          <div className="screen rest-screen">
+            <div className="rest-emoji" aria-hidden="true">
+              😴
+            </div>
+            <h1>Time for a little rest!</h1>
+            <p>Great playing! Ask a grown-up when you want to play again.</p>
+          </div>
+          <HoldZone corner="br" onTrigger={goMenu} label="Grown-ups" holdSeconds={2.4} />
+        </>
+      )}
+
       {screen === 'settings' && (
         <>
           <SettingsScreen
@@ -158,7 +191,7 @@ function AppShell() {
 
       {screen === 'tracking' && <TrackingTest onBack={() => setScreen(trackingReturn.current)} />}
 
-      {(screen === 'menu' || screen === 'game') && !calibrating && <CameraStatusOverlay idlePrompt={screen === 'game'} />}
+      {(screen === 'menu' || screen === 'game') && !calibrating && <CameraStatusOverlay idlePrompt />}
 
       {calibrating && <CalibrationOverlay onDone={endCalibration} />}
     </div>

@@ -13,7 +13,8 @@ import type { HandLandmarker } from '@mediapipe/tasks-vision';
 import type { FrameState, GestureEvent, TrackingArea } from '../types';
 import { emptyFrame, WORLD_HEIGHT, WORLD_WIDTH } from '../types';
 import { clamp, clamp01 } from '../utils/math';
-import { loadHandLandmarker, rawHandsFromResult, type RawHand } from '../tracking/landmarker';
+import { loadHandLandmarker, loadCropLandmarker, rawHandsFromResult, type RawHand } from '../tracking/landmarker';
+import { FarController, uncropLandmarks, type CropRect } from '../tracking/farTracker';
 import { HandTracker } from '../tracking/tracker';
 import { GestureEngine } from '../tracking/gestures';
 import { DEFAULT_AREA, expandArea } from '../tracking/mapping';
@@ -103,6 +104,12 @@ export function CameraProvider({ children }: { children: ReactNode }) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const landmarkerRef = useRef<HandLandmarker | null>(null);
+  // Far-away hands: zoomed-in crops handled by a second landmarker (see farTracker.ts).
+  const farRef = useRef(new FarController());
+  const cropLandmarkerRef = useRef<HandLandmarker | null>(null);
+  const cropLoading = useRef(false);
+  const cropCanvasRef = useRef<HTMLCanvasElement | null>(null);
+  const farBroken = useRef(false);
   const trackerRef = useRef(new HandTracker());
   const gestureRef = useRef(new GestureEngine());
   const areaRef = useRef<TrackingArea>({ ...DEFAULT_AREA });
@@ -466,8 +473,79 @@ export function CameraProvider({ children }: { children: ReactNode }) {
       lastDetect.current = nowMs;
 
       try {
-        const result = lm.detectForVideo(video, nowMs);
-        const hands = rawHandsFromResult(result);
+        const detectFull = () => rawHandsFromResult(lm.detectForVideo(video, nowMs));
+
+        // Zoomed-in crop of the picture (null while the second model is still loading).
+        const detectCrop = (rect: CropRect): RawHand[] | null => {
+          const clm = cropLandmarkerRef.current;
+          if (!clm) {
+            if (!cropLoading.current) {
+              cropLoading.current = true;
+              loadCropLandmarker()
+                .then((l) => {
+                  cropLandmarkerRef.current = l;
+                })
+                .catch(() => {
+                  farBroken.current = true;
+                });
+            }
+            return null;
+          }
+          const vw = video.videoWidth;
+          const vh = video.videoHeight;
+          if (!vw || !vh) return null;
+          const canvas = (cropCanvasRef.current ??= document.createElement('canvas'));
+          const sw = Math.round(rect.w * vw);
+          const sh = Math.round(rect.h * vh);
+          if (canvas.width !== sw || canvas.height !== sh) {
+            canvas.width = sw;
+            canvas.height = sh;
+          }
+          canvas.getContext('2d')?.drawImage(video, rect.x * vw, rect.y * vh, sw, sh, 0, 0, sw, sh);
+          return rawHandsFromResult(clm.detectForVideo(canvas, nowMs)).map((h) => ({
+            ...h,
+            landmarks: uncropLandmarks(h.landmarks, rect),
+          }));
+        };
+
+        let hands: RawHand[] | null = null;
+        let submit = true;
+        if (s.farMode && !farBroken.current) {
+          // Far-away help. Any problem here just turns the helper off and normal tracking carries on.
+          try {
+            const far = farRef.current;
+            const plan = far.plan(nowMs);
+            if (plan.kind === 'crop' && far.locked) {
+              hands = detectCrop(plan.rect);
+              if (hands) far.onCrop(hands, plan.rect, nowMs);
+            }
+            if (!hands) {
+              const full = detectFull();
+              const unlocked = far.onFull(full, nowMs);
+              hands = full;
+              if (plan.kind === 'crop' && !far.locked && full.length === 0) {
+                // Sweep: nothing in the whole picture, so also look at a zoomed crop.
+                const zoomed = detectCrop(plan.rect);
+                if (zoomed) {
+                  far.onCrop(zoomed, plan.rect, nowMs);
+                  if (zoomed.length > 0) hands = zoomed;
+                }
+              } else if (far.locked && plan.kind === 'full' && !unlocked) {
+                submit = false; // an occasional full look while zoomed in: not used for tracking
+              }
+            }
+          } catch (farErr) {
+            console.warn('[MagicTV] far-away helper turned off', farErr);
+            farBroken.current = true;
+            hands = null;
+            submit = true;
+          }
+        }
+        if (!hands) hands = detectFull();
+        if (!submit) {
+          lastProcess.current = now;
+          return;
+        }
         processFrame(hands, now, dt, false);
         lastProcess.current = now;
         if (statusRef.current === 'loading') setStatus('ready');

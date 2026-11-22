@@ -8,29 +8,32 @@ export interface RawHand {
 }
 
 let landmarkerPromise: Promise<HandLandmarker> | null = null;
+let cropLandmarkerPromise: Promise<HandLandmarker> | null = null;
 
 /** Full URL of a file in /public, correct even when the app lives in a subfolder. */
 const assetUrl = (path: string) => new URL(import.meta.env.BASE_URL + path, document.baseURI).href.replace(/\/$/, '');
 
-/** Model + wasm are served locally from /public so the app works offline. */
+async function createLandmarker(minDetect: number): Promise<HandLandmarker> {
+  // Model + wasm are served locally from /public so the app works offline.
+  const vision = await FilesetResolver.forVisionTasks(assetUrl('mediapipe-wasm'));
+  return HandLandmarker.createFromOptions(vision, {
+    baseOptions: {
+      modelAssetPath: assetUrl('models/hand_landmarker.task'),
+      // CPU (XNNPACK) is slower to start but far more reliable across webcams
+      // and mini-PC GPUs. GPU can stall on some USB cameras.
+      delegate: 'CPU',
+    },
+    runningMode: 'VIDEO',
+    numHands: 4,
+    minHandDetectionConfidence: minDetect,
+    minHandPresenceConfidence: 0.42,
+    minTrackingConfidence: 0.42,
+  });
+}
+
 export function loadHandLandmarker(): Promise<HandLandmarker> {
   if (!landmarkerPromise) {
-    landmarkerPromise = (async () => {
-      const vision = await FilesetResolver.forVisionTasks(assetUrl('mediapipe-wasm'));
-      return HandLandmarker.createFromOptions(vision, {
-        baseOptions: {
-          modelAssetPath: assetUrl('models/hand_landmarker.task'),
-          // CPU (XNNPACK) is slower to start but far more reliable across webcams
-          // and mini-PC GPUs. GPU can stall on some USB cameras.
-          delegate: 'CPU',
-        },
-        runningMode: 'VIDEO',
-        numHands: 4,
-        minHandDetectionConfidence: 0.45,
-        minHandPresenceConfidence: 0.42,
-        minTrackingConfidence: 0.42,
-      });
-    })().catch((err) => {
+    landmarkerPromise = createLandmarker(0.45).catch((err) => {
       // Don't cache a failure: "Try again" (or the automatic retry) must be able
       // to load the model again without reloading the whole page.
       landmarkerPromise = null;
@@ -38,6 +41,22 @@ export function loadHandLandmarker(): Promise<HandLandmarker> {
     });
   }
   return landmarkerPromise;
+}
+
+/**
+ * A second landmarker used only for zoomed-in crops (far-away hands). It is kept
+ * separate because a MediaPipe video landmarker remembers the previous picture,
+ * and mixing full pictures with crops in one instance would confuse it.
+ * Loaded lazily the first time a crop is needed.
+ */
+export function loadCropLandmarker(): Promise<HandLandmarker> {
+  if (!cropLandmarkerPromise) {
+    cropLandmarkerPromise = createLandmarker(0.35).catch((err) => {
+      cropLandmarkerPromise = null;
+      throw err;
+    });
+  }
+  return cropLandmarkerPromise;
 }
 
 export function rawHandsFromResult(result: {
