@@ -8,7 +8,8 @@ import { CANDY } from '../../utils/palette';
 
 export const HELLO_DONE_EVENT = 'magictv:hello-done';
 const WAVE_NEEDED = 0.9; // seconds of waving
-const WAVE_SPEED = 250; // px/s of fingertip movement that counts as a wave
+const WAVE_SPEED = 150; // px/s of fingertip movement that counts as a wave
+const HOLD_RATE = 0.5; // a hand just held up still counts, at half the speed of a wave
 const FINISH_AFTER = 2.6; // seconds after the last greeting
 const GIVE_UP = 28; // seconds with nobody waving
 
@@ -42,16 +43,22 @@ class HelloGame implements GameInstance {
     if (g.frame.hands.length > 0) this.lastSeen = this.elapsed;
     const slots = slotsForFrame(g.frame);
     const waving = new Set<number>();
+    const present = new Set<number>();
     const where = new Map<number, number>();
     for (const h of g.frame.hands) {
       if (!h.tracked) continue;
       const slot = Math.min(3, slots.get(h.player) ?? 0);
       where.set(slot, h.palm.x);
+      present.add(slot);
       if (h.speed > WAVE_SPEED) waving.add(slot);
     }
     for (let s = 0; s < 4; s++) {
       if (this.greeted.some((x) => x.slot === s)) continue;
-      this.wave[s] = waving.has(s) ? this.wave[s] + g.dt : Math.max(0, this.wave[s] - g.dt * 0.5);
+      this.wave[s] = waving.has(s)
+        ? this.wave[s] + g.dt
+        : present.has(s)
+          ? this.wave[s] + g.dt * HOLD_RATE
+          : Math.max(0, this.wave[s] - g.dt * 0.25);
       if (this.wave[s] >= WAVE_NEEDED) {
         const x = Math.max(300, Math.min(1620, where.get(s) ?? 960));
         this.greeted.push({ slot: s, x, at: this.elapsed });
@@ -98,7 +105,7 @@ class HelloGame implements GameInstance {
       ctx.textAlign = 'center';
       ctx.fillStyle = '#5a2a7a';
       const hint =
-        this.elapsed - this.lastSeen > 6 ? 'Stand where the camera can see you, then wave!' : 'Wave your hand at the TV';
+        this.elapsed - this.lastSeen > 6 ? 'Stand where the camera can see you, then wave!' : 'Hold up your hand and wave at the TV';
       ctx.fillText(hint, w / 2, 700);
     }
 
