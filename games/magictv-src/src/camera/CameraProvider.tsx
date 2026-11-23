@@ -508,43 +508,28 @@ export function CameraProvider({ children }: { children: ReactNode }) {
           }));
         };
 
-        let hands: RawHand[] | null = null;
-        let submit = true;
+        // The whole picture is ALWAYS looked at first, exactly as without the far-away
+        // helper. A zoomed crop is only an extra look when that finds nothing, so the
+        // helper can add far-away hands but can never hide a hand the full picture shows.
+        let hands = detectFull();
         if (s.farMode && !farBroken.current) {
-          // Far-away help. Any problem here just turns the helper off and normal tracking carries on.
           try {
             const far = farRef.current;
-            const plan = far.plan(nowMs);
-            if (plan.kind === 'crop' && far.locked) {
-              hands = detectCrop(plan.rect);
-              if (hands) far.onCrop(hands, plan.rect, nowMs);
-            }
-            if (!hands) {
-              const full = detectFull();
-              const unlocked = far.onFull(full, nowMs);
-              hands = full;
-              if (plan.kind === 'crop' && !far.locked && full.length === 0) {
-                // Sweep: nothing in the whole picture, so also look at a zoomed crop.
+            far.onFull(hands, nowMs);
+            if (hands.length === 0) {
+              const plan = far.plan(nowMs);
+              if (plan.kind === 'crop') {
                 const zoomed = detectCrop(plan.rect);
                 if (zoomed) {
                   far.onCrop(zoomed, plan.rect, nowMs);
                   if (zoomed.length > 0) hands = zoomed;
                 }
-              } else if (far.locked && plan.kind === 'full' && !unlocked) {
-                submit = false; // an occasional full look while zoomed in: not used for tracking
               }
             }
           } catch (farErr) {
             console.warn('[MagicTV] far-away helper turned off', farErr);
             farBroken.current = true;
-            hands = null;
-            submit = true;
           }
-        }
-        if (!hands) hands = detectFull();
-        if (!submit) {
-          lastProcess.current = now;
-          return;
         }
         processFrame(hands, now, dt, false);
         lastProcess.current = now;

@@ -51,7 +51,7 @@ export function loadHandLandmarker(): Promise<HandLandmarker> {
  */
 export function loadCropLandmarker(): Promise<HandLandmarker> {
   if (!cropLandmarkerPromise) {
-    cropLandmarkerPromise = createLandmarker(0.35).catch((err) => {
+    cropLandmarkerPromise = createLandmarker(0.45).catch((err) => {
       cropLandmarkerPromise = null;
       throw err;
     });

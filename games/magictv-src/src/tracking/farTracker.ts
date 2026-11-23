@@ -7,8 +7,9 @@ import type { RawHand } from './landmarker';
  * MediaPipe finds hands in a small copy of the picture, so a child standing 3 m
  * from the TV has hands only a few pixels wide and is often missed. When nothing
  * has been seen for a while we also look at zoomed-in crops of the picture
- * (a sweep). Once a crop finds a hand we lock on and keep zooming in around it,
- * with an occasional full-picture look to notice when the zoom is no longer needed.
+ * (a sweep). Once a crop finds a hand we lock on and keep zooming in around it.
+ * The full picture is always looked at first, and a crop is only an extra look when
+ * the full picture shows nothing.
  *
  * Everything here is plain geometry and bookkeeping (no camera or MediaPipe), so it
  * can be unit-tested. Rectangles are in normalised, unmirrored camera coordinates.
@@ -27,8 +28,6 @@ export const CROP_SIZE = 0.45;
 export const SWEEP_AFTER_MS = 2000;
 /** While sweeping, one detection in this many also tries a crop. */
 const SWEEP_EVERY = 3;
-/** While locked, one detection in this many looks at the full picture instead. */
-const PROBE_EVERY = 4;
 /** Crop detections in a row without any hand before the lock is dropped. */
 const MAX_MISSES = 8;
 /** A hand at least this big in the full picture does not need the zoom. */
@@ -85,16 +84,14 @@ export class FarController {
   }
 
   /**
-   * What to look at on this detection. 'full' = the whole picture as usual.
-   * In sweep mode a 'crop' plan is an EXTRA look on top of the full one.
+   * Whether to ALSO look at a zoomed crop on this detection. The caller always looks at
+   * the whole picture first and only asks for this when that found no hands, so the zoom
+   * can only ever add hands, never take them away.
    */
   plan(nowMs: number): FarPlan {
     if (this.startedMs === 0) this.startedMs = nowMs;
     this.counter++;
-    if (this.lock) {
-      if (this.counter % PROBE_EVERY === 0) return { kind: 'full' };
-      return { kind: 'crop', rect: this.lock };
-    }
+    if (this.lock) return { kind: 'crop', rect: this.lock };
     const quietFor = nowMs - Math.max(this.lastSeenMs, this.startedMs);
     if (quietFor >= SWEEP_AFTER_MS && this.counter % SWEEP_EVERY === 0) {
       const [cx, cy] = SWEEP_CENTRES[this.sweepIndex++ % SWEEP_CENTRES.length];
