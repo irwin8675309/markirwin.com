@@ -66,7 +66,9 @@ export function loadSettings(): Settings {
     const raw = localStorage.getItem(KEY);
     if (!raw) return { ...DEFAULT_SETTINGS };
     const parsed = JSON.parse(raw) as Partial<Settings>;
-    return { ...DEFAULT_SETTINGS, ...parsed };
+    // "Pretend hands" is only for trying the games without a camera. It is never
+    // remembered, so one tap can't leave the TV stuck without its real camera.
+    return { ...DEFAULT_SETTINGS, ...parsed, demoMode: false };
   } catch {
     return { ...DEFAULT_SETTINGS };
   }
