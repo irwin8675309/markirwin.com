@@ -14,6 +14,11 @@ import type { FrameState, GestureEvent, TrackingArea } from '../types';
 import { emptyFrame, WORLD_HEIGHT, WORLD_WIDTH } from '../types';
 import { clamp, clamp01 } from '../utils/math';
 import { loadHandLandmarker, loadCropLandmarker, rawHandsFromResult, type RawHand } from '../tracking/landmarker';
+/** Lower = a hand is noticed more easily (minus up to 0.4 from the Sensitivity slider). */
+const DETECT_BASE = 0.55;
+/** Lower = a moving hand is held on to for longer instead of being lost and searched for again. */
+const KEEP_TRACKING = 0.35;
+
 import { FarController, uncropLandmarks, type CropRect } from '../tracking/farTracker';
 import { HandTracker } from '../tracking/tracker';
 import { GestureEngine } from '../tracking/gestures';
@@ -216,6 +221,8 @@ export function CameraProvider({ children }: { children: ReactNode }) {
         ...(deviceId ? { deviceId: { exact: deviceId } } : {}),
         width: { ideal: w },
         height: { ideal: Math.round((w * 9) / 16) },
+        // Ask for smooth video: in dim rooms some webcams quietly drop to a few pictures a second, which blurs moving hands.
+        frameRate: { ideal: 30 },
       });
 
       // Resolve the saved camera by its friendly label first: Chrome can change
@@ -324,9 +331,9 @@ export function CameraProvider({ children }: { children: ReactNode }) {
       try {
         await landmarker.setOptions({
           numHands: settingsRef.current.numHands,
-          minHandDetectionConfidence: 0.65 - settingsRef.current.sensitivity * 0.4,
-          minHandPresenceConfidence: 0.5,
-          minTrackingConfidence: 0.5,
+          minHandDetectionConfidence: DETECT_BASE - settingsRef.current.sensitivity * 0.4,
+          minHandPresenceConfidence: KEEP_TRACKING,
+          minTrackingConfidence: KEEP_TRACKING,
         });
       } catch {
         /* older versions may not support setOptions — defaults are fine */
@@ -399,9 +406,9 @@ export function CameraProvider({ children }: { children: ReactNode }) {
     void lm
       .setOptions({
         numHands: settings.numHands,
-        minHandDetectionConfidence: 0.65 - settings.sensitivity * 0.4,
-        minHandPresenceConfidence: 0.5,
-        minTrackingConfidence: 0.5,
+        minHandDetectionConfidence: DETECT_BASE - settings.sensitivity * 0.4,
+        minHandPresenceConfidence: KEEP_TRACKING,
+        minTrackingConfidence: KEEP_TRACKING,
       })
       .catch(() => {});
   }, [settings.numHands, settings.sensitivity]);

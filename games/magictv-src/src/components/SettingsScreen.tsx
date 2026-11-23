@@ -77,6 +77,21 @@ function minutes(sec: number): string {
   return m < 1 ? (sec > 0 ? 'under a minute' : '0 min') : `${m} min`;
 }
 
+function CameraInfo({ stream }: { stream: MediaStream | null }) {
+  const t = stream?.getVideoTracks()[0];
+  const st = t?.getSettings();
+  if (!st?.width) return null;
+  const fps = st.frameRate ? Math.round(st.frameRate) : 0;
+  const slow = fps > 0 && fps < 20;
+  return (
+    <p className={slow ? 'settings-notice' : 'summary-small'}>
+      Camera sends {st.width}×{st.height}
+      {fps ? ` at ${fps} pictures a second` : ''}.
+      {slow ? ' That is slow, which blurs moving hands. Brighter light in the room usually fixes it.' : ''}
+    </p>
+  );
+}
+
 export function PlaySummary() {
   const [tick, setTick] = useState(0);
   void tick;
@@ -144,7 +159,7 @@ export function PlaySummary() {
 }
 
 export function SettingsScreen({ onBack, onCalibrate, onTrackingTest }: Props) {
-  const { settings, updateSettings, devices, status, error, notice, fps, handCount, startCamera, demo, setDemoMode } =
+  const { settings, updateSettings, stream, devices, status, error, notice, fps, handCount, startCamera, demo, setDemoMode } =
     useCamera();
   const [exitNote, setExitNote] = useState(false);
 
@@ -172,6 +187,7 @@ export function SettingsScreen({ onBack, onCalibrate, onTrackingTest }: Props) {
         <section className="panel">
           <h2>📷 Camera</h2>
           <CameraPreview className="settings-preview" label="Preview" />
+          <CameraInfo stream={stream} />
           {error && <p className="settings-error">{error}</p>}
           {notice && <p className="settings-notice">{notice}</p>}
 
