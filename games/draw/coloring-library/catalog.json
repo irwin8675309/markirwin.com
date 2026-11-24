@@ -80,6 +80,21 @@
           "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a smiling cartoon squirrel sitting upright with paws together, a large curly striped tail and grass tufts. The exact prompt entered into Grok was not recorded.",
           "rightsNotes": "AI-generated artwork supplied by the site owner. Not labeled public domain or CC0; provider terms apply. No recognizable copyrighted character or branded mascot.",
           "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
+        },
+        {
+          "id": "horse-002",
+          "name": "Sunny Day Horse",
+          "image": "images/animals/horse-002.png",
+          "thumbnail": "thumbnails/animals/horse-002.png",
+          "format": "png",
+          "difficulty": "medium",
+          "published": true,
+          "sourceType": "AI-generated artwork",
+          "provider": "Grok (xAI)",
+          "generatedDate": "unknown",
+          "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a smiling cartoon horse standing in grass under a large sun with rays. The exact prompt entered into Grok was not recorded.",
+          "rightsNotes": "AI-generated artwork supplied by the site owner. Not labeled public domain or CC0; provider terms apply. No recognizable copyrighted character or branded mascot.",
+          "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
         }
       ]
     },
@@ -156,6 +171,21 @@
           "provider": "Grok (xAI)",
           "generatedDate": "unknown",
           "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a smiling cartoon dinosaur standing on grass, with back spikes, a curved tail and three grass tufts. The exact prompt entered into Grok was not recorded.",
+          "rightsNotes": "AI-generated artwork supplied by the site owner. Not labeled public domain or CC0; provider terms apply. No recognizable copyrighted character or branded mascot.",
+          "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
+        },
+        {
+          "id": "dinosaur-003",
+          "name": "Dinosaur by the House",
+          "image": "images/dinosaurs/dinosaur-003.png",
+          "thumbnail": "thumbnails/dinosaurs/dinosaur-003.png",
+          "format": "png",
+          "difficulty": "medium",
+          "published": true,
+          "sourceType": "AI-generated artwork",
+          "provider": "Grok (xAI)",
+          "generatedDate": "unknown",
+          "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a smiling long-necked dinosaur with back plates standing next to a simple house with a chimney, two windows and a door, with grass tufts. The exact prompt entered into Grok was not recorded.",
           "rightsNotes": "AI-generated artwork supplied by the site owner. Not labeled public domain or CC0; provider terms apply. No recognizable copyrighted character or branded mascot.",
           "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
         }
