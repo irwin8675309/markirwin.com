@@ -57,7 +57,7 @@ export const DEFAULT_SETTINGS: Settings = {
   voiceEnabled: true,
   fullscreen: false,
   farMode: true,
-  useGpu: false,
+  useGpu: true,
   breakMinutes: 0,
   trackingArea: null,
 };
@@ -97,7 +97,7 @@ export function clampSettings(s: Settings): Settings {
     numHands: s.numHands === 2 ? 2 : 4,
     trackingFps: s.trackingFps === 60 ? 60 : 30,
     farMode: s.farMode !== false,
-    useGpu: s.useGpu === true,
+    useGpu: s.useGpu !== false,
     breakMinutes: ([0, 10, 20, 30].includes(s.breakMinutes) ? s.breakMinutes : 0) as 0 | 10 | 20 | 30,
   };
 }

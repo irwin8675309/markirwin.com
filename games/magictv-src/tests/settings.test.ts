@@ -14,3 +14,10 @@ test('pretend hands is never restored from saved settings', async () => {
   assert.equal(s.sensitivity, 0.9);
   delete (globalThis as any).localStorage;
 });
+
+test('graphics-chip tracking is on by default and stays off if switched off', async () => {
+  const { DEFAULT_SETTINGS, clampSettings } = await import('../src/settings');
+  assert.equal(DEFAULT_SETTINGS.useGpu, true);
+  assert.equal(clampSettings({ ...DEFAULT_SETTINGS, useGpu: false }).useGpu, false);
+  assert.equal(clampSettings({ ...DEFAULT_SETTINGS }).useGpu, true);
+});

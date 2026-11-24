@@ -273,8 +273,8 @@ export function SettingsScreen({ onBack, onCalibrate, onTrackingTest }: Props) {
             <div>
               <strong>Faster hand finding (graphics chip)</strong>
               <p>
-                Can double the speed on slower computers. Reload the page after changing it. If hands act strangely,
-                switch it off again.
+                On by default: it can double the speed on slower computers, and the game falls back by itself if it is not
+                available. Reload the page after changing it. If hands act strangely, switch it off.
               </p>
             </div>
             <Toggle checked={settings.useGpu} onChange={(v) => updateSettings({ useGpu: v })} label="Graphics chip" />
