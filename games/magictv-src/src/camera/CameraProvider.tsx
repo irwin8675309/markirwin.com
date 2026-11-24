@@ -316,7 +316,7 @@ export function CameraProvider({ children }: { children: ReactNode }) {
         }
       }
       setStatus('loading');
-      const landmarker = await loadHandLandmarker();
+      const landmarker = await loadHandLandmarker(settingsRef.current.useGpu);
       if (stale()) return;
       landmarkerRef.current = landmarker;
       if (settingsRef.current.demoMode) {

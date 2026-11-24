@@ -30,6 +30,8 @@ export interface Settings {
   fullscreen: boolean;
   /** Also look at zoomed-in crops so children standing far from the TV are found. */
   farMode: boolean;
+  /** Find hands with the graphics chip (often much faster). Takes effect after a reload. */
+  useGpu: boolean;
   /** Friendly "time for a rest" pause after this many minutes of one game session (0 = never). */
   breakMinutes: 0 | 10 | 20 | 30;
   /** Usable tracking area learned during calibration (normalised). */
@@ -55,6 +57,7 @@ export const DEFAULT_SETTINGS: Settings = {
   voiceEnabled: true,
   fullscreen: false,
   farMode: true,
+  useGpu: false,
   breakMinutes: 0,
   trackingArea: null,
 };
@@ -94,6 +97,7 @@ export function clampSettings(s: Settings): Settings {
     numHands: s.numHands === 2 ? 2 : 4,
     trackingFps: s.trackingFps === 60 ? 60 : 30,
     farMode: s.farMode !== false,
+    useGpu: s.useGpu === true,
     breakMinutes: ([0, 10, 20, 30].includes(s.breakMinutes) ? s.breakMinutes : 0) as 0 | 10 | 20 | 30,
   };
 }

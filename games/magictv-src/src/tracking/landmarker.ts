@@ -13,7 +13,7 @@ let cropLandmarkerPromise: Promise<HandLandmarker> | null = null;
 /** Full URL of a file in /public, correct even when the app lives in a subfolder. */
 const assetUrl = (path: string) => new URL(import.meta.env.BASE_URL + path, document.baseURI).href.replace(/\/$/, '');
 
-async function createLandmarker(minDetect: number): Promise<HandLandmarker> {
+async function createLandmarker(minDetect: number, delegate: 'CPU' | 'GPU' = 'CPU'): Promise<HandLandmarker> {
   // Model + wasm are served locally from /public so the app works offline.
   const vision = await FilesetResolver.forVisionTasks(assetUrl('mediapipe-wasm'));
   return HandLandmarker.createFromOptions(vision, {
@@ -21,7 +21,7 @@ async function createLandmarker(minDetect: number): Promise<HandLandmarker> {
       modelAssetPath: assetUrl('models/hand_landmarker.task'),
       // CPU (XNNPACK) is slower to start but far more reliable across webcams
       // and mini-PC GPUs. GPU can stall on some USB cameras.
-      delegate: 'CPU',
+      delegate,
     },
     runningMode: 'VIDEO',
     numHands: 4,
@@ -31,9 +31,19 @@ async function createLandmarker(minDetect: number): Promise<HandLandmarker> {
   });
 }
 
-export function loadHandLandmarker(): Promise<HandLandmarker> {
+export function loadHandLandmarker(useGpu = false): Promise<HandLandmarker> {
   if (!landmarkerPromise) {
-    landmarkerPromise = createLandmarker(0.45).catch((err) => {
+    const make = async () => {
+      if (useGpu) {
+        try {
+          return await createLandmarker(0.45, 'GPU');
+        } catch (err) {
+          console.warn('[MagicTV] graphics-chip tracking not available, using the normal way', err);
+        }
+      }
+      return createLandmarker(0.45);
+    };
+    landmarkerPromise = make().catch((err) => {
       // Don't cache a failure: "Try again" (or the automatic retry) must be able
       // to load the model again without reloading the whole page.
       landmarkerPromise = null;

@@ -2,7 +2,7 @@ import { resetDemos } from '../games/shared/demo';
 import { resetBuddies } from '../games/shared/buddies';
 import { resetStickers } from '../games/shared/stickers';
 import { resetFriends } from '../games/shared/friends';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { GAMES } from '../games/registry';
 import { getBuddy } from '../games/shared/buddies';
 import { STICKERS, ownedStickers } from '../games/shared/stickers';
@@ -162,6 +162,7 @@ export function SettingsScreen({ onBack, onCalibrate, onTrackingTest }: Props) {
   const { settings, updateSettings, stream, devices, status, error, notice, fps, handCount, startCamera, demo, setDemoMode } =
     useCamera();
   const [exitNote, setExitNote] = useState(false);
+  const initialGpu = useRef(settings.useGpu);
 
   const videoDevices = devices.filter((d) => d.kind === 'videoinput');
 
@@ -267,6 +268,24 @@ export function SettingsScreen({ onBack, onCalibrate, onTrackingTest }: Props) {
             value={settings.smoothing}
             onChange={(v) => updateSettings({ smoothing: v })}
           />
+
+          <div className="toggle-row">
+            <div>
+              <strong>Faster hand finding (graphics chip)</strong>
+              <p>
+                Can double the speed on slower computers. Reload the page after changing it. If hands act strangely,
+                switch it off again.
+              </p>
+            </div>
+            <Toggle checked={settings.useGpu} onChange={(v) => updateSettings({ useGpu: v })} label="Graphics chip" />
+          </div>
+          {settings.useGpu !== initialGpu.current && (
+            <div className="button-row">
+              <button className="soft-btn" onClick={() => window.location.reload()}>
+                Reload now to apply
+              </button>
+            </div>
+          )}
 
           <div className="toggle-row">
             <div>
