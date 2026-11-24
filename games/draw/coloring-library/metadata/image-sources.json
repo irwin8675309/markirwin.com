@@ -212,6 +212,36 @@
       "rightsNotes": "AI-generated artwork. Not labeled public domain or CC0; provider terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot.",
       "attribution": "None required by this project; check xAI's terms.",
       "usageTerms": "Subject to xAI's applicable terms for Grok output."
+    },
+    {
+      "id": "cat-002",
+      "provider": "unknown",
+      "generatedDate": "unknown",
+      "prompt": "Prompt not supplied. Visual description of the supplied artwork: a children's-style line-art coloring page of a cat lying on a carpet in a room corner, with a baseboard and a wall outlet behind it and carpet tufts in front. How the image was created was not stated.",
+      "humanModifications": "Received as a 896×1200 portrait JPEG (IMG_1033.jpeg). Converted to PNG and placed on a 1024×1024 square white canvas (subject scaled to about 944 px tall and centered, with margins); cleaned JPEG compression noise so lines are near-black (#111111) on pure white; thickened lines (median stroke about 2 px to about 5 px at 1024×1024), reducing the growth where lines are densely packed; antialiased; filled tiny white specks (under 60 px), including eye glints. Thumbnail created at 420×420. Subject and composition unchanged. Passed visual inspection; not functionally tested with the paint bucket. Fine carpet-tuft marks and whiskers are kept as thin line detail and may need a paint-bucket check.",
+      "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0; terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot.",
+      "attribution": "None required by this project; provider unknown.",
+      "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
+    },
+    {
+      "id": "cat-003",
+      "provider": "unknown",
+      "generatedDate": "unknown",
+      "prompt": "Prompt not supplied. Visual description of the supplied artwork: a children's-style line-art coloring page of a spotted cat sitting on a chair beside a window and a Christmas tree with an ornament, with part of a person's hand reaching toward the tree. How the image was created was not stated.",
+      "humanModifications": "Received as a 847×1264 portrait JPEG (IMG_1031.jpeg). Converted to PNG and placed on a 1024×1024 square white canvas (subject scaled to about 944 px tall and centered, with margins); cleaned JPEG compression noise so lines are near-black (#111111) on pure white; thickened lines (median stroke about 2.5 px to about 4 px at 1024×1024), reducing the growth where lines are densely packed; antialiased; filled tiny white specks (under 60 px), including eye glints. Thumbnail created at 420×420. Subject and composition unchanged. Passed visual inspection; not functionally tested with the paint bucket. The tree needles are densely hatched; line growth was reduced there to keep them from merging into solid black, so those regions are not cleanly closed and the area needs a paint-bucket check.",
+      "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0; terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot.",
+      "attribution": "None required by this project; provider unknown.",
+      "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
+    },
+    {
+      "id": "dog-003",
+      "provider": "unknown",
+      "generatedDate": "unknown",
+      "prompt": "Prompt not supplied. Visual description of the supplied artwork: a children's-style line-art coloring page of a smiling dog with its tongue out beside a car seat headrest and seat belt, with part of a person's clothing at the bottom right. How the image was created was not stated.",
+      "humanModifications": "Received as a 784×1373 portrait JPEG (IMG_1030.jpeg). Converted to PNG and placed on a 1024×1024 square white canvas (subject scaled to about 944 px tall and centered, with margins); cleaned JPEG compression noise so lines are near-black (#111111) on pure white; thickened lines (median stroke about 2.4 px to about 5 px at 1024×1024), reducing the growth where lines are densely packed; antialiased; filled tiny white specks (under 60 px), including eye glints. Thumbnail created at 420×420. Subject and composition unchanged. Passed visual inspection; not functionally tested with the paint bucket. Fur strokes and whisker dots are fine detail and may need a paint-bucket check.",
+      "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0; terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot.",
+      "attribution": "None required by this project; provider unknown.",
+      "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
     }
   ]
 }

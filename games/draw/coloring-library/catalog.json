@@ -131,6 +131,36 @@
           "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of two smiling kittens sitting side by side with a ball of yarn and grass tufts. The exact prompt entered into Grok was not recorded.",
           "rightsNotes": "AI-generated artwork supplied by the site owner. Not labeled public domain or CC0; provider terms apply. No recognizable copyrighted character or branded mascot.",
           "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
+        },
+        {
+          "id": "cat-002",
+          "name": "Cat on the Carpet",
+          "image": "images/cats/cat-002.png",
+          "thumbnail": "thumbnails/cats/cat-002.png",
+          "format": "png",
+          "difficulty": "advanced",
+          "published": true,
+          "sourceType": "Line-art artwork supplied by the site owner (creation method not stated)",
+          "provider": "unknown",
+          "generatedDate": "unknown",
+          "prompt": "Prompt not supplied. Visual description of the supplied artwork: a children's-style line-art coloring page of a cat lying on a carpet in a room corner, with a baseboard and a wall outlet behind it and carpet tufts in front. How the image was created was not stated.",
+          "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0. No recognizable copyrighted character or branded mascot.",
+          "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
+        },
+        {
+          "id": "cat-003",
+          "name": "Cat by the Christmas Tree",
+          "image": "images/cats/cat-003.png",
+          "thumbnail": "thumbnails/cats/cat-003.png",
+          "format": "png",
+          "difficulty": "advanced",
+          "published": true,
+          "sourceType": "Line-art artwork supplied by the site owner (creation method not stated)",
+          "provider": "unknown",
+          "generatedDate": "unknown",
+          "prompt": "Prompt not supplied. Visual description of the supplied artwork: a children's-style line-art coloring page of a spotted cat sitting on a chair beside a window and a Christmas tree with an ornament, with part of a person's hand reaching toward the tree. How the image was created was not stated.",
+          "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0. No recognizable copyrighted character or branded mascot.",
+          "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
         }
       ]
     },
@@ -152,6 +182,21 @@
           "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a smiling sitting puppy with floppy ears and a wagging tail, among grass tufts. The exact prompt entered into Grok was not recorded.",
           "rightsNotes": "AI-generated artwork supplied by the site owner. Not labeled public domain or CC0; provider terms apply. No recognizable copyrighted character or branded mascot.",
           "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
+        },
+        {
+          "id": "dog-003",
+          "name": "Happy Dog in the Car",
+          "image": "images/dogs/dog-003.png",
+          "thumbnail": "thumbnails/dogs/dog-003.png",
+          "format": "png",
+          "difficulty": "advanced",
+          "published": true,
+          "sourceType": "Line-art artwork supplied by the site owner (creation method not stated)",
+          "provider": "unknown",
+          "generatedDate": "unknown",
+          "prompt": "Prompt not supplied. Visual description of the supplied artwork: a children's-style line-art coloring page of a smiling dog with its tongue out beside a car seat headrest and seat belt, with part of a person's clothing at the bottom right. How the image was created was not stated.",
+          "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0. No recognizable copyrighted character or branded mascot.",
+          "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
         }
       ]
     },
