@@ -224,6 +224,21 @@
           "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of two smiling baby unicorns standing side by side on a grassy hill with stars in the sky and grass tufts. The exact prompt entered into Grok was not recorded.",
           "rightsNotes": "AI-generated artwork supplied by the site owner. Not labeled public domain or CC0; provider terms apply. No recognizable copyrighted character or branded mascot.",
           "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
+        },
+        {
+          "id": "unicorn-003",
+          "name": "Rainbow Unicorn",
+          "image": "images/unicorns/unicorn-003.png",
+          "thumbnail": "thumbnails/unicorns/unicorn-003.png",
+          "format": "png",
+          "difficulty": "medium",
+          "published": true,
+          "sourceType": "AI-generated artwork",
+          "provider": "Grok (xAI)",
+          "generatedDate": "unknown",
+          "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a smiling baby unicorn with a striped horn and flowing mane and tail standing on top of a large rainbow arch. The exact prompt entered into Grok was not recorded.",
+          "rightsNotes": "AI-generated artwork supplied by the site owner. Not labeled public domain or CC0; provider terms apply. No recognizable copyrighted character or branded mascot.",
+          "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
         }
       ]
     },
@@ -294,6 +309,27 @@
           "provider": "Grok (xAI)",
           "generatedDate": "unknown",
           "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of some flowers (two six-petal flowers with stems, leaves and grass tufts). The exact prompt entered into Grok was not recorded.",
+          "rightsNotes": "AI-generated artwork supplied by the site owner. Not labeled public domain or CC0; provider terms apply. No recognizable copyrighted character or branded mascot.",
+          "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
+        }
+      ]
+    },
+    {
+      "id": "holidays",
+      "name": "Holidays",
+      "images": [
+        {
+          "id": "christmas-tree-001",
+          "name": "Christmas Tree and Presents",
+          "image": "images/holidays/christmas-tree-001.png",
+          "thumbnail": "thumbnails/holidays/christmas-tree-001.png",
+          "format": "png",
+          "difficulty": "advanced",
+          "published": true,
+          "sourceType": "AI-generated artwork",
+          "provider": "Grok (xAI)",
+          "generatedDate": "unknown",
+          "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a Christmas tree with a star on top, ornaments, stars and candy canes, with four wrapped presents with bows in front. The exact prompt entered into Grok was not recorded.",
           "rightsNotes": "AI-generated artwork supplied by the site owner. Not labeled public domain or CC0; provider terms apply. No recognizable copyrighted character or branded mascot.",
           "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
         }
