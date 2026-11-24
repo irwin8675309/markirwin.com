@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-11-19",
+  "lastUpdated": "2026-11-24",
   "categories": [
     {
       "id": "animals",
@@ -63,6 +63,21 @@
           "provider": "Grok (xAI)",
           "generatedDate": "unknown",
           "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a smiling baby giraffe with a long neck, spots, a tufted tail and grass tufts. The exact prompt entered into Grok was not recorded.",
+          "rightsNotes": "AI-generated artwork supplied by the site owner. Not labeled public domain or CC0; provider terms apply. No recognizable copyrighted character or branded mascot.",
+          "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
+        },
+        {
+          "id": "squirrel-001",
+          "name": "Happy Squirrel",
+          "image": "images/animals/squirrel-001.png",
+          "thumbnail": "thumbnails/animals/squirrel-001.png",
+          "format": "png",
+          "difficulty": "medium",
+          "published": true,
+          "sourceType": "AI-generated artwork",
+          "provider": "Grok (xAI)",
+          "generatedDate": "unknown",
+          "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a smiling cartoon squirrel sitting upright with paws together, a large curly striped tail and grass tufts. The exact prompt entered into Grok was not recorded.",
           "rightsNotes": "AI-generated artwork supplied by the site owner. Not labeled public domain or CC0; provider terms apply. No recognizable copyrighted character or branded mascot.",
           "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
         }
@@ -162,6 +177,21 @@
           "provider": "Grok (xAI)",
           "generatedDate": "unknown",
           "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a jumping unicorn (cartoon unicorn leaping over grass tufts, flowing mane and tail, striped horn). The exact prompt entered into Grok was not recorded.",
+          "rightsNotes": "AI-generated artwork supplied by the site owner. Not labeled public domain or CC0; provider terms apply. No recognizable copyrighted character or branded mascot.",
+          "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
+        },
+        {
+          "id": "unicorns-001",
+          "name": "Two Baby Unicorns",
+          "image": "images/unicorns/unicorns-001.png",
+          "thumbnail": "thumbnails/unicorns/unicorns-001.png",
+          "format": "png",
+          "difficulty": "advanced",
+          "published": true,
+          "sourceType": "AI-generated artwork",
+          "provider": "Grok (xAI)",
+          "generatedDate": "unknown",
+          "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of two smiling baby unicorns standing side by side on a grassy hill with stars in the sky and grass tufts. The exact prompt entered into Grok was not recorded.",
           "rightsNotes": "AI-generated artwork supplied by the site owner. Not labeled public domain or CC0; provider terms apply. No recognizable copyrighted character or branded mascot.",
           "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
         }
