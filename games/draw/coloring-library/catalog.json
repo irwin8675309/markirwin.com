@@ -95,6 +95,21 @@
           "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a smiling cartoon horse standing in grass under a large sun with rays. The exact prompt entered into Grok was not recorded.",
           "rightsNotes": "AI-generated artwork supplied by the site owner. Not labeled public domain or CC0; provider terms apply. No recognizable copyrighted character or branded mascot.",
           "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
+        },
+        {
+          "id": "hamster-001",
+          "name": "Hamster on a Wheel",
+          "image": "images/animals/hamster-001.png",
+          "thumbnail": "thumbnails/animals/hamster-001.png",
+          "format": "png",
+          "difficulty": "medium",
+          "published": true,
+          "sourceType": "AI-generated artwork",
+          "provider": "Grok (xAI)",
+          "generatedDate": "unknown",
+          "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a smiling hamster running inside a large exercise wheel on a stand. The exact prompt entered into Grok was not recorded.",
+          "rightsNotes": "AI-generated artwork supplied by the site owner. Not labeled public domain or CC0; provider terms apply. No recognizable copyrighted character or branded mascot.",
+          "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
         }
       ]
     },
@@ -330,6 +345,27 @@
           "provider": "Grok (xAI)",
           "generatedDate": "unknown",
           "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a Christmas tree with a star on top, ornaments, stars and candy canes, with four wrapped presents with bows in front. The exact prompt entered into Grok was not recorded.",
+          "rightsNotes": "AI-generated artwork supplied by the site owner. Not labeled public domain or CC0; provider terms apply. No recognizable copyrighted character or branded mascot.",
+          "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
+        }
+      ]
+    },
+    {
+      "id": "food",
+      "name": "Food",
+      "images": [
+        {
+          "id": "banana-001",
+          "name": "Banana with a Flag",
+          "image": "images/food/banana-001.png",
+          "thumbnail": "thumbnails/food/banana-001.png",
+          "format": "png",
+          "difficulty": "medium",
+          "published": true,
+          "sourceType": "AI-generated artwork",
+          "provider": "Grok (xAI)",
+          "generatedDate": "unknown",
+          "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a smiling cartoon banana holding a waving flag (stars and stripes) on a pole. The exact prompt entered into Grok was not recorded.",
           "rightsNotes": "AI-generated artwork supplied by the site owner. Not labeled public domain or CC0; provider terms apply. No recognizable copyrighted character or branded mascot.",
           "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
         }
