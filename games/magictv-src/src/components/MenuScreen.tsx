@@ -11,6 +11,7 @@ interface Props {
 }
 
 const DWELL_SECONDS = 1.05;
+const DWELL_LITTLE = 0.7;
 
 export function MenuScreen({ onSelect }: Props) {
   const { frameRef, settings, status, demo } = useCamera();
@@ -20,6 +21,8 @@ export function MenuScreen({ onSelect }: Props) {
   const ringRefs = useRef<Array<HTMLDivElement | null>>([]);
   const progress = useRef<number[]>(GAMES.map(() => 0));
   const selectRef = useRef(onSelect);
+  const settingsRef = useRef(settings);
+  settingsRef.current = settings;
   selectRef.current = onSelect;
   const firedRef = useRef(false);
 
@@ -56,7 +59,7 @@ export function MenuScreen({ onSelect }: Props) {
         const p = progress.current[i];
         if (aimed) {
           anyAim = true;
-          progress.current[i] = Math.min(1, p + dt / DWELL_SECONDS);
+          progress.current[i] = Math.min(1, p + dt / (settingsRef.current.littleKid ? DWELL_LITTLE : DWELL_SECONDS));
           el.classList.add('is-aimed');
           const ring = ringRefs.current[i];
           if (ring) ring.style.setProperty('--p', String(progress.current[i]));

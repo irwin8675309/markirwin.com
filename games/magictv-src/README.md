@@ -326,3 +326,9 @@ Number keys **1–6** open games directly from the menu.
 ## Grown-up page: how they are playing
 
 Hold the bottom-right corner on the menu to open the grown-up settings. The top panel shows minutes played today (time with a hand in view), a 7-day bar chart, favourite games this week, stickers and friends collected, and each child's animal. It is kept only in this browser (last 14 days) and can be cleared there. The rest reminder is in the "Screen & grown-ups" panel.
+
+## Help for the youngest player
+
+- **"Need a hand?" hints:** if no hand has moved for 10 seconds, the "Watch me!" ghost hand comes back with a spoken tip (7 seconds, then a 35-second pause). With no hands in view it says "Wave hello to the TV!". Not shown on Wave hello or in the sticker book, nor while the first-time demo is playing.
+- **Little kid helper** (Settings > Hand tracking): hands count as 40% bigger for touching, menu picks need 0.7 s instead of about 1 s, and hints come after 7 seconds. Off by default.
+- Checked with unit tests only; not yet seen with the girls.

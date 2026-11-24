@@ -133,12 +133,69 @@ export function resetDemos(): void {
   }
 }
 
+const HINT_SECONDS = 7;
+
+/** Used when a game has no demo of its own. */
+const DEFAULT_HINT: DemoScript = {
+  text: 'Wave your hand at the TV!',
+  path: [[640, 560], [1280, 560], [640, 560]],
+  pose: 'open',
+  seconds: 3,
+};
+
+/**
+ * Watches for a child who has stopped (no hand moving for a while) and shows the
+ * "Watch me!" ghost hand again with a spoken tip. Not shown while the first-time demo
+ * is still playing, and then at most once every 35 seconds.
+ */
+export class HintHelper {
+  private idle = 0;
+  private cooldown = 0;
+  private active: DemoOverlay | null = null;
+
+  constructor(
+    private id: string,
+    private seconds: number,
+  ) {}
+
+  /** True while a hint is on screen. */
+  get showing(): boolean {
+    return this.active !== null;
+  }
+
+  update(g: GameContext, firstDemoPlaying: boolean): void {
+    const moving = g.frame.hands.some((h) => h.speed > 150);
+    this.cooldown -= g.dt;
+    if (moving || firstDemoPlaying) {
+      this.idle = 0;
+      if (moving) this.active?.dismiss();
+    } else {
+      this.idle += g.dt;
+    }
+    if (!this.active && this.idle >= this.seconds && this.cooldown <= 0) {
+      const base = DEMOS[this.id] ?? DEFAULT_HINT;
+      const text = g.frame.hands.length > 0 ? base.text : 'Wave hello to the TV!';
+      this.active = DemoOverlay.hint({ ...base, text });
+      this.cooldown = 35;
+    }
+    if (this.active) {
+      this.active.update(g);
+      if (this.active.finished) this.active = null;
+    }
+  }
+
+  draw(ctx: CanvasRenderingContext2D, g: GameContext): void {
+    this.active?.draw(ctx, g);
+  }
+}
+
 export class DemoOverlay {
   private elapsed = 0;
   private present = 0;
   private done = false;
   private alpha = 0;
   private spoke = false;
+  private hintMode = false;
 
   private constructor(
     private id: string,
@@ -152,10 +209,43 @@ export class DemoOverlay {
     return new DemoOverlay(id, script);
   }
 
+  /**
+   * A "need a hand?" reminder: the same ghost hand as the first-time demo, shown on
+   * request when a child has stopped playing. It never marks the demo as seen.
+   */
+  static hint(script: DemoScript): DemoOverlay {
+    const o = new DemoOverlay('hint', script);
+    o.hintMode = true;
+    return o;
+  }
+
+  /** True while the first-time demo is still being shown. */
+  get playing(): boolean {
+    return !this.hintMode && !this.done;
+  }
+
+  /** True once the demo or hint has finished and faded out. */
+  get finished(): boolean {
+    return this.done && this.alpha < 0.03;
+  }
+
+  /** Fade the hint away now (a child started playing). */
+  dismiss(): void {
+    this.done = true;
+  }
+
   update(g: GameContext): void {
     const dt = g.dt;
     this.elapsed += dt;
-    if (!this.done) {
+    if (this.hintMode) {
+      if (!this.done) {
+        if (!this.spoke && this.elapsed > 0.6) {
+          this.spoke = true;
+          g.audio.speak(this.script.text, { minGap: 15000 });
+        }
+        if (this.elapsed >= HINT_SECONDS) this.done = true;
+      }
+    } else if (!this.done) {
       this.present = g.frame.hands.length > 0 ? this.present + dt : 0;
       if (!this.spoke && this.elapsed > 0.9) {
         this.spoke = true;

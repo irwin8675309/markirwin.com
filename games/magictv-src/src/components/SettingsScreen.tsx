@@ -271,6 +271,14 @@ export function SettingsScreen({ onBack, onCalibrate, onTrackingTest }: Props) {
 
           <div className="toggle-row">
             <div>
+              <strong>Little kid helper</strong>
+              <p>Bigger touch areas, quicker menu picks and earlier "need a hand?" hints. Good for the youngest player.</p>
+            </div>
+            <Toggle checked={settings.littleKid} onChange={(v) => updateSettings({ littleKid: v })} label="Little kid helper" />
+          </div>
+
+          <div className="toggle-row">
+            <div>
               <strong>Faster hand finding (graphics chip)</strong>
               <p>
                 On by default: it can double the speed on slower computers, and the game falls back by itself if it is not

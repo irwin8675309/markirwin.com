@@ -18,6 +18,8 @@ import { loadHandLandmarker, loadCropLandmarker, rawHandsFromResult, type RawHan
 const DETECT_BASE = 0.55;
 /** Lower = a moving hand is held on to for longer instead of being lost and searched for again. */
 const KEEP_TRACKING = 0.35;
+/** Little-kid mode makes every hand this much bigger for touching things. */
+const LITTLE_KID_RADIUS = 1.4;
 
 import { FarController, uncropLandmarks, type CropRect } from '../tracking/farTracker';
 import { HandTracker } from '../tracking/tracker';
@@ -553,6 +555,7 @@ export function CameraProvider({ children }: { children: ReactNode }) {
     const s = settingsRef.current;
     const tracker = trackerRef.current;
     const hands = tracker.update(raw, now, dt, s, areaRef.current);
+    if (s.littleKid) for (const h of hands) h.radius *= LITTLE_KID_RADIUS;
 
     // Learn the usable area automatically in camera space (unless an adult calibrated it).
     if (!s.trackingArea && !calibrationRef.current.active) {

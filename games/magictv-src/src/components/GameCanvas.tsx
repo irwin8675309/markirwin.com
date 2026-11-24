@@ -6,7 +6,7 @@ import { audio } from '../audio/AudioEngine';
 import { WORLD_HEIGHT, WORLD_WIDTH } from '../types';
 import { DEBUG } from '../utils/debug';
 import { TeamPlay } from '../games/shared/team';
-import { DemoOverlay } from '../games/shared/demo';
+import { DemoOverlay, HintHelper } from '../games/shared/demo';
 import { StickerToast } from '../games/shared/stickerToast';
 import { addPlaySeconds } from '../games/shared/stickers';
 import { recordPlay, flushStats } from '../games/shared/stats';
@@ -76,6 +76,7 @@ export function GameCanvas({ game }: Props) {
     const instance = game.create();
     const team = new TeamPlay();
     const demo = DemoOverlay.create(game.id);
+    const helper = game.id === 'hello' || game.id === 'sticker-book' ? null : new HintHelper(game.id, settingsRef.current.littleKid ? 7 : 10);
     const toast = new StickerToast();
     toast.attach();
     const earnsStickers = game.id !== 'sticker-book' && game.id !== 'buddies' && game.id !== 'hello';
@@ -171,6 +172,10 @@ export function GameCanvas({ game }: Props) {
       if (demo) {
         demo.update(g);
         demo.draw(ctx, g);
+      }
+      if (helper) {
+        helper.update(g, !!demo && demo.playing);
+        helper.draw(ctx, g);
       }
       // Stickers: time spent playing with a hand on screen earns them.
       if (earnsStickers && rawFrame.hands.length > 0) addPlaySeconds(dt);

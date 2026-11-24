@@ -32,6 +32,8 @@ export interface Settings {
   farMode: boolean;
   /** Find hands with the graphics chip (often much faster). Takes effect after a reload. */
   useGpu: boolean;
+  /** Extra-forgiving mode for the youngest player: bigger touch areas, quicker picks, earlier hints. */
+  littleKid: boolean;
   /** Friendly "time for a rest" pause after this many minutes of one game session (0 = never). */
   breakMinutes: 0 | 10 | 20 | 30;
   /** Usable tracking area learned during calibration (normalised). */
@@ -58,6 +60,7 @@ export const DEFAULT_SETTINGS: Settings = {
   fullscreen: false,
   farMode: true,
   useGpu: true,
+  littleKid: false,
   breakMinutes: 0,
   trackingArea: null,
 };
@@ -98,6 +101,7 @@ export function clampSettings(s: Settings): Settings {
     trackingFps: s.trackingFps === 60 ? 60 : 30,
     farMode: s.farMode !== false,
     useGpu: s.useGpu !== false,
+    littleKid: s.littleKid === true,
     breakMinutes: ([0, 10, 20, 30].includes(s.breakMinutes) ? s.breakMinutes : 0) as 0 | 10 | 20 | 30,
   };
 }
