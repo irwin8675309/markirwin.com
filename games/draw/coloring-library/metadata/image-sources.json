@@ -242,6 +242,26 @@
       "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0; terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot.",
       "attribution": "None required by this project; provider unknown.",
       "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
+    },
+    {
+      "id": "rocking-horse-001",
+      "provider": "unknown",
+      "generatedDate": "unknown",
+      "prompt": "Prompt not supplied. Visual description of the supplied artwork: a line-art coloring page of a smiling girl with long hair, a jacket and a plaid skirt sitting on a wooden rocking horse outdoors, with evergreen branches, bushes and grass around her. How the image was created was not stated.",
+      "humanModifications": "Received as a 848×1264 portrait JPEG (IMG_1035.jpeg). Converted to PNG and placed on a 1024×1024 square white canvas (subject scaled to about 944 px tall and centered, with margins); cleaned JPEG compression noise so lines are near-black (#111111) on pure white; lightly thickened lines (about 1.5-1.7 px to about 2.8 px at 1024×1024, well under the guide's 10-16 px, because heavier thickening merged the faces and plaid into solid black); antialiased; filled only very tiny white specks (under 6 px). Thumbnail created at 420×420. Subject and composition unchanged. Passed visual inspection; not functionally tested with the paint bucket. Very fine detail (plaid, foliage, hair, grass) means many tiny regions and thin lines; expect paint-bucket leaks and consider it unsuitable for the youngest children.",
+      "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0; terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot. Depicts a child.",
+      "attribution": "None required by this project; provider unknown.",
+      "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
+    },
+    {
+      "id": "rocking-horse-002",
+      "provider": "unknown",
+      "generatedDate": "unknown",
+      "prompt": "Prompt not supplied. Visual description of the supplied artwork: a line-art coloring page of a laughing little girl in a plaid dress and ponytail sitting on a wooden rocking horse outdoors, with evergreen branches, grass and a rope tail on the horse. How the image was created was not stated.",
+      "humanModifications": "Received as a 896×1200 portrait JPEG (IMG_1034.jpeg). Converted to PNG and placed on a 1024×1024 square white canvas (subject scaled to about 944 px tall and centered, with margins); cleaned JPEG compression noise so lines are near-black (#111111) on pure white; lightly thickened lines (about 1.5-1.7 px to about 2.8 px at 1024×1024, well under the guide's 10-16 px, because heavier thickening merged the faces and plaid into solid black); antialiased; filled only very tiny white specks (under 6 px). Thumbnail created at 420×420. Subject and composition unchanged. Passed visual inspection; not functionally tested with the paint bucket. Very fine detail (plaid, foliage, hair, grass) means many tiny regions and thin lines; expect paint-bucket leaks and consider it unsuitable for the youngest children.",
+      "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0; terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot. Depicts a child.",
+      "attribution": "None required by this project; provider unknown.",
+      "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
     }
   ]
 }

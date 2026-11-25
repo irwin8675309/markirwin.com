@@ -415,6 +415,42 @@
           "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
         }
       ]
+    },
+    {
+      "id": "people",
+      "name": "People",
+      "images": [
+        {
+          "id": "rocking-horse-001",
+          "name": "Girl on a Rocking Horse",
+          "image": "images/people/rocking-horse-001.png",
+          "thumbnail": "thumbnails/people/rocking-horse-001.png",
+          "format": "png",
+          "difficulty": "advanced",
+          "published": true,
+          "sourceType": "Line-art artwork supplied by the site owner (creation method not stated)",
+          "provider": "unknown",
+          "generatedDate": "unknown",
+          "prompt": "Prompt not supplied. Visual description of the supplied artwork: a line-art coloring page of a smiling girl with long hair, a jacket and a plaid skirt sitting on a wooden rocking horse outdoors, with evergreen branches, bushes and grass around her. How the image was created was not stated.",
+          "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0. No recognizable copyrighted character or branded mascot. Depicts a child.",
+          "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
+        },
+        {
+          "id": "rocking-horse-002",
+          "name": "Little Girl on a Rocking Horse",
+          "image": "images/people/rocking-horse-002.png",
+          "thumbnail": "thumbnails/people/rocking-horse-002.png",
+          "format": "png",
+          "difficulty": "advanced",
+          "published": true,
+          "sourceType": "Line-art artwork supplied by the site owner (creation method not stated)",
+          "provider": "unknown",
+          "generatedDate": "unknown",
+          "prompt": "Prompt not supplied. Visual description of the supplied artwork: a line-art coloring page of a laughing little girl in a plaid dress and ponytail sitting on a wooden rocking horse outdoors, with evergreen branches, grass and a rope tail on the horse. How the image was created was not stated.",
+          "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0. No recognizable copyrighted character or branded mascot. Depicts a child.",
+          "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
+        }
+      ]
     }
   ]
 }
