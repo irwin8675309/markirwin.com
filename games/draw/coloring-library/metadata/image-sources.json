@@ -272,6 +272,16 @@
       "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0; terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot. Depicts a child.",
       "attribution": "None required by this project; provider unknown.",
       "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
+    },
+    {
+      "id": "snowman-001",
+      "provider": "unknown",
+      "generatedDate": "unknown",
+      "prompt": "Prompt not supplied. Visual description of the supplied artwork: a children's coloring page of a smiling snowman with a bucket-style hat, carrot nose, dot eyes and mouth and twig arms, standing on a snowy hill beside a large evergreen tree, with grass tufts. How the image was created was not stated.",
+      "humanModifications": "Received as a 1024×1024 JPEG (IMG_1045.jpeg). Converted to PNG; cropped to the artwork and rescaled to about 944 px to add margins (the original lines nearly touched the canvas edge), centered on a 1024×1024 white canvas; cleaned JPEG compression noise so lines are near-black (#111111) on pure white; lightly thickened lines (about 6 px to about 7 px, below the guide's 10-16 px target); antialiased; filled only very tiny white specks (under 6 px). Thumbnail created at 420×420. Subject and composition unchanged. Passed visual inspection; not functionally tested with the paint bucket. The tree's jagged edges and the small dot eyes and mouth are fine details.",
+      "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0; terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot.",
+      "attribution": "None required by this project; provider unknown.",
+      "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
     }
   ]
 }
