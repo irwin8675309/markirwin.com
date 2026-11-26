@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-11-24",
+  "lastUpdated": "2026-11-26",
   "categories": [
     {
       "id": "animals",
@@ -110,6 +110,21 @@
           "prompt": "Prompt not supplied. Described by the site owner as a Grok-generated children's coloring page of a smiling hamster running inside a large exercise wheel on a stand. The exact prompt entered into Grok was not recorded.",
           "rightsNotes": "AI-generated artwork supplied by the site owner. Not labeled public domain or CC0; provider terms apply. No recognizable copyrighted character or branded mascot.",
           "usageTerms": "Generated with Grok (xAI); xAI's applicable terms govern use. Included with this application for personal and educational use at the owner's discretion."
+        },
+        {
+          "id": "boy-on-horse-001",
+          "name": "Boy Riding a Pony",
+          "image": "images/animals/boy-on-horse-001.png",
+          "thumbnail": "thumbnails/animals/boy-on-horse-001.png",
+          "format": "png",
+          "difficulty": "medium",
+          "published": true,
+          "sourceType": "AI-generated artwork",
+          "provider": "unknown",
+          "generatedDate": "unknown",
+          "prompt": "Prompt not supplied. Visual description of the supplied artwork: a children's coloring page of a smiling boy in a short-sleeved shirt and boots riding a friendly smiling pony with a bridle, saddle, flowing mane and tail, standing on grass tufts. How the image was created was not stated.",
+          "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0; terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot.",
+          "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
         }
       ]
     },

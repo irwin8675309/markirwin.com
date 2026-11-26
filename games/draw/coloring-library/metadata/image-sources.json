@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-11-24",
+  "lastUpdated": "2026-11-26",
   "notes": "This file documents the provenance of every sample image. Replace or extend it when adding new artwork. Do not mark AI-generated artwork as public domain or CC0 without checking the provider's applicable terms.",
   "sources": [
     {
@@ -259,6 +259,16 @@
       "generatedDate": "unknown",
       "prompt": "Prompt not supplied. Visual description of the supplied artwork: a line-art coloring page of a laughing little girl in a plaid dress and ponytail sitting on a wooden rocking horse outdoors, with evergreen branches, grass and a rope tail on the horse. How the image was created was not stated.",
       "humanModifications": "Received as a 896×1200 portrait JPEG (IMG_1034.jpeg). Converted to PNG and placed on a 1024×1024 square white canvas (subject scaled to about 944 px tall and centered, with margins); cleaned JPEG compression noise so lines are near-black (#111111) on pure white; lightly thickened lines (about 1.5-1.7 px to about 2.8 px at 1024×1024, well under the guide's 10-16 px, because heavier thickening merged the faces and plaid into solid black); antialiased; filled only very tiny white specks (under 6 px). Thumbnail created at 420×420. Subject and composition unchanged. Passed visual inspection; not functionally tested with the paint bucket. Very fine detail (plaid, foliage, hair, grass) means many tiny regions and thin lines; expect paint-bucket leaks and consider it unsuitable for the youngest children.",
+      "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0; terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot. Depicts a child.",
+      "attribution": "None required by this project; provider unknown.",
+      "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
+    },
+    {
+      "id": "boy-on-horse-001",
+      "provider": "unknown",
+      "generatedDate": "unknown",
+      "prompt": "Prompt not supplied. Visual description of the supplied artwork: a children's coloring page of a smiling boy in a short-sleeved shirt and boots riding a friendly smiling pony with a bridle, saddle, flowing mane and tail, standing on grass tufts. How the image was created was not stated.",
+      "humanModifications": "Received as a 1024×1024 JPEG (IMG_1044.jpeg). Converted to PNG; cleaned JPEG compression noise so lines are near-black (#111111) on pure white; lightly thickened lines (about 4.5 px to about 7 px at 1024×1024, below the guide's 10-16 px target; heavier thickening would have merged small regions such as the eyes, saddle and stirrup); antialiased; filled only very tiny white specks (under 6 px). Thumbnail created at 420×420. Subject and composition unchanged. Passed visual inspection; not functionally tested with the paint bucket.",
       "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0; terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot. Depicts a child.",
       "attribution": "None required by this project; provider unknown.",
       "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
