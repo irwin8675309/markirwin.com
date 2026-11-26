@@ -125,6 +125,21 @@
           "prompt": "Prompt not supplied. Visual description of the supplied artwork: a children's coloring page of a smiling boy in a short-sleeved shirt and boots riding a friendly smiling pony with a bridle, saddle, flowing mane and tail, standing on grass tufts. How the image was created was not stated.",
           "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0; terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot.",
           "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
+        },
+        {
+          "id": "lion-tiger-bear-001",
+          "name": "Lion, Tiger and Bear",
+          "image": "images/animals/lion-tiger-bear-001.png",
+          "thumbnail": "thumbnails/animals/lion-tiger-bear-001.png",
+          "format": "png",
+          "difficulty": "advanced",
+          "published": true,
+          "sourceType": "AI-generated artwork",
+          "provider": "unknown",
+          "generatedDate": "unknown",
+          "prompt": "Prompt not supplied. Visual description of the supplied artwork: a children's coloring page of three smiling cartoon animal friends standing side by side on grass: a lion with a fluffy mane and tufted tail, a striped tiger, and a bear. How the image was created was not stated.",
+          "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0; terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot.",
+          "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
         }
       ]
     },
