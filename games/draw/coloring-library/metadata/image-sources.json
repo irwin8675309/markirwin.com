@@ -312,6 +312,16 @@
       "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0. No recognizable copyrighted character or branded mascot.",
       "attribution": "None required by this project; provider unknown.",
       "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
+    },
+    {
+      "id": "horse-003",
+      "provider": "unknown",
+      "generatedDate": "unknown",
+      "prompt": "Prompt not supplied. Visual description of the supplied artwork: a children's coloring page of a smiling cartoon pony with a flowing mane and tail leaping over a large crescent moon, with one star. How the image was created was not stated.",
+      "humanModifications": "Received as a 1024×1024 JPEG (IMG_1056.jpeg). Converted to PNG and thresholded to pure black lines on pure white to remove JPEG compression noise; composition, size and margins unchanged. Lines were not thickened (median line about 6 px at 1024×1024, below the guide's 10-16 px target). Thumbnail created at 420×420. Passed visual inspection; not functionally tested with the paint bucket.",
+      "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0. No recognizable copyrighted character or branded mascot.",
+      "attribution": "None required by this project; provider unknown.",
+      "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
     }
   ]
 }

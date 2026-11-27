@@ -155,6 +155,21 @@
           "prompt": "Prompt not supplied. Visual description of the supplied artwork: a children's coloring page of a smiling cartoon calf with two spots leaping over a large crescent moon, with two stars. How the image was created was not stated.",
           "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0. No recognizable copyrighted character or branded mascot.",
           "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
+        },
+        {
+          "id": "horse-003",
+          "name": "Pony Jumping Over the Moon",
+          "image": "images/animals/horse-003.png",
+          "thumbnail": "thumbnails/animals/horse-003.png",
+          "format": "png",
+          "difficulty": "medium",
+          "published": true,
+          "sourceType": "Line-art artwork supplied by the site owner (creation method not stated)",
+          "provider": "unknown",
+          "generatedDate": "unknown",
+          "prompt": "Prompt not supplied. Visual description of the supplied artwork: a children's coloring page of a smiling cartoon pony with a flowing mane and tail leaping over a large crescent moon, with one star. How the image was created was not stated.",
+          "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0. No recognizable copyrighted character or branded mascot.",
+          "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
         }
       ]
     },
