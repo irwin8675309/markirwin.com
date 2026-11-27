@@ -302,6 +302,16 @@
       "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0. No recognizable copyrighted character or branded mascot. Depicts children.",
       "attribution": "None required by this project; provider unknown.",
       "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
+    },
+    {
+      "id": "cow-001",
+      "provider": "unknown",
+      "generatedDate": "unknown",
+      "prompt": "Prompt not supplied. Visual description of the supplied artwork: a children's coloring page of a smiling cartoon calf with two spots leaping over a large crescent moon, with two stars. How the image was created was not stated.",
+      "humanModifications": "Received as a 1024×1024 JPEG (IMG_1051.jpeg). Converted to PNG and thresholded to pure black lines on pure white to remove JPEG compression noise; composition, size and margins unchanged. Lines were not thickened (median line about 7 px at 1024×1024, below the guide's 10-16 px target). Thumbnail created at 420×420. Passed visual inspection; not functionally tested with the paint bucket.",
+      "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0. No recognizable copyrighted character or branded mascot.",
+      "attribution": "None required by this project; provider unknown.",
+      "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
     }
   ]
 }

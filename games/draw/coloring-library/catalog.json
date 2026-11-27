@@ -140,6 +140,21 @@
           "prompt": "Prompt not supplied. Visual description of the supplied artwork: a children's coloring page of three smiling cartoon animal friends standing side by side on grass: a lion with a fluffy mane and tufted tail, a striped tiger, and a bear. How the image was created was not stated.",
           "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0; terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot.",
           "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
+        },
+        {
+          "id": "cow-001",
+          "name": "Cow Jumping Over the Moon",
+          "image": "images/animals/cow-001.png",
+          "thumbnail": "thumbnails/animals/cow-001.png",
+          "format": "png",
+          "difficulty": "medium",
+          "published": true,
+          "sourceType": "Line-art artwork supplied by the site owner (creation method not stated)",
+          "provider": "unknown",
+          "generatedDate": "unknown",
+          "prompt": "Prompt not supplied. Visual description of the supplied artwork: a children's coloring page of a smiling cartoon calf with two spots leaping over a large crescent moon, with two stars. How the image was created was not stated.",
+          "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0. No recognizable copyrighted character or branded mascot.",
+          "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
         }
       ]
     },
