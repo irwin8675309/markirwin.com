@@ -322,6 +322,16 @@
       "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0. No recognizable copyrighted character or branded mascot.",
       "attribution": "None required by this project; provider unknown.",
       "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
+    },
+    {
+      "id": "santa-sleigh-001",
+      "provider": "unknown",
+      "generatedDate": "unknown",
+      "prompt": "Prompt not supplied. Visual description of the supplied artwork: a children's coloring page of a smiling Santa Claus riding in a sleigh pulled by two cheerful reindeer with jingle bells and antlers. How the image was created was not stated.",
+      "humanModifications": "Received as a 1024×1024 JPEG (IMG_1057.jpeg). Converted to PNG and thresholded to pure black lines on pure white to remove JPEG compression noise. Cropped to the artwork and rescaled to about 944 px wide, centered on a 1024×1024 white canvas, to add margins (the original lines came within about 12-18 px of the left and right edges). Lines were not thickened (median line about 5 px at 1024×1024, below the guide's 10-16 px target). Thumbnail created at 420×420. Subject and composition unchanged. Passed visual inspection; not functionally tested with the paint bucket. Many small regions (antlers, beard, harness, sleigh runners), so rated advanced.",
+      "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0. Generic traditional Santa Claus and reindeer; no recognizable copyrighted character or branded mascot.",
+      "attribution": "None required by this project; provider unknown.",
+      "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
     }
   ]
 }

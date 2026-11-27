@@ -467,6 +467,21 @@
           "prompt": "Prompt not supplied. Visual description of the supplied artwork: a children's coloring page of a smiling snowman with a bucket-style hat, carrot nose, dot eyes and mouth and twig arms, standing on a snowy hill beside a large evergreen tree, with grass tufts. How the image was created was not stated.",
           "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0; terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot.",
           "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
+        },
+        {
+          "id": "santa-sleigh-001",
+          "name": "Santa and His Reindeer",
+          "image": "images/holidays/santa-sleigh-001.png",
+          "thumbnail": "thumbnails/holidays/santa-sleigh-001.png",
+          "format": "png",
+          "difficulty": "advanced",
+          "published": true,
+          "sourceType": "Line-art artwork supplied by the site owner (creation method not stated)",
+          "provider": "unknown",
+          "generatedDate": "unknown",
+          "prompt": "Prompt not supplied. Visual description of the supplied artwork: a children's coloring page of a smiling Santa Claus riding in a sleigh pulled by two cheerful reindeer with jingle bells and antlers. How the image was created was not stated.",
+          "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0. Generic traditional Santa Claus and reindeer; no recognizable copyrighted character or branded mascot.",
+          "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
         }
       ]
     },
