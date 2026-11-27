@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-11-26",
+  "lastUpdated": "2026-11-27",
   "notes": "This file documents the provenance of every sample image. Replace or extend it when adding new artwork. Do not mark AI-generated artwork as public domain or CC0 without checking the provider's applicable terms.",
   "sources": [
     {
@@ -290,6 +290,16 @@
       "prompt": "Prompt not supplied. Visual description of the supplied artwork: a children's coloring page of three smiling cartoon animal friends standing side by side on grass: a lion with a fluffy mane and tufted tail, a striped tiger, and a bear. How the image was created was not stated.",
       "humanModifications": "Received as a 1024×1024 JPEG (IMG_1046.jpeg). Converted to PNG; cropped to the artwork and rescaled to about 944 px wide to add margins (the original lines nearly touched the left and right edges), centered on a 1024×1024 white canvas; cleaned JPEG compression noise so lines are near-black (#111111) on pure white; thickened lines (about 4 px to about 8 px at 1024×1024, below the guide's 10-16 px target; heavier thickening would have merged small regions such as the eyes and stripes); antialiased; filled only very tiny white specks (under 6 px). Thumbnail created at 420×420. Subject and composition unchanged. Passed visual inspection; not functionally tested with the paint bucket. Many small regions (tiger stripes, mane, eyes, paw toes), so rated advanced.",
       "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0; terms and local law determine what can be claimed. No recognizable copyrighted character or branded mascot.",
+      "attribution": "None required by this project; provider unknown.",
+      "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
+    },
+    {
+      "id": "sibling-hug-001",
+      "provider": "unknown",
+      "generatedDate": "unknown",
+      "prompt": "Prompt not supplied. Visual description of the supplied artwork: a line-art coloring page of two smiling children in matching patterned pajamas hugging on a big cushioned couch. How the image was created was not stated.",
+      "humanModifications": "Received as an 896×1195 portrait JPEG (IMG_1048.jpeg) that included a busy kitchen background. Cropped off the top kitchen area (kept the children and couch), centered on a square white canvas and rescaled to 1024×1024; converted to PNG; thresholded to pure black lines on pure white to remove JPEG noise. Lines were not thickened, so they are thinner than the guide's 10-16 px target, and the pajama patterns create many small regions (documented exception, rated advanced). Thumbnail created at 420×420. Passed visual inspection; not functionally tested with the paint bucket.",
+      "rightsNotes": "Artwork supplied by the site owner; provider and creation method were not stated. Not labeled public domain or CC0. No recognizable copyrighted character or branded mascot. Depicts children.",
       "attribution": "None required by this project; provider unknown.",
       "usageTerms": "Provider unknown. Included with this application for personal and educational use at the owner's discretion."
     }
